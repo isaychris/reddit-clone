@@ -1,0 +1,81 @@
+.grid-container {
+    margin-left: 15px;
+    margin-right: 15px;
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1.5fr 320px;
+    grid-template-rows: 1fr;
+    grid-gap: 15px 15px;
+    grid-template-areas: "main sidebar";
+}
+
+.sidebar {
+    display: grid;
+    grid-area: sidebar;
+    grid-template-columns: 1fr;
+    grid-template-rows: 250px 250px;
+    grid-gap: 15px 1px;
+    grid-template-areas: "actions""subscribed";
+}
+
+.actions {
+    grid-area: actions;
+}
+
+.subscribed {
+    grid-area: subscribed;
+}
+
+
+.main {
+    grid-area: main;
+}
+
+.main article {
+    background-color: #e9ecef;
+    margin-bottom: 15px;
+    border-radius: 0.25rem;
+}
+
+.main ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main li {
+    display: inline;
+}
+
+.main header {
+    font-weight: bold;
+}
+
+.arrows {
+    position: relative;
+    float:left;
+    width:50px;
+    margin-top:5px;
+}
+
+#up, #down, #votes {
+    display: block;
+    margin: auto;
+    text-align: center;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.actions button {
+    display: block;
+    width: 100%;
+}
+
+#user-info{
+    float: right;
+    color: white;
+}

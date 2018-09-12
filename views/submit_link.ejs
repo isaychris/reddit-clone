@@ -1,0 +1,38 @@
+<html>
+<% include partials/head %>
+
+<body>
+    <% include partials/nav %>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 text-center" id="subreddit-name">
+                <%= name %>
+            </h1>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="sidebar subarea edit-area">
+            <div class="area-overlap actions">
+                <% include partials/sidebar_actions %>
+            </div>
+
+            <div class="subscribed">
+                <% include partials/sidebar_subscribed %>
+            </div>
+        </div>
+
+        <div class="main">
+            <h1>new link</h1>
+            <div class="submit-wrapper">
+                <form>
+                    <input type="text" class="form-control" placeholder="Link" required><br>
+                    <input type="text" class="form-control" placeholder="Title" required><br>
+                    <button type="submit" class="btn btn-primary" id="link-submit-button">Submit</button>
+                </form>
+            </div>
+        </div>
+</body>
+
+</html>
