@@ -1,9 +1,8 @@
 # Reddit
-A todo web application written with the goal of learning how to use node.js / express.js / mongodb / passport.js
+A reddit clone written using node.js / express.js / mongodb / passport.js
 
 Work in Progress!
 ![Image](https://i.imgur.com/nmUsIg7.png)
-![Image](https://i.imgur.com/Zx8yHA0.png)
 
 ### Progress:
 * View subreddits and its posts
@@ -22,3 +21,8 @@ Work in Progress!
 * profile page
 * write the javascript for changing post and comment karma
 * figure out how to nest comments.
+* login/register
+* sessions with passport.js
+
+# Screenshots:
+![Image](https://i.imgur.com/Zx8yHA0.png)
