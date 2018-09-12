@@ -11,6 +11,9 @@ Work in Progress!
 * Routes are defined
 * Models are defined
 * Database is working
+* Login / Register
+* Authentication
+* Partial views
 
 ### TODO:
 * replying to comments
@@ -21,8 +24,6 @@ Work in Progress!
 * profile page
 * write the javascript for changing post and comment karma
 * figure out how to nest comments.
-* login/register
-* sessions with passport.js
 
 # Screenshots:
 ![Image](https://i.imgur.com/Zx8yHA0.png)
