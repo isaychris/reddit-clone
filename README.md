@@ -7,17 +7,18 @@ Work in Progress!
 
 ### Progress:
 * View subreddits and its posts
-* Views are defined for viewing subreddits and creating links/posts/subreddits
+* Submitting posts/links
+* Submitting comments
 * Routes are defined
 * Models are defined
 * Database is working
 
 ### TODO:
-* submitting posts/links
-* submitting comments
 * replying to comments
+* sorting posts and comments by votes
+* relative time for posts and comments
+* create real front page
 * creating subreddits
+* profile page
 * write the javascript for changing post and comment karma
 * figure out how to nest comments.
-* login/register
-* sessions with passport.js

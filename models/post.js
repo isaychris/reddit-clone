@@ -4,6 +4,8 @@ const postSchema = new mongoose.Schema({
     title: String,
     body: String,
     time: String,
+    type: String,
+    link: String,
     username: String,
     votes: Number,
     subreddit: String,

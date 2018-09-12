@@ -7,7 +7,7 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4 text-center" id="subreddit-name">
-                <%= name %>
+                <%= info.name %>
             </h1>
         </div>
     </div>
@@ -15,16 +15,17 @@
     <div class="grid-container">
         <div class="sidebar subarea edit-area">
             <div class="area-overlap actions">
-                <% include partials/sidebar_actions %>
+                <%- include('partials/sidebar_actions', {name: info.name}) %>
             </div>
 
             <div class="subscribed">
-                <% include partials/sidebar_subscribed %>
+                <%- include('partials/sidebar_info', {desc: info.description}) %>
             </div>
         </div>
 
         <div class="main">
-            <% posts.forEach((post) => { %>
+                <% if (posts != undefined) { 
+                    posts.forEach((post) => { %>
             <article>
                 <div class="arrows">
                     <i class="far fa-caret-square-up" id="up"></i>
@@ -35,19 +36,32 @@
 
                 <div class="info">
                     <header>
-                        <%= post.title %>
+                        <% if(post.type == "post") { %>
+                        <a href="/r/<%= post.subreddit %>/<%= post._id %>"><%= post.title %></a>
+                        <%  } else { %>
+                        <a href="<%= post.link %>"><%= post.title %></a>
+                        <% } %>
+
                     </header>
-                    submitted <span>
-                        <%= post.time %></span> by <span>
-                        <%= post.username %></span> from <span>
-                        <%= post.subreddit %></span>
+                    submitted 
+                    <span><%= post.time %></span> by 
+                    <span><a href="/u/<%= post.username %>"><%= post.username %></a></span> from 
+                    <span><a href="/r/<%= post.subreddit %>"><%= post.subreddit %></a></span>
                     <ul>
-                        <li><a href="/r/<%=name%>/<%= post._id %>/comments">comments</a></li>
-                        <li><a href="/r/<%=name%>/<%= post._id %>/comments">save</a></li>
+                        <li><a href="/r/<%=info.name%>/<%= post._id %>/comments">comments</a></li>
+                        <li><a href="/r/<%=info.name%>/<%= post._id %>/save">save</a></li>
+
+                        <% if(post.username == "isaychris") { %>
+                        <li><a href="/r/<%=info.name%>/<%= post._id %>/delete">delete</a></li>
+                        <% } %>
+
                     </ul>
                 </div>
             </article>
-            <% }); %>
+            <% });%>
+            <% } else { %>
+            There are no posts.
+            <% } %>
         </div>
 </body>
 

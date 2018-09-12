@@ -1,0 +1,54 @@
+<html>
+<% include partials/head %>
+
+<body>
+    <% include partials/nav %>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 text-center" id="subreddit-name">
+                Front Page
+            </h1>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="sidebar subarea edit-area">
+            <div class="area-overlap actions">
+                <% include partials/sidebar_actions %>
+            </div>
+
+            <div class="subscribed">
+                <% include partials/sidebar_subscribed %>
+            </div>
+        </div>
+
+        <div class="main">
+            <% posts.forEach((post) => { %>
+            <article>
+                <div class="arrows">
+                    <i class="far fa-caret-square-up" id="up"></i>
+                    <span id="votes">
+                        <%= post.votes %></span>
+                    <i class="far fa-caret-square-down" id="down"></i>
+                </div>
+
+                <div class="info">
+                    <header>
+                        <%= post.title %>
+                    </header>
+                    submitted <span>
+                        <%= post.time %></span> by <span>
+                        <%= post.username %></span> from <span>
+                        <%= post.subreddit %></span>
+                    <ul>
+                        <li><a href="/r/<%=name%>/<%= post._id %>/comments">comments</a></li>
+                        <li><a href="/r/<%=name%>/<%= post._id %>/comments">save</a></li>
+                    </ul>
+                </div>
+            </article>
+            <% }); %>
+        </div>
+</body>
+
+</html>

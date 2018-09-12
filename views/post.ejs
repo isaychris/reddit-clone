@@ -1,0 +1,106 @@
+<html>
+<% include partials/head %>
+
+<body>
+    <% include partials/nav %>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 text-center" id="subreddit-name">
+                <%= info.name %>
+            </h1>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="sidebar subarea edit-area">
+            <div class="area-overlap actions">
+                <%- include('partials/sidebar_actions', {name: info.name}) %>
+            </div>
+
+            <div class="subscribed">
+                <%- include('partials/sidebar_info', {desc: info.description}) %>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="submit-wrapper">
+                <article>
+                    <div id="info">
+                        <div class="arrows">
+                            <i class="far fa-caret-square-up" id="up"></i>
+                            <span id="votes">
+                                <%= post.votes %></span>
+                            <i class="far fa-caret-square-down" id="down"></i>
+                        </div>
+                        <header>
+                            <%= post.title %>
+                        </header>
+                        submitted <span>
+                            <%= post.time %></span> by <span>
+                            <%= post.username %></span>
+                    </div><br>
+                    <p class="border border-primary">
+                        <% if(post.type == "post") { %>
+                        <%= post.body %>
+                        <%  } else { %>
+                        <%= post.link %>
+                        <% } %>
+                    </p>
+                </article>
+            </div>
+            <h1> Comments </h1>
+            <div class="submit-wrapper">
+                <% if(!isAuth) { %>
+                    You must be logged in to leave a comment
+                <% } else { %>
+                <form action="/r/<%=info.name%>/<%= post._id %>/comments" method="post">
+                    <textarea class="form-control" name="comment" rows="2" placeholder="Comment here ..." required
+                        maxlength="150"></textarea>
+                    <br>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+                <% }; %>
+            </div>
+            <hr>
+            <% if (comments != undefined) { 
+                    comments.forEach((comment) => { %>
+            <div class="comment-wrapper">
+                <article>
+                    <div class="arrows">
+                        <i class="far fa-caret-square-up" id="up"></i>
+                        <span id="votes">
+                            <%= comment.votes %></span>
+                        <i class="far fa-caret-square-down" id="down"></i>
+                    </div>
+
+                    <div class="info">
+                        <ul>
+                            <li><span><a href="/u/<%= comment.username %>">
+                                        <%= comment.username %></a></span></li>
+                            <li><span>
+                                    <%= comment.time %></span></li>
+
+                        </ul>
+                        <div class="comment-body">
+                            <%= comment.body %>
+                        </div>
+                    </div>
+
+                    <ul>            
+                        <% if (isAuth) { %>
+                        <li><span><a href="">reply</a></span></li>
+                        <% }  %>
+                        <li><span><a href="">save</a></span></li>
+                        <li><span><a href="">share</a></span></li>
+                    </ul>
+                </article>
+            </div>
+            <% });%>
+            <% } else { %>
+            There are no comments.
+            <% } %>
+
+</body>
+
+</html>

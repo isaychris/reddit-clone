@@ -7,7 +7,7 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4 text-center" id="subreddit-name">
-                <%= name %>
+                <%= info.name %>
             </h1>
         </div>
     </div>
@@ -15,20 +15,20 @@
     <div class="grid-container">
         <div class="sidebar subarea edit-area">
             <div class="area-overlap actions">
-                <% include partials/sidebar_actions %>
+                <%- include('partials/sidebar_actions', {name: info.name}) %>
             </div>
 
             <div class="subscribed">
-                <% include partials/sidebar_subscribed %>
+                <%- include('partials/sidebar_info', {desc: info.description}) %>
             </div>
         </div>
 
         <div class="main">
             <h1>new post</h1>
             <div class="submit-wrapper">
-                <form>
-                    <input type="text" class="form-control" placeholder="Title" required><br>
-                    <textarea class="form-control" rows="10" id="comment" required></textarea><br>
+                <form action="/r/<%= info.name %>/submit/post" method="post">
+                    <input type="text" class="form-control" name="title" placeholder="Title" required><br>
+                    <textarea class="form-control" rows="10" name="body" id="comment" required></textarea><br>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>

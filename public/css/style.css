@@ -53,12 +53,14 @@
 
 .arrows {
     position: relative;
-    float:left;
-    width:50px;
-    margin-top:5px;
+    float: left;
+    width: 50px;
+    margin-top: 5px;
 }
 
-#up, #down, #votes {
+#up,
+#down,
+#votes {
     display: block;
     margin: auto;
     text-align: center;
@@ -75,7 +77,12 @@
     width: 100%;
 }
 
-#user-info{
+#user-info {
     float: right;
     color: white;
+}
+
+
+form {
+    margin: 0;
 }
