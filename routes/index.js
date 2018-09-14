@@ -4,6 +4,7 @@ const router = express.Router();
 let Post = require("../models/post");
 let Profile = require("../models/profile");
 let Subreddit = require("../models/subreddit");
+let Comment = require("../models/comment");
 
 router.get('/', function (req, res) {
     let subscribed = [];
@@ -28,29 +29,29 @@ router.get('/', function (req, res) {
             } else {
                 subreddits = doc
             }
-        })
-    }).then(function () {
-        Post.find({}).sort({
-            votes: '-1'
-        }).exec(function (err, result) {
-            if (err) throw err;
-            if (!result.length) {
-                res.render("index", {
-                    posts: undefined,
-                    subreddits: subreddits,
-                    subscribed: subscribed,
-                    isAuth: req.isAuthenticated()
-                });
-            } else {
-                res.render("index", {
-                    posts: result,
-                    subreddits: subreddits,
-                    subscribed: subscribed,
-                    isAuth: req.isAuthenticated()
-                })
-            }
-        })
-    })
+        }).then(function () {
+            Post.find({}).sort({
+                votes: '-1'
+            }).exec(function (err, result) {
+                if (err) throw err;
+                if (!result.length) {
+                    res.render("index", {
+                        posts: undefined,
+                        subreddits: subreddits,
+                        subscribed: subscribed,
+                        isAuth: req.isAuthenticated()
+                    });
+                } else {
+                    res.render("index", {
+                        posts: result,
+                        subreddits: subreddits,
+                        subscribed: subscribed,
+                        isAuth: req.isAuthenticated()
+                    })
+                }
+            });
+        });
+    });
 });
 
 
@@ -183,7 +184,7 @@ router.post('/submit/subreddit', function (req, res) {
 
 
 // DELETING POST
-router.delete('/delete/:id', function (req, res) {
+router.delete('/delete/post/:id', function (req, res) {
     Post.find({
         _id: req.params.id
     }).remove(function (err, doc) {
@@ -198,7 +199,7 @@ router.delete('/delete/:id', function (req, res) {
 
 
 // SAVE POST
-router.put('/save/:id', function (req, res) {
+router.put('/save/post/:id', function (req, res) {
     console.log("attempting to save");
     Profile.update({
             username: req.session.user
@@ -217,7 +218,7 @@ router.put('/save/:id', function (req, res) {
 });
 
 // UNSAVE POST
-router.put('/unsave/:id', function (req, res) {
+router.put('/unsave/post/:id', function (req, res) {
     console.log("attempting to save");
     Profile.update({
             username: req.session.user
@@ -236,7 +237,7 @@ router.put('/unsave/:id', function (req, res) {
 });
 
 // VOTING
-router.put('/vote/:id', function (req, res) {
+router.put('/vote/post/:id', function (req, res) {
     Post.update({
         _id: req.params.id
     }, {
@@ -246,5 +247,69 @@ router.put('/vote/:id', function (req, res) {
     })
 });
 
+
+
+// DELETING POST
+router.delete('/delete/comment/:id', function (req, res) {
+    Comment.find({
+        _id: req.params.id
+    }).remove(function (err, doc) {
+        if (err) throw err;
+
+        console.log("comment deleted!")
+        // send response back with the document object that was deleted
+        res.send(doc);
+    });
+    //     res.redirect(`/r/${req.params.subreddit}`)
+});
+
+
+// SAVE POST
+router.put('/save/comment/:id', function (req, res) {
+    Profile.update({
+            username: req.session.user
+        }, {
+            $push: {
+                saved_comments: req.params.id
+            }
+        },
+        function (err, doc) {
+            if (err) throw err;
+            console.log("comment saved!");
+
+            // send response back with the document object that was edited
+            res.send(doc);
+        });
+});
+
+// UNSAVE POST
+router.put('/unsave/comment/:id', function (req, res) {
+    console.log("attempting to save");
+    Profile.update({
+            username: req.session.user
+        }, {
+            $pull: {
+                saved_comments: req.params.id
+            }
+        },
+        function (err, doc) {
+            if (err) throw err;
+            console.log("comment unsaved!");
+
+            // send response back with the document object that was edited
+            res.send(doc);
+        });
+});
+
+// VOTING
+router.put('/vote/comment/:id', function (req, res) {
+    Comment.update({
+        _id: req.params.id
+    }, {
+        votes: req.body.vote
+    }, function (err, result) {
+        if (err) throw err;
+    });
+});
 
 module.exports = router;

@@ -1,4 +1,5 @@
 <html>
+    <title>Frontpage</title>
 <% include partials/head %>
 
 <body>
@@ -19,32 +20,42 @@
                 <a class="btn btn-block btn-light" href="/submit/subreddit" id="create-subreddit">Create subreddit</a><br>
             </div>
             <div class="subscribed">
-                <h1>Subscribed</h1>
-                <ul>
+                    <h3>Subscribed</h3>
+                    <table class="table table-striped">
+                        <tbody>
                 <% if (subscribed != undefined) { 
                     subscribed.forEach((sub) => { %>
-                    <li><a href="/r/<%= sub %>">/r/<%= sub %></a></li>
+                        <tr>
+                        <td><a href="/r/<%= sub %>">/r/<%= sub %></a></td>
+                        </tr>                    
                     <% }); %>
                     <% } else { %>
                     You are not subscribed to any subreddit
                     <% } %>
+                </tbody>
+            </table>
             </div>
         </div>
 
         <div class="main">
-            <h1>new subreddit</h1>
+            <h3>new subreddit</h3>
             <div class="submit-wrapper">
-                <% if(!isAuth) { %>
+                <% if(!locals.user) { %>
                     You must be logged in to submit a post / link / subreddit.
                 <% } else { %>
                 <form action="/submit/subreddit" method="post">
-                    <input type="text" class="form-control" name="subreddit" placeholder="subreddit" required><br>
-                    <textarea class="form-control" rows="5" name="description" placeholder="Enter description of subreddit" required></textarea><br>
+                    <input type="text" class="form-control" name="subreddit" placeholder="Enter Subreddit" required><br>
+                    <textarea class="form-control" rows="5" name="description" placeholder="Enter description" required></textarea><br>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
                 <% } %>
             </div>
         </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+        <script src="/js/index.js"></script>
+
 </body>
 
 </html>

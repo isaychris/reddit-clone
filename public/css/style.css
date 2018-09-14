@@ -20,6 +20,9 @@
     grid-template-rows: 250px 250px;
     grid-gap: 15px 1px;
     grid-template-areas: "actions""subscribed";
+    padding: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
 }
 
 .actions {
@@ -30,7 +33,6 @@
     grid-area: subscribed;
 }
 
-
 .main {
     grid-area: main;
 }
@@ -39,6 +41,7 @@
     background-color: #e9ecef;
     margin-bottom: 15px;
     border-radius: 0.25rem;
+    border: 1px solid #ced4da;
 }
 
 .main ul {
@@ -98,4 +101,18 @@ article {
 
 form {
     margin: 0;
+}
+
+tr {
+    line-height: 5px !important;
+}
+
+.jumbotron-fluid {
+    border-bottom: 1px solid #ced4da;
+    padding: 32px;
+    margin-bottom: 15px;
+}
+
+.border {
+    border-radius: 0.25em;
 }

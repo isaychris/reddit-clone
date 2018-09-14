@@ -2,23 +2,22 @@
 A reddit clone written using node.js / express.js / mongodb / passport.js
 
 Work in Progress!
-![Image](https://i.imgur.com/GgiWKox.png)
+![Image](https://i.imgur.com/bxyvQj0.png)
 
 ### Current Working:
 * View subreddits
 * View posts
 * Submit posts/links/comments
 * Create subreddits
-* Saving / deleting posts
-* Upvote / downvote posts
+* Saving / deleting posts and comments
+* Upvote / downvote posts and comments
 * Relative time
 * Database
 * Login
 * Authentication
 
 ### TODO:
-* Saving / deleting comments
-* Upvote / downvote comments
+
 * Nested comments
 * Profile page
 * Saving the state for vote and save for each post and comment
@@ -29,8 +28,8 @@ Work in Progress!
 # Screenshots:
 ![Image](https://i.imgur.com/QWmcJG7.png)
 ![Image](https://i.imgur.com/Cf1kpy7.png)
-![Image](https://i.imgur.com/a9dq7qy.png)
-![Image](https://i.imgur.com/8Ia4IPC.png)
-![Image](https://i.imgur.com/6GLie7E.png)
-![Image](https://i.imgur.com/c03GWhT.png)
+![Image](https://i.imgur.com/hmyYK3k.png)
+![Image](https://i.imgur.com/zEU3bIH.png)
+![Image](https://i.imgur.com/g8JBmYS.png)
+![Image](https://i.imgur.com/fSF6GKD.png)
 
