@@ -2,7 +2,7 @@
 <% include partials/head %>
 
 <body>
-    <% include partials/nav %>
+    <%- include('partials/nav', {user: locals.user}) %>
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
@@ -15,8 +15,11 @@
     <div class="grid-container">
         <div class="sidebar subarea edit-area">
             <div class="area-overlap actions">
-                <%- include('partials/sidebar_actions', {name: info.name}) %>
-            </div>
+                <input class="form-control block" placeholder="Search for post"><br>
+                <a class="btn btn-block btn-success" href="/r/<%=info.name%>/submit/link" id="submit-link">Submit new link</a><br>
+                <a class="btn btn-block btn-primary" href="/r/<%=info.name%>/submit/post" id="submit-post">Submit new post</a><br>
+                <a class="btn btn-block btn-light" href="/subscribe/<%=info.name%>" id="submit-post">Subscribe</a><br>  
+             </div>
 
             <div class="subscribed">
                 <%- include('partials/sidebar_info', {desc: info.description}) %>
@@ -26,12 +29,11 @@
         <div class="main">
                 <% if (posts != undefined) { 
                     posts.forEach((post) => { %>
-            <article>
+            <article data-ref="<%= post._id %>">
                 <div class="arrows">
-                    <i class="far fa-caret-square-up" id="up"></i>
-                    <span id="votes">
-                        <%= post.votes %></span>
-                    <i class="far fa-caret-square-down" id="down"></i>
+                    <div class="upvote"><i class="far fa-caret-square-up"></i></div> 
+                    <span class="votes" data-ref="<%= post._id %>"><%= post.votes %></span>
+                    <div class="downvote"><i class="far fa-caret-square-down"></i></div>
                 </div>
 
                 <div class="info">
@@ -44,17 +46,18 @@
 
                     </header>
                     submitted 
-                    <span><%= post.time %></span> by 
+                    <time><%= post.time %></time> by 
                     <span><a href="/u/<%= post.username %>"><%= post.username %></a></span> from 
-                    <span><a href="/r/<%= post.subreddit %>"><%= post.subreddit %></a></span>
+                    <span><a href="/r/<%= post.subreddit %>">/r/<%= post.subreddit %></a></span>
                     <ul>
-                        <li><a href="/r/<%=info.name%>/<%= post._id %>/comments">comments</a></li>
-                        <li><a href="/r/<%=info.name%>/<%= post._id %>/save">save</a></li>
+                        <li><a href="/r/<%=info.name%>/<%= post._id %>">comments</a></li>
+                        <li><a href="javascript:void(0)" class="save">save</a></li>
 
-                        <% if(post.username == "isaychris") { %>
-                        <li><a href="/r/<%=info.name%>/<%= post._id %>/delete">delete</a></li>
+                        <% if(post.username == locals.user) { %>
+                        <li><a href="/r/<%=info.name%>/<%= post._id %>" class="edit">edit</a></li>
+                        <li><a href="javascript:void(0)" class="delete">delete</a></li>
+
                         <% } %>
-
                     </ul>
                 </div>
             </article>

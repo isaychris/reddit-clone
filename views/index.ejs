@@ -2,52 +2,89 @@
 <% include partials/head %>
 
 <body>
-    <% include partials/nav %>
+    <%- include('partials/nav', {user: locals.user}) %>
+    <span id="auth"><%= isAuth %></span>
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4 text-center" id="subreddit-name">
-                Front Page
-            </h1>
+            <h1 class="display-4 text-center" id="subreddit-name">Frontpage</h1>
         </div>
     </div>
 
     <div class="grid-container">
         <div class="sidebar subarea edit-area">
             <div class="area-overlap actions">
-                <% include partials/sidebar_actions %>
+                <input class="form-control block" placeholder="Search for post"><br>
+                <a class="btn btn-block btn-success" href="/submit/link" id="submit-link">Submit new link</a><br>
+                <a class="btn btn-block btn-primary" href="/submit/post" id="submit-post">Submit new post</a><br>
+                <a class="btn btn-block btn-light" href="/submit/subreddit" id="create-subreddit">Create subreddit</a><br>            
             </div>
-
             <div class="subscribed">
-                <% include partials/sidebar_subscribed %>
-            </div>
+                    <% if(isAuth) { %>
+                    <h1>Subscribed</h1>
+                    <ul>
+                    <% if (subscribed != undefined) { 
+                        subscribed.forEach((s) => { %>
+                            <li><a href="/r/<%= s %>">/r/<%= s %></a></li>
+                        <% }); %>
+                        <% } else { %>
+                        You are not subscribed to any subreddit
+                        <% } %>
+                    </ul>  
+                    <% } %>
+
+                    <h1>Subreddits</h1>
+                    <ul>
+                    <% if (subreddits != undefined) { 
+                        subreddits.forEach((s) => { %>
+                            <li><a href="/r/<%= s.name %>">/r/<%= s.name %></a></li>
+                        <% }); %>
+                        <% } else { %>
+                        There isnt any subreddits
+                        <% } %>
+                    </ul>    
+                </div>
         </div>
 
         <div class="main">
-            <% posts.forEach((post) => { %>
-            <article>
+                <% if (posts != undefined) { 
+                    posts.forEach((post) => { %>
+            <article data-ref="<%= post._id %>">
                 <div class="arrows">
-                    <i class="far fa-caret-square-up" id="up"></i>
-                    <span id="votes">
-                        <%= post.votes %></span>
-                    <i class="far fa-caret-square-down" id="down"></i>
+                    <div class="upvote auth-req"><i class="far fa-caret-square-up"></i></div> 
+                    <span class="votes" data-ref="<%= post._id %>"><%= post.votes %></span>
+                    <div class="downvote auth-req"><i class="far fa-caret-square-down"></i></div>
                 </div>
 
                 <div class="info">
                     <header>
-                        <%= post.title %>
+                        <% if(post.type == "post") { %>
+                        <a href="/r/<%= post.subreddit %>/<%= post._id %>"><%= post.title %></a>
+                        <%  } else { %>
+                        <a href="<%= post.link %>"><%= post.title %></a>
+                        <% } %>
+
                     </header>
-                    submitted <span>
-                        <%= post.time %></span> by <span>
-                        <%= post.username %></span> from <span>
-                        <%= post.subreddit %></span>
+                    submitted 
+                    <time><%= post.time %></time> by 
+                    <span><a href="/u/<%= post.username %>"><%= post.username %></a></span> from 
+                    <span><a href="/r/<%= post.subreddit %>">/r/<%= post.subreddit %></a></span>
                     <ul>
-                        <li><a href="/r/<%=name%>/<%= post._id %>/comments">comments</a></li>
-                        <li><a href="/r/<%=name%>/<%= post._id %>/comments">save</a></li>
+                        <li><a href="/r/<%=post.subreddit %>/<%= post._id %>">comments</a></li>
+                        <li><a href="javascript:void(0)" class="save auth-req">save</a></li>
+
+                        <% if(post.username == locals.user) { %>
+                        <li><a href="/r/<%=post.subreddit%>/<%= post._id %>" class="edit">edit</a></li>
+                        <li><a href="javascript:void(0)" class="delete">delete</a></li>
+
+                        <% } %>
                     </ul>
                 </div>
             </article>
-            <% }); %>
+            <% });%>
+            <% } else { %>
+            There are no posts.
+            <% } %>
         </div>
 </body>
 

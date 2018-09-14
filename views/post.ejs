@@ -15,7 +15,10 @@
     <div class="grid-container">
         <div class="sidebar subarea edit-area">
             <div class="area-overlap actions">
-                <%- include('partials/sidebar_actions', {name: info.name}) %>
+                <input class="form-control block" placeholder="Search for post"><br>
+                <a class="btn btn-block btn-success" href="/r/<%=info.name%>/submit/link" id="submit-link">Submit new link</a><br>
+                <a class="btn btn-block btn-primary" href="/r/<%=info.name%>/submit/post" id="submit-post">Submit new post</a><br>
+                <a class="btn btn-block btn-light" href="/subscribe/<%=info.name%>" id="submit-post">Subscribe</a><br>
             </div>
 
             <div class="subscribed">
@@ -24,30 +27,39 @@
         </div>
 
         <div class="main">
-            <div class="submit-wrapper">
-                <article>
-                    <div id="info">
-                        <div class="arrows">
-                            <i class="far fa-caret-square-up" id="up"></i>
-                            <span id="votes">
-                                <%= post.votes %></span>
-                            <i class="far fa-caret-square-down" id="down"></i>
-                        </div>
+            <div class="comment-wrapper">
+
+                <article data-ref="<%= post._id %>">
+                    <div class="arrows">
+                        <div class="upvote"><i class="far fa-caret-square-up"></i></div> 
+                        <span class="votes" data-ref="<%= post._id %>"><%= post.votes %></span>
+                        <div class="downvote"><i class="far fa-caret-square-down"></i></div>
+                    </div>
+
+                    <div class="info">
                         <header>
-                            <%= post.title %>
+                            <% if(post.type == "post") { %>
+                            <a href="/r/<%= post.subreddit %>/<%= post._id %>"><%= post.title %></a>
+                            <%  } else { %>
+                            <a href="<%= post.link %>"><%= post.title %></a>
+                            <% } %>
+
                         </header>
-                        submitted <span>
-                            <%= post.time %></span> by <span>
-                            <%= post.username %></span>
-                    </div><br>
-                    <p class="border border-primary">
-                        <% if(post.type == "post") { %>
-                        <%= post.body %>
-                        <%  } else { %>
-                        <%= post.link %>
-                        <% } %>
-                    </p>
+                        submitted 
+                        <time><%= post.time %></time> by 
+                        <span><a href="/u/<%= post.username %>"><%= post.username %></a></span> from 
+                        <span><a href="/r/<%= post.subreddit %>">/r/<%= post.subreddit %></a></span>
+                        
+                        <p class="border border-primary">
+                                <% if(post.type == "post") { %>
+                                <%= post.body %>
+                                <%  } else { %>
+                                <%= post.link %>
+                                <% } %>
+                            </p>
+                    </div>
                 </article>
+                    
             </div>
             <h1> Comments </h1>
             <div class="submit-wrapper">
@@ -65,34 +77,29 @@
             <hr>
             <% if (comments != undefined) { 
                     comments.forEach((comment) => { %>
+
             <div class="comment-wrapper">
                 <article>
-                    <div class="arrows">
-                        <i class="far fa-caret-square-up" id="up"></i>
-                        <span id="votes">
-                            <%= comment.votes %></span>
-                        <i class="far fa-caret-square-down" id="down"></i>
-                    </div>
-
-                    <div class="info">
-                        <ul>
-                            <li><span><a href="/u/<%= comment.username %>">
-                                        <%= comment.username %></a></span></li>
-                            <li><span>
-                                    <%= comment.time %></span></li>
-
-                        </ul>
-                        <div class="comment-body">
-                            <%= comment.body %>
-                        </div>
-                    </div>
-
-                    <ul>            
-                        <% if (isAuth) { %>
-                        <li><span><a href="">reply</a></span></li>
-                        <% }  %>
+                    <ul>
+                        <li><span><a href="/u/<%= comment.username %>"><%= comment.username %></a></span></li> • 
+                        <li><span id="comment-votes"><%= comment.votes %></span> points</li> • 
+                        <li><time><%= comment.time %></time></li>
+                    </ul>
+                        <%= comment.body %>
+                    <ul>
+                         <li>
+                                <i class="far fa-caret-square-up" id="comment-up"></i>
+                                <i class="far fa-caret-square-down" id="comment-down"></i>
+                        </li>   
+                        <li><span><a href="">comment</a></span></li>
                         <li><span><a href="">save</a></span></li>
-                        <li><span><a href="">share</a></span></li>
+
+                        <% if(isAuth) { %>
+                        <li><span><a href="">edit</a></span></li>
+                        <li><span><a href="">delete</a></span></li>
+                        <% } %>
+
+
                     </ul>
                 </article>
             </div>

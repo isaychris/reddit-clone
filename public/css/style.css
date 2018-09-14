@@ -1,3 +1,7 @@
+#auth {
+    display: none;
+}
+
 .grid-container {
     margin-left: 15px;
     margin-right: 15px;
@@ -54,16 +58,22 @@
 .arrows {
     position: relative;
     float: left;
-    width: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
     margin-top: 5px;
 }
 
-#up,
-#down,
-#votes {
+
+.upvote,
+.downvote,
+.votes {
     display: block;
     margin: auto;
     text-align: center;
+}
+
+.info {
+    margin-left: 35px;
 }
 
 .sidebar ul {
@@ -82,6 +92,9 @@
     color: white;
 }
 
+article {
+    padding: 10px;
+}
 
 form {
     margin: 0;

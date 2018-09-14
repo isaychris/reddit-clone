@@ -1,11 +1,16 @@
 <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
         <img src="/images/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Beddit
     </a>
     <div id="user-info">
-        <span id="user">isaychris</span> • <span id="post-karma">0</span> • <span id="comment-karma">0</span>
-        <a class="btn btn-primary" href="" id="user-settings"> <i class="fas fa-cog"></i></a>
+        <% if(user) { %>
+        <span id="user"><%= user %></span> • <span id="post-karma">0</span> • <span id="comment-karma">0</span>
+        <a class="btn btn-primary" href="/logout" id="user-settings">Logout</a>
+        <% } else { %>
+        <a class="btn btn-success" href="/login" id="user-settings">Sign in</a>
+        <% } %>
+
     </div>
 
 </nav>

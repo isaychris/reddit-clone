@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport")
 const db = require("./configs/database");
 const app = express();
+const ejsLint = require('ejs-lint');
 
 app.set('view engine', 'ejs');
 
@@ -24,6 +25,7 @@ app.use(require('express-session')({
 
 app.use(function (req, res, next) {
     res.locals.user = req.session.user;
+    res.locals.isauth = req.isAuthenticated();
     next();
 });
 
@@ -32,7 +34,7 @@ app.use(passport.session());
 
 // express routes that exist
 app.use('/', require('./routes/auth'));
-app.use('/u/', require('./routes/auth'));
+app.use('/', require('./routes/index'));
 app.use('/r/', require('./routes/subreddit'));
 
 // functions for persistant sessions
@@ -43,11 +45,7 @@ passport.deserializeUser(function (user_id, done) {
     done(null, user_id);
 });
 
-// frontpage route
-app.get('/', function (req, res) {
-    res.redirect('/r/front')
-});
-
+console.log(ejsLint('subreddit'))
 app.listen(process.env.PORT || 5000, function () {
     console.log("listening on port 5000!");
 });

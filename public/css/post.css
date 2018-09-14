@@ -1,0 +1,11 @@
+.comment-wrapper {
+    background-color: #e9ecef;
+    margin-bottom: 15px;
+    border-radius: 0.25rem;
+}
+
+.comment-body {
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-right: 23px;
+}

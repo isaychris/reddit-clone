@@ -2,10 +2,16 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
     body: String,
-    time: String,
+    time: {
+        type: Date,
+        default: Date.now()
+    },
     username: String,
     parent: mongoose.Schema.Types.ObjectId,
-    votes: Number
+    votes: {
+        type: Number,
+        default: 0
+    }
 });
 
 module.exports = mongoose.model('Comment', commentSchema);

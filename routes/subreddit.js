@@ -4,6 +4,12 @@ const router = express.Router();
 let Subreddit = require("../models/subreddit");
 let Post = require("../models/post");
 let Comment = require("../models/comment");
+let Profile = require("../models/profile");
+
+// SUBREDDIT
+router.get('/:subreddit/:id', function (req, res) {
+    res.redirect(`/r/${req.params.subreddit}/${req.params.id}/comments`)
+});
 
 router.get('/:subreddit', function (req, res) {
     let subreddit = undefined
@@ -16,22 +22,27 @@ router.get('/:subreddit', function (req, res) {
             res.send("unable to find subreddit")
         } else {
             subreddit = doc[0]
+            console.log(subreddit)
         }
     }).then(function () {
         Post.find({
             subreddit: req.params.subreddit
-        }, function (err, result) {
+        }).sort({
+            votes: '-1'
+        }).exec(function (err, result) {
             if (err) throw err;
             if (!result.length) {
                 res.render("subreddit", {
                     info: subreddit,
-                    posts: undefined
+                    posts: undefined,
+                    isAuth: req.isAuthenticated()
                 });
             } else {
                 if (result.length) {
                     res.render("subreddit", {
                         info: subreddit,
-                        posts: result
+                        posts: result,
+                        isAuth: req.isAuthenticated()
                     });
                 }
             }
@@ -39,13 +50,10 @@ router.get('/:subreddit', function (req, res) {
     });
 });
 
-router.get('/:subreddit/:id', function (req, res) {
-    res.redirect(`/r/${req.params.subreddit}/${req.params.id}/comments`)
-});
-
+// COMMENTS
 router.get('/:subreddit/:id/comments', function (req, res) {
     let info = undefined;
-    let comments = undefined;
+    let post = undefined;
 
     Subreddit.find({
         name: req.params.subreddit
@@ -56,51 +64,42 @@ router.get('/:subreddit/:id/comments', function (req, res) {
             info = doc[0];
         }
     }).then(function () {
-
-        Comment.find({
-            parent: req.params.id
+        Post.find({
+            _id: req.params.id
         }, function (err, doc) {
             if (err) throw err;
 
             if (!doc.length) {
-                console.log('yes comments were found');
-
+                res.send("NO POST FOUND??")
             } else {
-                comments = doc;
-                console.log('yes comments were found');
-                console.log(doc);
+                post = doc[0]
             }
-        })
-    }).then(function () {
+        }).then(function () {
+            Comment.find({
+                parent: req.params.id
+            }, function (err, doc) {
+                if (err) throw err;
 
-        Post.find({
-            _id: req.params.id
-        }, function (err, result) {
-            if (err) throw err;
+                if (!doc.length) {
+                    console.log('NO COMMENTS FOUND??');
+                }
 
-            if (!result.length) {
-                res.send("not found")
-
-            } else {
-                console.log(result[0]);
                 res.render('post', {
                     info: info,
-                    post: result[0],
-                    comments: comments,
+                    post: post,
+                    comments: doc,
                     isAuth: req.isAuthenticated()
                 });
-            }
-        })
+            });
+        });
     });
 });
 
 router.post('/:subreddit/:id/comments', function (req, res) {
     Comment({
         body: req.body.comment,
-        time: "now",
-        username: "isaychris",
+        username: req.session.user,
         parent: req.params.id,
-        votes: 0
     }).save(function (err, doc) {
         if (err) {
             res.send("error creating comment")
@@ -111,18 +110,6 @@ router.post('/:subreddit/:id/comments', function (req, res) {
     });
 });
 
-router.get('/:subreddit/:id/delete', function (req, res) {
-    // remove the document in the database that matches the id.
-    Post.find({
-        _id: req.params.id
-    }).remove(function (err, doc) {
-        if (err) throw err;
-
-        // send response back with the document object that was deleted
-        res.send(doc);
-    });
-});
-
 router.get('/:subreddit/submit/post', function (req, res) {
     Subreddit.find({
         name: req.params.subreddit
@@ -130,8 +117,9 @@ router.get('/:subreddit/submit/post', function (req, res) {
         if (err) throw err;
 
         if (doc.length) {
-            res.render('submit_post', {
-                info: doc[0]
+            res.render('subreddit_post', {
+                info: doc[0],
+                isAuth: req.isAuthenticated(),
             });
         }
     });
@@ -142,11 +130,9 @@ router.post('/:subreddit/submit/post', function (req, res) {
     Post({
         title: req.body.title,
         body: req.body.body,
-        time: "now",
-        username: "isaychris",
+        username: req.session.user,
         type: "post",
         subreddit: req.params.subreddit,
-        votes: 0
     }).save(function (err, doc) {
         if (err) {
             res.send("error creating post")
@@ -157,16 +143,31 @@ router.post('/:subreddit/submit/post', function (req, res) {
     });
 });
 
+
+router.get('/:subreddit/submit/link', function (req, res) {
+    Subreddit.find({
+        name: req.params.subreddit
+    }, function (err, doc) {
+        if (err) throw err;
+
+        if (doc.length) {
+            res.render('subreddit_link', {
+                info: doc[0],
+                isAuth: req.isAuthenticated(),
+            });
+        }
+    });
+
+});
+
 router.post('/:subreddit/submit/link', function (req, res) {
     Post({
         title: req.body.title,
         body: req.body.body,
-        time: "",
-        username: "isaychris",
+        username: req.session.user,
         type: "link",
         link: req.body.link,
         subreddit: req.params.subreddit,
-        votes: 0
     }).save(function (err, doc) {
         if (err) {
             res.send("error creating link")
@@ -176,26 +177,5 @@ router.post('/:subreddit/submit/link', function (req, res) {
         }
     });
 });
-router.get('/:subreddit/submit/link', function (req, res) {
-    Subreddit.find({
-        name: req.params.subreddit
-    }, function (err, doc) {
-        if (err) throw err;
-
-        if (doc.length) {
-            res.render('submit_link', {
-                info: doc[0]
-            });
-        }
-    });
-
-
-});
-
-// when user views a specific comment
-router.get('/:subreddit/:id/comment/:comment_id', function (req, res) {});
-
-// when user replies to a comment
-router.post('/:subreddit/:id/comment/:comment_id', function (req, res) {});
 
 module.exports = router;

@@ -2,27 +2,35 @@
 A reddit clone written using node.js / express.js / mongodb / passport.js
 
 Work in Progress!
-![Image](https://i.imgur.com/nmUsIg7.png)
+![Image](https://i.imgur.com/GgiWKox.png)
 
-### Progress:
-* View subreddits and its posts
-* Submitting posts/links
-* Submitting comments
-* Routes are defined
-* Models are defined
-* Database is working
+### Current Working:
+* View subreddits
+* View posts
+* Submit posts/links/comments
+* Create subreddits
+* Saving / deleting posts
+* Upvote / downvote posts
+* Relative time
+* Database
+* Login
+* Authentication
 
 ### TODO:
-* replying to comments
-* sorting posts and comments by votes
-* relative time for posts and comments
-* create real front page
-* creating subreddits
-* profile page
-* write the javascript for changing post and comment karma
-* figure out how to nest comments.
-* login/register
-* sessions with passport.js
+* Saving / deleting comments
+* Upvote / downvote comments
+* Nested comments
+* Profile page
+* Saving the state for vote and save for each post and comment
+* Saving the state for subscribing a subreddit
+* Input validation
+* Refactoring
 
 # Screenshots:
-![Image](https://i.imgur.com/Zx8yHA0.png)
+![Image](https://i.imgur.com/QWmcJG7.png)
+![Image](https://i.imgur.com/Cf1kpy7.png)
+![Image](https://i.imgur.com/a9dq7qy.png)
+![Image](https://i.imgur.com/8Ia4IPC.png)
+![Image](https://i.imgur.com/6GLie7E.png)
+![Image](https://i.imgur.com/c03GWhT.png)
+

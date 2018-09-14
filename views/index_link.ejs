@@ -1,0 +1,53 @@
+<html>
+<% include partials/head %>
+
+<body>
+    <% include partials/nav %>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 text-center" id="subreddit-name">Frontpage</h1>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="sidebar subarea edit-area">
+            <div class="area-overlap actions">
+                <input class="form-control block" placeholder="Search for post"><br>
+                <a class="btn btn-block btn-success" href="/submit/link" id="submit-link">Submit new link</a><br>
+                <a class="btn btn-block btn-primary" href="/submit/post" id="submit-post">Submit new post</a><br>
+                <a class="btn btn-block btn-light" href="/submit/subreddit" id="create-subreddit">Create subreddit</a><br>
+            </div>
+            <div class="subscribed">
+                <h1>Subscribed</h1>
+                <ul>
+                <% if (subscribed != undefined) { 
+                    subscribed.forEach((sub) => { %>
+                    <li><a href="/r/<%= sub %>">/r/<%= sub %></a></li>
+                    <% }); %>
+                    <% } else { %>
+                    You are not subscribed to any subreddit
+                    <% } %>
+            </div>
+        </div>
+
+        <div class="main">
+            <h1>new link</h1>
+            <div class="submit-wrapper">
+                <% if(!isAuth) { %>
+                    You must be logged in to submit a post / link / subreddit.
+                <% } else { %>
+                <form action="/submit/link" method="post">
+                    <input type="text" class="form-control" name="title" placeholder="Title" required><br>
+                    <input type="text" class="form-control" name="link" placeholder="Link" required><br>
+                    <input type="text" class="form-control" name="subreddit" placeholder="subreddit" required><br>
+
+                    <button type="submit" class="btn btn-primary" id="link-submit-button">Submit</button>
+                </form>
+                <% } %>
+
+            </div>
+        </div>
+</body>
+
+</html>

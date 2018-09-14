@@ -4,6 +4,7 @@ const validator = require("validator");
 const router = express.Router();
 
 let Account = require("../models/account");
+let Profile = require("../models/profile");
 
 // route for when user logs out, session is destroyed and user redirected to login
 router.get("/logout", function (req, res) {
@@ -16,7 +17,7 @@ router.get("/register", function (req, res) {
   if (req.isAuthenticated()) {
     res.redirect("../");
   } else {
-    res.render("register", {
+    res.render("auth_register", {
       message: undefined
     });
   }
@@ -36,12 +37,18 @@ router.post("/register", validateRegister(), function (req, res) {
     }).save(function (err, doc) {
       // if user already exists, register page is rendered with error message
       if (err) {
-        res.render("register", {
+        res.render("auth_register", {
           message: "Username already exists."
         });
 
         // if not, user is redirected to index.
       } else {
+        Profile({
+          username: req.body.username
+        }).save(function (err, doc) {
+          if (err) throw err;
+        });
+
         // create session using passport js
         req.login(doc._id, function (err) {
           if (err) throw err;
@@ -52,10 +59,6 @@ router.post("/register", validateRegister(), function (req, res) {
       }
     });
   });
-  // } else {
-  //   console.log("why isnt this working");
-  //   res.render("register", { message: "Invalid input entered. Try again." });
-  // }
 });
 
 // route for when user views login page
@@ -63,7 +66,7 @@ router.get("/login", function (req, res) {
   if (req.isAuthenticated()) {
     res.redirect("../");
   } else {
-    res.render("login", {
+    res.render("auth_login", {
       message: undefined
     });
   }
@@ -83,7 +86,7 @@ router.post("/login", function (req, res) {
 
     // if nothing is returned, render login page with error message
     if (!doc.length) {
-      res.render("login", {
+      res.render("auth_login", {
         message: "Username or password is incorrect."
       });
     } else {
@@ -106,7 +109,7 @@ router.post("/login", function (req, res) {
           //if not, redirect back to login.
         } else {
           console.log("hash does not match");
-          res.render("login", {
+          res.render("auth_login", {
             message: "Username or password is incorrect."
           });
         }
@@ -129,7 +132,7 @@ function validateRegister() {
       console.log("authentication = " + req.isAuthenticated());
       return next();
     }
-    res.render("register", {
+    res.render("auth_register", {
       message: "Invalid input. Try again."
     });
   };
