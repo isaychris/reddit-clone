@@ -16,7 +16,14 @@
     <div class="grid-container">
         <div class="sidebar subarea edit-area">
             <div class="area-overlap actions">
-                <input class="form-control block" placeholder="Search for post"><br>
+                <form id="form-search" action="/r/<%=info.name%>/search/" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="query" placeholder="Find a post" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary submit" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>                         
                 <a class="btn btn-block btn-success" href="/r/<%=info.name%>/submit/link" id="submit-link">Submit new link</a><br>
                 <a class="btn btn-block btn-primary" href="/r/<%=info.name%>/submit/post" id="submit-post">Submit new post</a><br>
                 <a class="btn btn-block btn-light" href="/subscribe/<%=info.name%>" id="submit-post">Subscribe</a><br>

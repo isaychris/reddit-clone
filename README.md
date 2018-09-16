@@ -5,24 +5,24 @@ Work in Progress!
 ![Image](https://i.imgur.com/bxyvQj0.png)
 
 ### Current Working:
-* View subreddits
-* View posts
-* Submit posts/links/comments
-* Create subreddits
+* Viewing subreddits
+* Viewing posts
+* Submitting posts/links/comments
+* Creating subreddits
 * Saving / deleting posts and comments
 * Upvote / downvote posts and comments
+* Searching
 * Relative time
 * Database
 * Login
 * Authentication
 
 ### TODO:
-
+* Profile pages
+* Subscribing
 * Nested comments
-* Profile page
 * Saving the state for vote and save for each post and comment
 * Saving the state for subscribing a subreddit
-* Input validation
 * Refactoring
 
 # Screenshots:

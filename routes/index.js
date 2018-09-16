@@ -312,4 +312,73 @@ router.put('/vote/comment/:id', function (req, res) {
     });
 });
 
+router.get('/submit/check/:subreddit', function (req, res) {
+    Subreddit.find({
+        name: req.params.subreddit
+    }, function (err, doc) {
+        if (err) throw err;
+
+        if (!doc.length) {
+            res.send(false);
+            return;
+        }
+
+        res.send(true);
+    });
+});
+
+router.post('/search', function (req, res) {
+    let subscribed = [];
+    let subreddits = [];
+
+    Profile.find({
+        username: req.session.user
+    }, function (err, result) {
+        if (err) throw err;
+        if (!result.length) {
+            subscribed = undefined
+        } else {
+            subscribed = result[0]['subscribed'];
+        }
+    }).then(function () {
+        Subreddit.find({}, function (err, doc) {
+            if (err) throw err;
+
+            if (!doc.length) {
+                console.log("CANT FIND ANY SUBREDDITS")
+                subreddits = undefined
+            } else {
+                subreddits = doc
+            }
+        }).then(function () {
+            Post.find({
+                title: {
+                    $regex: '.*' + req.body.query + '.*',
+                    $options: 'i'
+                }
+            }).sort({
+                votes: '-1'
+            }).exec(function (err, result) {
+                if (err) throw err;
+                if (!result.length) {
+                    res.render("index_search", {
+                        posts: undefined,
+                        subreddits: subreddits,
+                        subscribed: subscribed,
+                        query: req.body.query,
+                        isAuth: req.isAuthenticated()
+                    });
+                } else {
+                    res.render("index_search", {
+                        posts: result,
+                        subreddits: subreddits,
+                        subscribed: subscribed,
+                        query: req.body.query,
+                        isAuth: req.isAuthenticated()
+                    })
+                }
+            });
+        });
+    });
+});
 module.exports = router;

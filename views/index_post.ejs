@@ -14,7 +14,14 @@
     <div class="grid-container">
         <div class="sidebar subarea edit-area">
             <div class="area-overlap actions">
-                <input class="form-control block" placeholder="Search for post"><br>
+                    <form id="form-search" action="/search/" method="post">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="query" placeholder="Find a post" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary submit" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>  
                 <a class="btn btn-block btn-success" href="/submit/link" id="submit-link">Submit new link</a><br>
                 <a class="btn btn-block btn-primary" href="/submit/post" id="submit-post">Submit new post</a><br>
                 <a class="btn btn-block btn-light" href="/submit/subreddit" id="create-subreddit">Create subreddit</a><br>
@@ -43,20 +50,24 @@
                 <% if(!locals.user) { %>
                     You must be logged in to submit a post / link / subreddit.
                 <% } else { %>
-                <form action="/submit/post" method="post">
-                    <input type="text" class="form-control" name="title" placeholder="Enter Title" required><br>
+                <form id="form-post-or-link" action="/submit/post" method="post">
+                    <input type="text" class="form-control" name="title" placeholder="Enter title" required><br>
                     <textarea class="form-control" rows="5" name="text" placeholder="Enter body" required></textarea><br>
-                    <input type="text" class="form-control" name="subreddit" placeholder="Enter Subreddit" required><br>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <input type="text" class="form-control" name="subreddit" id="subreddit_form" placeholder="Enter subreddit" required><br>
+                    <div class="invalid-feedback">That subreddit doesn't exist!</div><br>
+                    <button type="submit" class="btn btn-primary auth-req">Submit</button>
                 </form>
                 <% } %>
             </div>
         </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/validator/10.7.1/validator.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
         <script src="/js/index.js"></script>
-
+        <script src="/js/submit.js"></script>
 </body>
 
 </html>

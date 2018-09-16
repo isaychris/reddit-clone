@@ -4,7 +4,7 @@ $("document").ready(function () {
         let query = $(this).parent().parent().parent().parent()
         let ref = query.data('ref')
 
-        if (confirm("Are you sure?")) {
+        if (confirm("Are you sure you want to delete?")) {
             $.ajax({
                 type: "delete",
                 url: `/delete/post/${ref}`,

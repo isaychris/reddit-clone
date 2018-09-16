@@ -1,0 +1,91 @@
+<html>
+    <title><%= info.name %></title>
+<% include partials/head %>
+
+<body>
+    <%- include('partials/nav', {user: locals.user}) %>
+    <span id="auth"><%= isAuth %></span>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 text-center" id="subreddit-name">
+                <%= info.name %>
+            </h1>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="sidebar subarea edit-area">
+            <div class="area-overlap actions">
+                <form id="form-search" action="/r/<%=info.name%>/search/" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="query" placeholder="Find a post" value="<%= query %>"required>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary submit" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>         
+                <a class="btn btn-block btn-success" href="/r/<%=info.name%>/submit/link" id="submit-link">Submit new link</a><br>
+                <a class="btn btn-block btn-primary" href="/r/<%=info.name%>/submit/post" id="submit-post">Submit new post</a><br>
+                <a class="btn btn-block btn-light" href="/subscribe/<%=info.name%>" id="submit-post">Subscribe</a><br>  
+             </div>
+
+            <div class="subscribed">
+                <%- include('partials/sidebar_info', {desc: info.description}) %>
+            </div>
+        </div>
+
+        <div class="main">
+             <% if (posts != undefined) { %>
+            <h3>Search results (<%= posts.length %>)</h3>
+            <% } %>
+
+                <% if (posts != undefined) { 
+                    posts.forEach((post) => { %>
+            <article data-ref="<%= post._id %>">
+                <div class="arrows">
+                    <div class="upvote auth-req"><i class="far fa-caret-square-up"></i></div> 
+                    <span class="votes" data-ref="<%= post._id %>"><%= post.votes %></span>
+                    <div class="downvote auth-req"><i class="far fa-caret-square-down"></i></div>
+                </div>
+
+                <div class="info">
+                    <header>
+                        <% if(post.type == "post") { %>
+                        <a href="/r/<%= post.subreddit %>/<%= post._id %>"><%= post.title %></a>
+                        <%  } else { %>
+                        <a href="<%= post.link %>"><%= post.title %></a>
+                        <% } %>
+
+                    </header>
+                    submitted 
+                    <time title="<%= post.time %>">-</time> by 
+                    <span><a href="/u/<%= post.username %>"><%= post.username %></a></span> from 
+                    <span><a href="/r/<%= post.subreddit %>">/r/<%= post.subreddit %></a></span>
+                    <ul>
+                        <li><a href="/r/<%=info.name%>/<%= post._id %>">comments</a></li>
+                        <li><a href="javascript:void(0)" class="save auth-req">save</a></li>
+
+                        <% if(post.username == locals.user) { %>
+                        <li><a href="/r/<%=info.name%>/<%= post._id %>" class="edit auth-req">edit</a></li>
+                        <li><a href="javascript:void(0)" class="delete auth-req">delete</a></li>
+
+                        <% } %>
+                    </ul>
+                </div>
+            </article>
+            <% });%>
+            <% } else { %>
+            <h3>Search results (0)</h3>
+            There are no posts.
+            <% } %>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+        <script src="/js/index.js"></script>
+        <script src="/js/post.js"></script>
+
+</body>
+
+</html>

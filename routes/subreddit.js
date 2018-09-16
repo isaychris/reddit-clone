@@ -54,6 +54,7 @@ router.get('/:subreddit', function (req, res) {
 router.get('/:subreddit/:id/comments', function (req, res) {
     let info = undefined;
     let post = undefined;
+    let comments = undefined;
 
     Subreddit.find({
         name: req.params.subreddit
@@ -81,13 +82,16 @@ router.get('/:subreddit/:id/comments', function (req, res) {
                 if (err) throw err;
 
                 if (!doc.length) {
-                    console.log('NO COMMENTS FOUND??');
+                    console.log('no comments found!')
+                } else {
+                    comments = doc;
+
                 }
 
                 res.render('post', {
                     info: info,
                     post: post,
-                    comments: doc,
+                    comments: comments,
                     isAuth: req.isAuthenticated()
                 });
             });
@@ -178,5 +182,55 @@ router.post('/:subreddit/submit/link', function (req, res) {
     });
 });
 
+router.post('/:subreddit/search', function (req, res) {
+    let subreddit = undefined
 
+    Subreddit.find({
+        name: req.params.subreddit
+    }, function (err, doc) {
+        if (err) throw err;
+        if (!doc.length) {
+            res.send("unable to find subreddit")
+        } else {
+            subreddit = doc[0]
+        }
+    }).then(function () {
+        Post.find({
+            $and: [{
+                    subreddit: req.params.subreddit
+                },
+                {
+                    title: {
+                        $regex: '.*' + req.body.query + '.*',
+                        $options: 'i'
+                    }
+                }
+            ]
+        }).sort({
+            votes: '-1'
+        }).exec(function (err, result) {
+            if (err) throw err;
+            if (!result.length) {
+                console.log('didnt find some')
+
+                res.render("subreddit_search", {
+                    info: subreddit,
+                    posts: undefined,
+                    query: req.body.query,
+                    isAuth: req.isAuthenticated()
+                });
+            } else {
+                if (result.length) {
+                    console.log('found some')
+                    res.render("subreddit_search", {
+                        info: subreddit,
+                        posts: result,
+                        query: req.body.query,
+                        isAuth: req.isAuthenticated(),
+                    });
+                }
+            }
+        })
+    });
+});
 module.exports = router;

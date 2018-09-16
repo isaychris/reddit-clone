@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const passport = require("passport")
 const db = require("./configs/database");
 const app = express();
-const ejsLint = require('ejs-lint');
 
 app.set('view engine', 'ejs');
 
@@ -23,14 +22,15 @@ app.use(require('express-session')({
     saveUninitialized: true
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(function (req, res, next) {
     res.locals.user = req.session.user;
+    console.log("LOOK HEREEE = " + req.isAuthenticated())
     res.locals.isauth = req.isAuthenticated();
     next();
 });
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 // express routes that exist
 app.use('/', require('./routes/auth'));
@@ -45,7 +45,6 @@ passport.deserializeUser(function (user_id, done) {
     done(null, user_id);
 });
 
-console.log(ejsLint('subreddit'))
 app.listen(process.env.PORT || 5000, function () {
     console.log("listening on port 5000!");
 });
