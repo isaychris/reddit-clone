@@ -9,8 +9,8 @@
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4 text-center" id="subreddit-name">
-                <%= info.name %>
+            <h1 class="display-4 text-center">
+                <span id="subreddit-name"><%= info.name %></span>
             </h1>
         </div>
     </div>
@@ -18,10 +18,17 @@
     <div class="grid-container">
         <div class="sidebar subarea edit-area">
             <div class="area-overlap actions">
-                <input class="form-control block" placeholder="Search for post"><br>
+                <form id="form-search" action="/r/<%=info.name%>/search/" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="query" placeholder="Find a post" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary submit" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>                   
                 <a class="btn btn-block btn-success" href="/r/<%=info.name%>/submit/link" id="submit-link">Submit new link</a><br>
                 <a class="btn btn-block btn-primary" href="/r/<%=info.name%>/submit/post" id="submit-post">Submit new post</a><br>
-                <a class="btn btn-block btn-light" href="/subscribe/<%=info.name%>" id="submit-post">Subscribe</a><br>
+                <a class="btn btn-block btn-light" href="javascript:void(0)" id="subscribe">Subscribe</a><br>
             </div>
 
             <div class="subscribed">
@@ -53,13 +60,17 @@
                         <span><a href="/u/<%= post.username %>"><%= post.username %></a></span> from 
                         <span><a href="/r/<%= post.subreddit %>">/r/<%= post.subreddit %></a></span>
                         
-                        <p class="border border-primary">
-                                <% if(post.type == "post") { %>
-                                <%= post.body %>
-                                <%  } else { %>
-                                <%= post.link %>
-                                <% } %>
-                            </p>
+                        <p class="border border-primary"><% if(post.type == "post") { %><%= post.body %><%  } else { %><%= post.link %><% } %></p>
+                        <ul>
+                        <li><a href="javascript:void(0)" class="save-post auth-req">save</a></li>
+
+                        <% if(post.username == locals.user) { %>
+                        <li><a href="javascript:void(0)" class="edit-post auth-req">edit</a></li>
+                        <li><a href="javascript:void(0)" class="delete-post auth-req">delete</a></li>
+                        <% } %>
+                        </ul>
+
+
                     </div>
                 </article>
                     
@@ -88,14 +99,14 @@
                         <li><span id="comment-votes"><%= comment.votes %></span> points</li> • 
                         <time title="<%= comment.time %>">-</time> </li>
                     </ul>
-                        <%= comment.body %>
+                    <div class="comment-body"><%= comment.body %></div>
                     <ul>
                         <li>
                             <i class="far fa-caret-square-up upvote-comment auth-req"></i>
                             <i class="far fa-caret-square-down downvote-comment auth-req"></i>
                         </li>   
-                        <li><span><a href="javascript:void(0)" class="auth-req">reply</a></span></li>
-                        <li><span><a href="javascript:void(0)" class="auth-req">save</a></span></li>
+                        <li><span><a href="javascript:void(0)" class="reply-comment auth-req">reply</a></span></li>
+                        <li><span><a href="javascript:void(0)" class="save-comment auth-req">save</a></span></li>
 
                         <% if(isAuth) { %>
                         <li><span><a href="javascript:void(0)" class="edit-comment auth-req">edit</a></span></li>
@@ -114,6 +125,7 @@
             
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
         <script src="/js/index.js"></script>
         <script src="/js/post.js"></script>
         <script src="/js/comment.js"></script>

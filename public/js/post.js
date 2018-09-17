@@ -1,4 +1,49 @@
 $("document").ready(function () {
+    $(".edit-post").click(function () {
+        let query = $(this).parent().parent().parent().parent()
+        let ref = query.data('ref')
+        let body = query.find('p').text()
+        let options = $(this).parent().parent()
+        console.log(query.find('p').text());
+        query.find('p').html(`<textarea id="post-text" class="form-control">${body}</textarea>`)
+        autosize($('#post-text'))
+
+        query.find('p').append("<br><button class='btn btn-primary mr-1 edit_submit'>Save</button><button class='btn btn-primary edit_cancel'>Cancel</button>");
+        options.hide();
+
+        $("button.edit_cancel").click(function () {
+            let text = body;
+
+            console.log('canceled')
+            $("#post-text").remove();
+            $(".edit_cancel").remove();
+            $(".edit_save").remove();
+
+            query.find('p').text(text)
+            options.show();
+        })
+
+        $("button.edit_submit").click(function () {
+            console.log("attempting to save")
+            let new_text = $('#post-text').val();
+            $.ajax({
+                type: "put",
+                url: `/edit/post/${ref}`,
+                data: {
+                    text: new_text
+                },
+                success: function (res) {
+                    $("textarea").remove();
+                    query.find('p').text(new_text)
+                    options.show();
+
+                }
+            })
+        })
+
+        return false;
+    })
+
     $(".delete-post").click(function () {
 
         let query = $(this).parent().parent().parent().parent()

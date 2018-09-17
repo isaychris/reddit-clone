@@ -116,3 +116,7 @@ tr {
 .border {
     border-radius: 0.25em;
 }
+
+.hide-options {
+    display: none;
+}

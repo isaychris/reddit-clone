@@ -182,6 +182,31 @@ router.post('/submit/subreddit', function (req, res) {
     });
 });
 
+router.put('/edit/post/:id', function (req, res) {
+    console.log(req.body.text)
+    Post.update({
+        _id: req.params.id
+    }, {
+        body: req.body.text
+    }, function (err, result) {
+        if (err) throw err;
+
+        res.send("success")
+    })
+});
+
+router.put('/edit/comment/:id', function (req, res) {
+    console.log(req.body.text)
+    Comment.update({
+        _id: req.params.id
+    }, {
+        body: req.body.text
+    }, function (err, result) {
+        if (err) throw err;
+
+        res.send("success")
+    })
+});
 
 // DELETING POST
 router.delete('/delete/post/:id', function (req, res) {
@@ -201,20 +226,56 @@ router.delete('/delete/post/:id', function (req, res) {
 // SAVE POST
 router.put('/save/post/:id', function (req, res) {
     console.log("attempting to save");
-    Profile.update({
-            username: req.session.user
-        }, {
-            $push: {
-                saved_posts: req.params.id
+    let query = {
+        $and: [{
+                username: req.session.auth
+            },
+            {
+                post_states: {
+                    ref: body.params.id
+                }
             }
-        },
-        function (err, doc) {
-            if (err) throw err;
-            console.log("post saved!");
+        ]
+    };
+    let update = {
+        saved: true
+    };
+    let options = {
+        upsert: true
+    };
 
-            // send response back with the document object that was edited
-            res.send(doc);
-        });
+    State.findOneAndUpdate(query, update, options, function (err, result) {
+        if (!error) {
+            // If the document doesn't exist
+            if (!result) {
+                // Create it
+                result = new State();
+            }
+            // Save the document
+            result.save(function (error) {
+                if (!error) {
+                    // Do something with the document
+                } else {
+                    throw error;
+                }
+            });
+        }
+    }).then(function () {
+        Profile.update({
+                username: req.session.user
+            }, {
+                $push: {
+                    saved_posts: req.params.id
+                }
+            },
+            function (err, doc) {
+                if (err) throw err;
+                console.log("post saved!");
+
+                // send response back with the document object that was edited
+                res.send(doc);
+            });
+    });
 });
 
 // UNSAVE POST
@@ -381,4 +442,36 @@ router.post('/search', function (req, res) {
         });
     });
 });
+
+
+router.put('/unsubscribe/:subreddit', function (req, res) {
+    Profile.update({
+            username: req.session.user
+        }, {
+            $pull: {
+                subscribed: req.body.subreddit
+            }
+        },
+        function (err, doc) {
+            if (err) throw err;
+            console.log("subscription removed!");
+            res.send("success!")
+        })
+});
+
+router.put('/subscribe/:subreddit', function (req, res) {
+    Profile.update({
+            username: req.session.user
+        }, {
+            $push: {
+                subscribed: req.params.subreddit
+            }
+        },
+        function (err, doc) {
+            if (err) throw err;
+            console.log("subscription added!");
+            res.send("success!")
+        })
+});
+
 module.exports = router;

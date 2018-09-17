@@ -2,7 +2,7 @@
 A reddit clone written using node.js / express.js / mongodb / passport.js
 
 Work in Progress!
-![Image](https://i.imgur.com/bxyvQj0.png)
+![Image](https://i.imgur.com/pEpjbHJ.png)
 
 ### Current Working:
 * Viewing subreddits
@@ -11,7 +11,9 @@ Work in Progress!
 * Creating subreddits
 * Saving / deleting posts and comments
 * Upvote / downvote posts and comments
-* Searching
+* Subscribing
+* Editing posts and comments
+* Searching for posts
 * Relative time
 * Database
 * Login
@@ -19,7 +21,6 @@ Work in Progress!
 
 ### TODO:
 * Profile pages
-* Subscribing
 * Nested comments
 * Saving the state for vote and save for each post and comment
 * Saving the state for subscribing a subreddit
@@ -28,8 +29,10 @@ Work in Progress!
 # Screenshots:
 ![Image](https://i.imgur.com/QWmcJG7.png)
 ![Image](https://i.imgur.com/Cf1kpy7.png)
-![Image](https://i.imgur.com/hmyYK3k.png)
-![Image](https://i.imgur.com/zEU3bIH.png)
-![Image](https://i.imgur.com/g8JBmYS.png)
-![Image](https://i.imgur.com/fSF6GKD.png)
+![Image](https://i.imgur.com/SULVp9A.png)
+![Image](https://i.imgur.com/fHH9guv.png)
+![Image](https://i.imgur.com/oFh0qKq.png)
+![Image](https://i.imgur.com/moZQec1.png)
+![Image](https://i.imgur.com/hgaKbc0.png)
+![Image](https://i.imgur.com/UYXQhOn.png)
 

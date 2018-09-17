@@ -29,3 +29,19 @@ $("document").ready(function () {
         });
     });
 });
+
+function checkURL(url) {
+    let result = "";
+    $.ajax({
+        type: "HEAD",
+        url: url,
+        success: function (message, text, response) {
+            if (response.getResponseHeader('Content-Type').indexOf("image") != -1)
+                result = "img"
+            else
+                result = "post"
+        }
+    }).then(function () {
+        return result
+    });
+}

@@ -1,4 +1,52 @@
 $("document").ready(function () {
+    $(".edit-comment").click(function () {
+        let query = $(this).parent().parent().parent().parent()
+        let ref = query.data('ref')
+        console.log(ref);
+
+        let body = query.find(".comment-body").text()
+        let options = $(this).parent().parent().parent()
+        query.find(".comment-body").html(`<textarea id="comment-text" class="form-control">${body}</textarea>`)
+        autosize($('#comment-text'))
+
+        query.find(".comment-body").append("<br><button class='btn btn-primary mr-1 edit-comment-submit'>Save</button><button class='btn btn-primary edit-comment-cancel'>Cancel</button>");
+        options.hide();
+
+        $("button.edit-comment-cancel").click(function () {
+            let text = body;
+
+            console.log('canceled')
+            $("#comment-text").remove();
+            $(".edit_comment-cancel").remove();
+            $(".edit_comment-save").remove();
+
+            query.find(".comment-body").text(text)
+            options.show();
+        })
+
+        $("button.edit-comment-submit").click(function () {
+            console.log("attempting to save")
+            let new_text = $('#comment-text').val();
+            console.log(new_text)
+            $.ajax({
+                type: "put",
+                url: `/edit/comment/${ref}`,
+                data: {
+                    text: new_text
+                },
+                success: function (res) {
+
+                    $("textarea").remove();
+                    query.find(".comment-body").text(new_text)
+                    options.show();
+
+                }
+            })
+        })
+
+        return false;
+    })
+
     $(".delete-comment").click(function () {
         let query = $(this).parent().parent().parent().parent()
         let ref = query.data('ref')
