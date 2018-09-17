@@ -120,3 +120,18 @@ tr {
 .hide-options {
     display: none;
 }
+
+.upvote-post,
+.downvote-post,
+.upvote-comment,
+.downvote-comment {
+    cursor: pointer;
+}
+
+.thumbnail {
+    float: left;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 0.50em;
+}

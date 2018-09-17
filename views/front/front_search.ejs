@@ -1,22 +1,17 @@
 <html>
     <title>Frontpage</title>
-
-<% include partials/head %>
+    <%- include('../partials/head') %>
 
 <body>
-    <%- include('partials/nav', {user: locals.user}) %>
+    <%- include('../partials/nav', {user: locals.user}) %>
+    <%- include('../partials/jumbotron', {name: "Frontpage"}) %>
     <span id="auth"><%= isAuth %></span>
-
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4 text-center" id="subreddit-name">Frontpage</h1>
-        </div>
-    </div>
 
     <div class="grid-container">
         <div class="sidebar subarea edit-area">
             <div class="area-overlap actions">
                 <form id="form-search" action="/search/" method="post">
+
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" name="query" placeholder="Find a post" value="<%= query %>"required>
                         <div class="input-group-append">
@@ -24,6 +19,7 @@
                         </div>
                     </div>
                 </form>   
+                
                 <a class="btn btn-block btn-success" href="/submit/link" id="submit-link">Submit new link</a><br>
                 <a class="btn btn-block btn-primary" href="/submit/post" id="submit-post">Submit new post</a><br>
                 <a class="btn btn-block btn-light" href="/submit/subreddit" id="create-subreddit">Create subreddit</a><br>            

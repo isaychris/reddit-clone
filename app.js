@@ -27,13 +27,13 @@ app.use(passport.session());
 
 app.use(function (req, res, next) {
     res.locals.user = req.session.user;
-    console.log("LOOK HEREEE = " + req.isAuthenticated())
     res.locals.isauth = req.isAuthenticated();
     next();
 });
 
 // express routes that exist
 app.use('/', require('./routes/auth'));
+app.use('/', require('./routes/front'));
 app.use('/', require('./routes/index'));
 app.use('/r/', require('./routes/subreddit'));
 
