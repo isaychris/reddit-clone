@@ -2,7 +2,7 @@
 A reddit clone written using node.js / express.js / mongodb / passport.js
 
 Work in Progress!
-![Image](https://i.imgur.com/pEpjbHJ.png)
+![Image](https://i.imgur.com/rtuTXWU.png)
 
 ### Current Working:
 * Viewing subreddits
