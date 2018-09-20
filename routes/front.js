@@ -5,7 +5,32 @@ let Subreddit = require("../models/subreddit");
 let Post = require("../models/post");
 let Comment = require("../models/comment");
 let Profile = require("../models/profile");
-let State = require("../models/state");
+let PostState = require("../models/postState")
+
+// router.get('/test', function (req, res) {
+//     State.aggregate([{
+//             $match: {
+//                 username: "chris"
+//             }
+//         },
+//         {
+//             $unwind: "$post_states"
+//         },
+//         {
+//             $lookup: {
+//                 from: "posts",
+//                 localField: "post_states.ref",
+//                 foreignField: "_id",
+//                 as: "test"
+//             }
+//         }
+//     ]).exec(function (err, results) {
+//         if (err) throw err;
+
+//         res.send(results)
+//     })
+
+// })
 
 // FETCHING POSTS
 router.get('/', function (req, res) {
@@ -29,22 +54,43 @@ router.get('/', function (req, res) {
                 subreddits = doc
             }
         }).then(function () {
-            Post.find({}).sort({
-                votes: '-1'
-            }).exec(function (err, result) {
+            PostState.find({
+                username: req.session.user
+            }, function (err, doc) {
                 if (err) throw err;
 
-                if (!result.length) {
-                    posts = undefined
+                if (doc.length) {
+                    postStates = doc
                 }
+            }).then(function () {
+                Post.aggregate([{
+                        $sort: {
+                            votes: -1
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: "postStates",
+                            localField: "_id", // field in the orders collection
+                            foreignField: "ref", // field in the items collection
+                            as: "states"
+                        }
+                    }
+                ]).exec(function (err, result) {
+                    if (err) throw err;
 
-                console.log(`[Frontpage] fetching posts!`)
-                res.render("./front/front", {
-                    posts: result,
-                    subreddits: subreddits,
-                    subscribed: subscribed,
-                    isAuth: req.isAuthenticated()
-                })
+                    if (result.length) {
+                        posts = result
+                    }
+
+                    console.log(`[Frontpage] fetching posts!`)
+                    res.render("./front/front", {
+                        posts: posts,
+                        subreddits: subreddits,
+                        subscribed: subscribed,
+                        isAuth: req.isAuthenticated()
+                    })
+                });
             });
         });
     });

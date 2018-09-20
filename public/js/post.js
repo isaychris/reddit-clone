@@ -85,28 +85,67 @@ $("document").ready(function () {
     })
 
     $(".upvote-post").click(function () {
-
+        alert('upvote clicked')
+        let down_arrow = $(this).parent().find(".downvote-post")
         let query = $(this).parent().find('span')
         let ref = $(this).parent().find('span').data('ref')
         let counter;
 
-        if (query.hasClass('down-enabled')) {
-            query.removeClass("down-enabled");
+        // if upvote is already toggled and user presses it again, 
+        // toggle off the upvote button and decrement vote.
+        if ($(this).hasClass("up-enabled")) {
             counter = query.text();
-            query.text(++counter);
-        } else if (!query.hasClass("up-enabled")) {
-            counter = query.text();
-            query.text(++counter);
-            query.addClass("up-enabled");
+            query.text(--counter);
+            $(this).removeClass("up-enabled");
 
             $.ajax({
                 type: "put",
                 data: {
-                    vote: counter
+                    vote: counter,
+                    state: "neutral"
                 },
                 url: `/vote/post/${ref}`,
                 success: function (res) {
                     alert("vote submited")
+                }
+            });
+            return false;
+        }
+
+        // if downvote is already toggled while upvote is pressed
+        // toggle off downvote and increment vote
+        if (down_arrow.hasClass('down-enabled')) {
+            down_arrow.removeClass("down-enabled");
+            counter = query.text();
+            query.text(++counter);
+
+            $.ajax({
+                type: "put",
+                data: {
+                    vote: counter,
+                    state: "neutral"
+                },
+                url: `/vote/post/${ref}`,
+                success: function (res) {}
+            });
+        }
+
+        // if upvote isnt toggled while upvote is pressed,
+        // toggle upvote and increment vote.
+        else if (!$(this).hasClass("up-enabled")) {
+            counter = query.text();
+            query.text(++counter);
+            $(this).addClass("up-enabled");
+
+            $.ajax({
+                type: "put",
+                data: {
+                    vote: counter,
+                    state: "up"
+                },
+                url: `/vote/post/${ref}`,
+                success: function (res) {
+                    alert("vote submitted")
                 }
             });
         }
@@ -114,27 +153,65 @@ $("document").ready(function () {
     });
 
     $(".downvote-post").click(function () {
+        let up_arrow = $(this).parent().find(".upvote-post")
         let query = $(this).parent().find('span')
         let ref = $(this).parent().find('span').data('ref')
         let counter;
 
-        if (query.hasClass('up-enabled')) {
-            query.removeClass("up-enabled");
+        // if downvote is already toggled and user presses it again, 
+        // toggle off the downvote button and increment vote.
+        if ($(this).hasClass("down-enabled")) {
             counter = query.text();
-            query.text(--counter);
-        } else if (!query.hasClass("down-enabled")) {
-            counter = query.text();
-            query.text(--counter);
-            query.addClass("down-enabled");
+            query.text(++counter);
+            $(this).removeClass("down-enabled");
 
             $.ajax({
                 type: "put",
                 data: {
-                    vote: counter
+                    vote: counter,
+                    state: "neutral"
                 },
                 url: `/vote/post/${ref}`,
                 success: function (res) {
-                    alert("vote submited")
+                    alert("vote submitted")
+                }
+            });
+            return false;
+        }
+
+        // if upvote is already toggled while downvote is pressed
+        // toggle off upvote and decrement vote
+        if (up_arrow.hasClass('up-enabled')) {
+            up_arrow.removeClass("up-enabled");
+            counter = query.text();
+            query.text(--counter);
+
+            $.ajax({
+                type: "put",
+                data: {
+                    vote: counter,
+                    state: "neutral"
+                },
+                url: `/vote/post/${ref}`,
+                success: function (res) {}
+            });
+
+            // if downvote isnt toggled while downvote is pressed,
+            // toggle downvote and decrement vote.
+        } else if (!$(this).hasClass("down-enabled")) {
+            counter = query.text();
+            query.text(--counter);
+            $(this).addClass("down-enabled");
+
+            $.ajax({
+                type: "put",
+                data: {
+                    vote: counter,
+                    state: "down"
+                },
+                url: `/vote/post/${ref}`,
+                success: function (res) {
+                    alert("vote submitted")
                 }
             });
         }

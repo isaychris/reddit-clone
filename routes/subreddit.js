@@ -5,8 +5,6 @@ let Subreddit = require("../models/subreddit");
 let Post = require("../models/post");
 let Comment = require("../models/comment");
 let Profile = require("../models/profile");
-let State = require("../models/state");
-
 
 // SUBREDDIT
 router.get('/:subreddit/:id', function (req, res) {

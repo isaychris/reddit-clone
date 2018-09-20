@@ -5,8 +5,7 @@ let Subreddit = require("../models/subreddit");
 let Post = require("../models/post");
 let Comment = require("../models/comment");
 let Profile = require("../models/profile");
-let State = require("../models/state");
-
+let PostState = require("../models/postState")
 
 // EDITING POSTS
 router.put('/edit/post/:id', function (req, res) {
@@ -52,76 +51,62 @@ router.delete('/delete/post/:id', function (req, res) {
 
 // SAVING POST
 router.put('/save/post/:id', function (req, res) {
+    let query = {
+        username: req.session.user,
+        ref: req.params.id
+    };
     let update = {
         saved: true
     };
     let options = {
-        upsert: true
-    };
-    let query = {
-        $and: [{
-                username: req.session.auth
-            },
-            {
-                post_states: {
-                    ref: body.params.id
-                }
-            }
-        ]
+        upsert: true,
+        setDefaultsOnInsert: true
     };
 
-    State.findOneAndUpdate(query, update, options, function (err, result) {
-            if (!error) {
-                // If the document doesn't exist
-                if (!result) {
-                    // Create it
-                    result = new State();
-                }
-                // Save the document
-                result.save(function (error) {
-                    if (!error) {
-                        // Do something with the document
-                    } else {
-                        throw error;
-                    }
-                });
-            }
-        })
-        .then(function () {
-            Profile.update({
-                username: req.session.user
-            }, {
-                $push: {
-                    saved_posts: req.params.id
-                }
-            }, function (err, doc) {
-                if (err) throw err;
-
-                console.log(`[${req.params.id}] post saved!`)
-                res.send(doc);
-            });
-        });
-});
+    PostState.findOneAndUpdate(query, update, options, function (error, result) {
+        console.log(result)
+        if (error) throw error;
+        res.send('nice')
+    })
+})
 
 // UNSAVING POST
 router.put('/unsave/post/:id', function (req, res) {
-    console.log("attempting to save");
-    Profile.update({
-        username: req.session.user
-    }, {
-        $pull: {
-            saved_posts: req.params.id
-        }
-    }, function (err, doc) {
-        if (err) throw err;
+    let query = {
+        username: req.session.user,
+        ref: req.params.id
+    };
+    let update = {
+        saved: false
+    };
+    let options = {
+        upsert: true,
+        setDefaultsOnInsert: true
+    };
 
-        console.log(`[${req.params.id}] post unsaved!`)
-        res.send(doc);
-    });
+    PostState.findOneAndUpdate(query, update, options, function (error, result) {
+        if (error) throw error;
+        res.send('nice')
+    })
 });
 
 // VOTING POST
 router.put('/vote/post/:id', function (req, res) {
+    console.log('is it working')
+    console.log(req.body.state)
+    console.log(req.body.vote)
+    let query = {
+        username: req.session.user,
+        ref: req.params.id
+    };
+    let update = {
+        vote: req.body.state
+    };
+    let options = {
+        upsert: true,
+        setDefaultsOnInsert: true
+    };
+
     Post.update({
         _id: req.params.id
     }, {
@@ -129,11 +114,20 @@ router.put('/vote/post/:id', function (req, res) {
     }, function (err, result) {
         if (err) throw err;
 
-        console.log(`[${req.params.id}] post voted!`)
-        res.send(result);
-    })
-});
+        if (result) {
+            console.log(`[${req.params.id}] post vote count changed!`)
+        }
+    }).then(function () {
+        PostState.findOneAndUpdate(query, update, options, function (err, result) {
+            if (err) throw err;
 
+            if (result) {
+                console.log(`[${req.params.id}] post vote count changed!`)
+                res.send("OK")
+            }
+        })
+    })
+})
 
 
 // DELETING COMMENT

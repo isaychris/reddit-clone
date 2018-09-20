@@ -16,3 +16,11 @@
 p {
     padding: 10px;
 }
+
+.down-enabled {
+    color: blue;
+}
+
+.up-enabled {
+    color: orange;
+}
