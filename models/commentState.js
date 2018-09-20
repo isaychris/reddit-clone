@@ -13,4 +13,4 @@ const commentStateSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('CommentState', commentStateSchema);
+module.exports = mongoose.model('CommentState', commentStateSchema, "commentStates");

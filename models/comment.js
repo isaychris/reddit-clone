@@ -7,7 +7,7 @@ const commentSchema = new mongoose.Schema({
         default: Date.now()
     },
     username: String,
-    parent: mongoose.Schema.Types.ObjectId,
+    ref: mongoose.Schema.Types.ObjectId,
     votes: {
         type: Number,
         default: 0

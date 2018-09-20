@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 
 let Subreddit = require("../models/subreddit");
@@ -6,6 +7,7 @@ let Post = require("../models/post");
 let Comment = require("../models/comment");
 let Profile = require("../models/profile");
 let PostState = require("../models/postState")
+let CommentState = require("../models/commentState")
 
 // EDITING POSTS
 router.put('/edit/post/:id', function (req, res) {
@@ -146,38 +148,63 @@ router.delete('/delete/comment/:id', function (req, res) {
 
 // SAVING COMMENT
 router.put('/save/comment/:id', function (req, res) {
-    Profile.update({
-        username: req.session.user
-    }, {
-        $push: {
-            saved_comments: req.params.id
-        }
-    }, function (err, doc) {
-        if (err) throw err;
+    let query = {
+        username: req.session.user,
+        ref: mongoose.Types.ObjectId(req.params.id)
+    };
+    let update = {
+        saved: true
+    };
+    let options = {
+        upsert: true,
+        setDefaultsOnInsert: true
+    };
 
-        console.log(`[${req.params.id}] comment saved!`)
-        res.send(doc);
-    });
+    CommentState.findOneAndUpdate(query, update, options, function (error, result) {
+        console.log(result)
+        if (error) throw error;
+        res.send('nice')
+    })
 });
 
 // UNSAVING COMMENT
 router.put('/unsave/comment/:id', function (req, res) {
-    Profile.update({
-        username: req.session.user
-    }, {
-        $pull: {
-            saved_comments: req.params.id
-        }
-    }, function (err, doc) {
-        if (err) throw err;
+    let query = {
+        username: req.session.user,
+        ref: mongoose.Types.ObjectId(req.params.id)
+    };
+    let update = {
+        saved: false
+    };
+    let options = {
+        upsert: true,
+        setDefaultsOnInsert: true
+    };
 
-        console.log(`[${req.params.id}] comment unsaved!`)
-        res.send(doc);
-    });
+    CommentState.findOneAndUpdate(query, update, options, function (error, result) {
+        console.log(result)
+        if (error) throw error;
+        res.send('nice')
+    })
 });
 
 // VOTING ON COMMENT
 router.put('/vote/comment/:id', function (req, res) {
+    console.log('is it working')
+    console.log(req.body.state)
+    console.log(req.body.vote)
+    let query = {
+        username: req.session.user,
+        ref: req.params.id
+    };
+    let update = {
+        vote: req.body.state
+    };
+    let options = {
+        upsert: true,
+        setDefaultsOnInsert: true
+    };
+
     Comment.update({
         _id: req.params.id
     }, {
@@ -185,8 +212,19 @@ router.put('/vote/comment/:id', function (req, res) {
     }, function (err, result) {
         if (err) throw err;
 
-        console.log(`[${req.params.id}] comment voted!`)
-    });
+        if (result) {
+            console.log(`[${req.params.id}] comment vote count changed!`)
+        }
+    }).then(function () {
+        CommentState.findOneAndUpdate(query, update, options, function (err, result) {
+            if (err) throw err;
+
+            if (result) {
+                console.log(`[${req.params.id}] comment vote count changed!`)
+                res.send("OK")
+            }
+        })
+    })
 });
 
 // CHECKING SUBREDDIT
