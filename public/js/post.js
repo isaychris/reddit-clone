@@ -4,7 +4,6 @@ $("document").ready(function () {
         let ref = query.data('ref')
         let body = query.find('p').text()
         let options = $(this).parent().parent()
-        console.log(query.find('p').text());
         query.find('p').html(`<textarea id="post-text" class="form-control">${body}</textarea>`)
         autosize($('#post-text'))
 
@@ -14,7 +13,6 @@ $("document").ready(function () {
         $("button.edit_cancel").click(function () {
             let text = body;
 
-            console.log('canceled')
             $("#post-text").remove();
             $(".edit_cancel").remove();
             $(".edit_save").remove();
@@ -24,7 +22,6 @@ $("document").ready(function () {
         })
 
         $("button.edit_submit").click(function () {
-            console.log("attempting to save")
             let new_text = $('#post-text').val();
             $.ajax({
                 type: "put",
@@ -64,7 +61,6 @@ $("document").ready(function () {
     $(".save-post").click(function () {
         let query = $(this).parent().parent().parent().parent()
         let ref = query.data('ref')
-        console.log($(this).text());
 
         if ($(this).text() == "save") {
             $.ajax({
@@ -85,7 +81,6 @@ $("document").ready(function () {
     })
 
     $(".upvote-post").click(function () {
-        alert('upvote clicked')
         let down_arrow = $(this).parent().find(".downvote-post")
         let query = $(this).parent().find('span')
         let ref = $(this).parent().find('span').data('ref')
@@ -105,9 +100,7 @@ $("document").ready(function () {
                     state: "neutral"
                 },
                 url: `/vote/post/${ref}`,
-                success: function (res) {
-                    alert("vote submited")
-                }
+                success: function (res) {}
             });
             return false;
         }
@@ -144,9 +137,7 @@ $("document").ready(function () {
                     state: "up"
                 },
                 url: `/vote/post/${ref}`,
-                success: function (res) {
-                    alert("vote submitted")
-                }
+                success: function (res) {}
             });
         }
         return false;
@@ -172,9 +163,7 @@ $("document").ready(function () {
                     state: "neutral"
                 },
                 url: `/vote/post/${ref}`,
-                success: function (res) {
-                    alert("vote submitted")
-                }
+                success: function (res) {}
             });
             return false;
         }
@@ -210,9 +199,7 @@ $("document").ready(function () {
                     state: "down"
                 },
                 url: `/vote/post/${ref}`,
-                success: function (res) {
-                    alert("vote submitted")
-                }
+                success: function (res) {}
             });
         }
         return false;

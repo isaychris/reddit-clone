@@ -181,18 +181,28 @@ router.put('/unsave/comment/:id', function (req, res) {
         setDefaultsOnInsert: true
     };
 
-    CommentState.findOneAndUpdate(query, update, options, function (error, result) {
-        console.log(result)
-        if (error) throw error;
-        res.send('nice')
+
+    Comment.update({
+        _id: req.params.id
+    }, {
+        votes: req.body.vote
+    }, function (err, result) {
+        if (err) throw err;
+
+        if (result) {
+            console.log(`[${req.params.id}] comment vote count changed!`)
+        }
+    }).then(function () {
+        CommentState.findOneAndUpdate(query, update, options, function (error, result) {
+            console.log(result)
+            if (error) throw error;
+            res.send('nice')
+        })
     })
 });
 
 // VOTING ON COMMENT
 router.put('/vote/comment/:id', function (req, res) {
-    console.log('is it working')
-    console.log(req.body.state)
-    console.log(req.body.vote)
     let query = {
         username: req.session.user,
         ref: req.params.id
@@ -254,8 +264,8 @@ router.put('/subscribe/:subreddit', function (req, res) {
     }, function (err, doc) {
         if (err) throw err;
 
-        console.log(`[${req.params.subeddit}] subscription added!`)
-        res.send("success!")
+        console.log(`[${req.params.subreddit}] subscription added!`)
+        res.send('success!')
     })
 });
 
@@ -265,13 +275,13 @@ router.put('/unsubscribe/:subreddit', function (req, res) {
         username: req.session.user
     }, {
         $pull: {
-            subscribed: req.body.subreddit
+            subscribed: req.params.subreddit
         }
     }, function (err, doc) {
         if (err) throw err;
 
         console.log(`[${req.params.subeddit}] subscription removed!`)
-        res.send("success!")
+        res.send('success!')
     })
 });
 

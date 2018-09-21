@@ -2,7 +2,6 @@ $("document").ready(function () {
     $(".edit-comment").click(function () {
         let query = $(this).parent().parent().parent().parent()
         let ref = query.data('ref')
-        console.log(ref);
 
         let body = query.find(".comment-body").text()
         let options = $(this).parent().parent().parent()
@@ -15,7 +14,6 @@ $("document").ready(function () {
         $("button.edit-comment-cancel").click(function () {
             let text = body;
 
-            console.log('canceled')
             $("#comment-text").remove();
             $(".edit_comment-cancel").remove();
             $(".edit_comment-save").remove();
@@ -25,9 +23,7 @@ $("document").ready(function () {
         })
 
         $("button.edit-comment-submit").click(function () {
-            console.log("attempting to save")
             let new_text = $('#comment-text').val();
-            console.log(new_text)
             $.ajax({
                 type: "put",
                 url: `/edit/comment/${ref}`,
@@ -64,15 +60,11 @@ $("document").ready(function () {
     })
 
     $(".save-comment").click(function () {
-        alert("attempting to save")
         let query = $(this).parent().parent().parent()
         let ref = query.data('ref')
         let that = $(this)
-        console.log($(this).text());
-        console.log(ref);
 
         if ($(this).text() == "save") {
-            alert('calling ajax')
             $.ajax({
                 type: "put",
                 url: `/save/comment/${ref}`,
@@ -93,7 +85,6 @@ $("document").ready(function () {
     })
 
     $(".upvote-comment").click(function () {
-        alert('upvote clicked')
         let down_arrow = $(this).parent().find(".downvote-comment")
         let query = $(this).parent().parent().parent().find('#comment-votes')
         let ref = $(this).parent().parent().parent().data('ref')
@@ -113,9 +104,7 @@ $("document").ready(function () {
                     state: "neutral"
                 },
                 url: `/vote/pcomment/${ref}`,
-                success: function (res) {
-                    alert("vote submited")
-                }
+                success: function (res) {}
             });
             return false;
         }
@@ -152,16 +141,13 @@ $("document").ready(function () {
                     state: "up"
                 },
                 url: `/vote/comment/${ref}`,
-                success: function (res) {
-                    alert("vote submitted")
-                }
+                success: function (res) {}
             });
         }
         return false;
     })
 
     $(".downvote-comment").click(function () {
-        alert('upvote clicked')
         let up_arrow = $(this).parent().find(".upvote-comment")
         let query = $(this).parent().parent().parent().find('#comment-votes')
         let ref = $(this).parent().parent().parent().data('ref')
@@ -181,9 +167,7 @@ $("document").ready(function () {
                     state: "neutral"
                 },
                 url: `/vote/comment/${ref}`,
-                success: function (res) {
-                    alert("vote submitted")
-                }
+                success: function (res) {}
             });
             return false;
         }
@@ -219,9 +203,7 @@ $("document").ready(function () {
                     state: "down"
                 },
                 url: `/vote/comment/${ref}`,
-                success: function (res) {
-                    alert("vote submitted")
-                }
+                success: function (res) {}
             });
         }
         return false;

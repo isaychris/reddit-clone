@@ -7,7 +7,7 @@ let Post = require("../models/post");
 let Comment = require("../models/comment");
 let Profile = require("../models/profile");
 let PostState = require("../models/postState")
-let CommentState = require("../models/commentState")
+
 
 // SUBREDDIT
 router.get('/:subreddit/:id', function (req, res) {
@@ -18,67 +18,87 @@ router.get('/:subreddit/:id', function (req, res) {
 router.get('/:subreddit', function (req, res) {
     let subreddit = undefined;
     let posts = undefined;
+    let subscribed = false;
 
     Subreddit.find({
         name: req.params.subreddit
     }, function (err, doc) {
         if (err) throw err;
 
-        if (doc.length) {
+        if (!doc.length) {
+            res.send("Subreddit doesnt exist")
+            return;
+        } else {
             subreddit = doc[0]
         }
     }).then(function () {
-        PostState.find({
-            username: req.session.user
+        Profile.find({
+            username: req.session.user,
+            subscribed: req.params.subreddit,
         }, function (err, doc) {
             if (err) throw err;
 
-            if (doc.length) {
-                postStates = doc
+            if (!doc.length) {
+                // res.send("Unable to find subreddit state")
+                return;
+            } else {
+                console.log(doc)
+                subscribed = true
             }
         }).then(function () {
-            Post.aggregate([{
-                    $match: {
-                        subreddit: req.params.subreddit
-                    }
-                },
-                {
-                    $sort: {
-                        votes: -1
-                    }
-                },
-                {
-                    $lookup: {
-                        from: "postStates",
-                        localField: "_id", // field in the orders collection
-                        foreignField: "ref", // field in the items collection
-                        as: "states"
-                    }
-                }
-            ]).exec(function (err, result) {
+            PostState.find({
+                username: req.session.user
+            }, function (err, doc) {
                 if (err) throw err;
 
-                if (result.length) {
-                    posts = result
+                if (doc.length) {
+                    postStates = doc
                 }
+            }).then(function () {
+                Post.aggregate([{
+                        $match: {
+                            subreddit: req.params.subreddit
+                        }
+                    },
+                    {
+                        $sort: {
+                            votes: -1
+                        }
+                    },
+                    {
+                        $lookup: {
+                            from: "postStates",
+                            localField: "_id", // field in the orders collection
+                            foreignField: "ref", // field in the items collection
+                            as: "states"
+                        }
+                    }
+                ]).exec(function (err, result) {
+                    if (err) throw err;
 
-                console.log(`[${req.params.subreddit}] fetching posts!`)
-                res.render("./subreddit/subreddit", {
-                    info: subreddit,
-                    posts: posts,
-                    isAuth: req.isAuthenticated()
-                })
+                    if (result.length) {
+                        posts = result
+                    }
+
+                    console.log(`[${req.params.subreddit}] fetching posts!`)
+                    res.render("./subreddit/subreddit", {
+                        info: subreddit,
+                        posts: posts,
+                        state: subscribed,
+                        isAuth: req.isAuthenticated()
+                    })
+                });
             });
         });
     });
 });
-
 
 router.get('/:subreddit/:id/comments', function (req, res) {
     console.log("viewing POST")
     let info = undefined
     let post = undefined
     let comments = undefined
+    let subscribed = false;
 
     Subreddit.find({
         name: req.params.subreddit
@@ -89,77 +109,71 @@ router.get('/:subreddit/:id/comments', function (req, res) {
             info = doc[0]
         }
     }).then(function () {
-        Post.find({
-            _id: req.params.id
+        Profile.find({
+            username: req.session.user,
+            subscribed: req.params.subreddit,
         }, function (err, doc) {
-            if (err) throw err
+            if (err) throw err;
 
-            if (doc.length) {
-                post = doc[0]
+            if (!doc.length) {
+                // res.send("Unable to find subreddit state")
+                return;
+            } else {
+                console.log(doc)
+                subscribed = true
             }
         }).then(function () {
-            PostState.find({
-                username: req.session.user,
-                ref: req.params.id
+            Post.find({
+                _id: req.params.id
             }, function (err, doc) {
-                if (err) throw err;
+                if (err) throw err
 
                 if (doc.length) {
-                    postStates = doc[0]
+                    post = doc[0]
                 }
             }).then(function () {
-                Comment.aggregate([{
-                        $match: {
-                            ref: mongoose.Types.ObjectId(req.params.id)
-                        }
-                    },
-                    {
-                        $lookup: {
-                            from: "commentStates",
-                            localField: "_id", // field in the orders collection
-                            foreignField: "ref", // field in the items collection
-                            as: "states"
-                        }
-                    }
-                ]).exec(function (err, result) {
+                PostState.find({
+                    username: req.session.user,
+                    ref: req.params.id
+                }, function (err, doc) {
                     if (err) throw err;
 
-                    if (result.length) {
-                        comments = result
+                    if (doc.length) {
+                        postStates = doc[0]
                     }
+                }).then(function () {
+                    Comment.aggregate([{
+                            $match: {
+                                ref: mongoose.Types.ObjectId(req.params.id)
+                            }
+                        },
+                        {
+                            $lookup: {
+                                from: "commentStates",
+                                localField: "_id", // field in the orders collection
+                                foreignField: "ref", // field in the items collection
+                                as: "states"
+                            }
+                        }
+                    ]).exec(function (err, result) {
+                        if (err) throw err;
 
-                    console.log(result)
-                    res.render('./post', {
-                        info: info,
-                        post: post,
-                        comments: comments,
-                        isAuth: req.isAuthenticated()
+                        if (result.length) {
+                            comments = result
+                        }
+
+                        console.log(result)
+                        res.render('./post', {
+                            info: info,
+                            post: post,
+                            comments: comments,
+                            state: subscribed,
+                            isAuth: req.isAuthenticated()
+                        })
                     })
                 })
             })
         })
-    })
-})
-
-
-router.get('/:subreddit/test/:id', function (req, res) {
-    Comment.aggregate([{
-            $match: {
-                ref: req.params.id
-            }
-        },
-        {
-            $lookup: {
-                from: "commentStates",
-                localField: "_id", // field in the orders collection
-                foreignField: "ref", // field in the items collection
-                as: "states"
-            }
-        }
-    ]).exec(function (err, result) {
-        if (err) throw err;
-
-        res.json(result)
     })
 })
 
@@ -178,17 +192,35 @@ router.post('/:subreddit/:id/comments', function (req, res) {
 })
 
 router.get('/:subreddit/submit/post', function (req, res) {
-    Subreddit.find({
-        name: req.params.subreddit
-    }, function (err, doc) {
-        if (err) throw err
+    subscribed = false
 
-        if (doc.length) {
-            res.render('./subreddit/subreddit_post', {
-                info: doc[0],
-                isAuth: req.isAuthenticated(),
-            })
+    Profile.find({
+        username: req.session.user,
+        subscribed: req.params.subreddit,
+    }, function (err, doc) {
+        if (err) throw err;
+
+        if (!doc.length) {
+            // res.send("Unable to find subreddit state")
+            return;
+        } else {
+            console.log(doc)
+            subscribed = true
         }
+    }).then(function () {
+        Subreddit.find({
+            name: req.params.subreddit
+        }, function (err, doc) {
+            if (err) throw err
+
+            if (doc.length) {
+                res.render('./subreddit/subreddit_post', {
+                    info: doc[0],
+                    state: subscribed,
+                    isAuth: req.isAuthenticated(),
+                })
+            }
+        })
     })
 })
 
@@ -209,17 +241,35 @@ router.post('/:subreddit/submit/post', function (req, res) {
 
 
 router.get('/:subreddit/submit/link', function (req, res) {
-    Subreddit.find({
-        name: req.params.subreddit
-    }, function (err, doc) {
-        if (err) throw err
+    subscribed = false;
 
-        if (doc.length) {
-            res.render('./subreddit/subreddit_link', {
-                info: doc[0],
-                isAuth: req.isAuthenticated(),
-            })
+    Profile.find({
+        username: req.session.user,
+        subscribed: req.params.subreddit,
+    }, function (err, doc) {
+        if (err) throw err;
+
+        if (!doc.length) {
+            // res.send("Unable to find subreddit state")
+            return;
+        } else {
+            console.log(doc)
+            subscribed = true
         }
+    }).then(function () {
+        Subreddit.find({
+            name: req.params.subreddit
+        }, function (err, doc) {
+            if (err) throw err
+
+            if (doc.length) {
+                res.render('./subreddit/subreddit_link', {
+                    info: doc[0],
+                    state: subscribed,
+                    isAuth: req.isAuthenticated(),
+                })
+            }
+        })
     })
 })
 

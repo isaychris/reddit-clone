@@ -7,23 +7,11 @@
     <%- include('../partials/jumbotron', {name: info.name}) %>
     <span id="auth"><%= isAuth %></span>
 
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4 text-center" id="subreddit-name">
-                <%= info.name %>
-            </h1>
-        </div>
-    </div>
-
     <div class="grid-container">
-        <div class="sidebar subarea edit-area">
-            <div class="area-overlap actions">
-                <%- include('../partials/sidebar_subreddit_actions', {name: info.name}) %>
-                </div>
+        <div class="sidebar">
+                <%- include('../partials/sidebar_subreddit_actions', {name: info.name, state: state}) %>
 
-            <div class="subscribed">
                 <%- include('../partials/sidebar_subreddit_info', {desc: info.description}) %>
-            </div>
         </div>
 
         <div class="main">

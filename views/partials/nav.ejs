@@ -5,12 +5,20 @@
     </a>
     <div id="user-info">
         <% if(user) { %>
-        <span id="user"><%= user %></span> • <span id="post-karma">0</span> • <span id="comment-karma">0</span>
-        <a class="btn btn-primary" href="/logout" id="user-settings">Logout</a>
+<!-- Example single danger button -->
+<div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span id="user"><%= user %></span></button>
+        <div class="dropdown-menu dropdown-menu-right">
+        <h6 class="dropdown-header">karma: <span id="karma">0</span></h6>
+        <div class="dropdown-divider"></div>
+
+          <a class="dropdown-item" href="#">Profile</a>
+          <a class="dropdown-item" href="/logout">Logout</a>
+        </div>
+      </div>
         <% } else { %>
         <a class="btn btn-success" href="/login" id="user-settings">Sign in</a>
         <% } %>
-
     </div>
 
 </nav>

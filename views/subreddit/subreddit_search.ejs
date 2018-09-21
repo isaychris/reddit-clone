@@ -16,8 +16,7 @@
     </div>
 
     <div class="grid-container">
-        <div class="sidebar subarea edit-area">
-            <div class="area-overlap actions">
+        <div class="sidebar">
                 <form id="form-search" action="/r/<%=info.name%>/search/" method="post">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" name="query" placeholder="Find a post" value="<%= query %>"required>
@@ -29,11 +28,8 @@
                 <a class="btn btn-block btn-success" href="/r/<%=info.name%>/submit/link" id="submit-link">Submit new link</a><br>
                 <a class="btn btn-block btn-primary" href="/r/<%=info.name%>/submit/post" id="submit-post">Submit new post</a><br>
                 <a class="btn btn-block btn-light" href="/subscribe/<%=info.name%>" id="submit-post">Subscribe</a><br>  
-             </div>
 
-            <div class="subscribed">
                 <%- include('partials/sidebar_info', {desc: info.description}) %>
-            </div>
         </div>
 
         <div class="main">

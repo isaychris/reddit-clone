@@ -20,10 +20,9 @@ Work in Progress!
 * Authentication
 
 ### TODO:
+* loading and saving the state for subscribing a subreddit
 * Profile pages
 * Nested comments
-* Saving the state for vote and save for each post and comment
-* Saving the state for subscribing a subreddit
 * Refactoring
 
 # Screenshots:

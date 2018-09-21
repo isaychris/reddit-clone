@@ -37,6 +37,11 @@ app.use('/', require('./routes/front'));
 app.use('/', require('./routes/index'));
 app.use('/r/', require('./routes/subreddit'));
 
+app.get('*', function (req, res) {
+
+    res.send("Nothing to see here.")
+});
+
 // functions for persistant sessions
 passport.serializeUser(function (user_id, done) {
     done(null, user_id);

@@ -1,17 +1,18 @@
 <% if(isAuth) { %>
-    <h3>Subscribed</h3>
+    <h3 class="text-center">Subscribed</h3>
     <table class="table table-striped">
         <tbody>
-    <% if (subscribed != undefined) { 
-        subscribed.forEach((s) => { %>
+    <% if (subscribed != undefined) { %>
+        <% subscribed.forEach((s) => { %>
             <tr>
             <td><a href="/r/<%= s %>">/r/<%= s %></a></td>
             </tr>
         <% }); %>
-        <% } else { %>
-        You are not subscribed to any subreddit
+
+            <% if(subscribed.length == 0) { %>
+                You are not subscribed to any subreddit
+            <% } %>
         <% } %>
-    </ul>  
     <% } %>
     </tbody>
     </table>

@@ -8,27 +8,10 @@
     <span id="auth"><%= isAuth %></span>
 
     <div class="grid-container">
-        <div class="sidebar subarea edit-area">
-            <div class="area-overlap actions">
+            <div class="sidebar">
                 <%- include('../partials/sidebar_index_actions') %>
+                <%- include('../partials/sidebar_index_subscribed', {isAuth, subscribed}) %>
             </div>
-            <div class="subscribed">
-                    <h3>Subscribed</h3>
-                    <table class="table table-striped">
-                        <tbody>
-                <% if (subscribed != undefined) { 
-                    subscribed.forEach((sub) => { %>
-                        <tr>
-                        <td><a href="/r/<%= sub %>">/r/<%= sub %></a></td>
-                        </tr>                    
-                    <% }); %>
-                    <% } else { %>
-                    You are not subscribed to any subreddit
-                    <% } %>
-                </tbody>
-            </table>
-            </div>
-        </div>
 
         <div class="main">
             <h3>new link</h3>

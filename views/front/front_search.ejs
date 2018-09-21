@@ -8,10 +8,8 @@
     <span id="auth"><%= isAuth %></span>
 
     <div class="grid-container">
-        <div class="sidebar subarea edit-area">
-            <div class="area-overlap actions">
+        <div class="sidebar">
                 <form id="form-search" action="/search/" method="post">
-
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" name="query" placeholder="Find a post" value="<%= query %>"required>
                         <div class="input-group-append">
@@ -19,46 +17,15 @@
                         </div>
                     </div>
                 </form>   
-                
-                <a class="btn btn-block btn-success" href="/submit/link" id="submit-link">Submit new link</a><br>
-                <a class="btn btn-block btn-primary" href="/submit/post" id="submit-post">Submit new post</a><br>
-                <a class="btn btn-block btn-light" href="/submit/subreddit" id="create-subreddit">Create subreddit</a><br>            
+                <div class="btn-group" style="width: 100%">
+                        <a class="btn btn-success auth-req" href="/submit/link" id="submit-link" style="width: 100%">New link</a>
+                        <a class="btn btn-primary auth-req" href="/submit/post" id="submit-post" style="width: 100%">New post</a>
+                        </div>
+                        <br><br>
+                        
+                        <a class="btn btn-block btn-light auth-req" href="/submit/subreddit" id="create-subreddit">Create subreddit</a><br>
 
-            </div>
-            <div class="subscribed">
-                    <% if(isAuth) { %>
-                    <h3>Subscribed</h3>
-                    <table class="table table-striped">
-                        <tbody>
-                    <% if (subscribed != undefined) { 
-                        subscribed.forEach((s) => { %>
-                            <tr>
-                            <td><a href="/r/<%= s %>">/r/<%= s %></a></td>
-                            </tr>
-                        <% }); %>
-                        <% } else { %>
-                        You are not subscribed to any subreddit
-                        <% } %>
-                    </ul>  
-                    <% } %>
-                    </tbody>
-                    </table>
-
-                    <h3>Subreddits</h3>
-                    <table class="table table-striped">
-                        <tbody>
-                    <% if (subreddits != undefined) { 
-                        subreddits.forEach((s) => { %>
-                            <tr>
-                            <td><a href="/r/<%= s.name %>">/r/<%= s.name %></a></td>
-                            </tr>
-                        <% }); %>
-                        <% } else { %>
-                        There isnt any subreddits
-                        <% } %>
-                        </tbody>
-                    </table>   
-                </div>
+                <%- include('../partials/sidebar_index_subscribed', {isAuth, subscribed}) %>
         </div>
 
         <div class="main">

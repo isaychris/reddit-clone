@@ -1,4 +1,4 @@
-<h3>Subreddits</h3>
+<h3 class="text-center">Subreddits</h3>
 <table class="table table-striped">
     <tbody>
 <% if (subreddits != undefined) { 
@@ -7,8 +7,9 @@
         <td><a href="/r/<%= s.name %>">/r/<%= s.name %></a></td>
         </tr>
     <% }); %>
-    <% } else { %>
-    There isnt any subreddits
+    <% if(subreddits.length == 0) { %>
+        You are not subscribed to any subreddit
     <% } %>
+<% } %>
     </tbody>
 </table>   
