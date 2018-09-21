@@ -2,6 +2,9 @@
   "name": "reddit-npm",
   "version": "1.0.0",
   "description": "A reddit clone",
+  "engines": {
+    "node": "8.11.4"
+  },
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
