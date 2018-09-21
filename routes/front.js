@@ -50,8 +50,7 @@ router.get('/', function (req, res) {
                             localField: "_id", // field in the orders collection
                             foreignField: "ref", // field in the items collection
                             as: "states",
-                        },
-                        $
+                        }
                     }
                 ]).exec(function (err, result) {
                     if (err) throw err;

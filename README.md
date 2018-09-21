@@ -2,7 +2,7 @@
 A reddit clone written using node.js / express.js / mongodb / passport.js
 
 Work in Progress!
-![Image](https://i.imgur.com/rtuTXWU.png)
+![Image](https://i.imgur.com/ResU1lW.png)
 
 ### Current Working:
 * Viewing subreddits
@@ -20,7 +20,6 @@ Work in Progress!
 * Authentication
 
 ### TODO:
-* loading and saving the state for subscribing a subreddit
 * Profile pages
 * Nested comments
 * Refactoring
