@@ -45,48 +45,23 @@ router.get('/:subreddit', function (req, res) {
                 subscribed = true
             }
         }).then(function () {
-            PostState.find({
-                username: req.session.user
-            }, function (err, doc) {
+            Post.find({
+                subreddit: req.params.subreddit
+            }).sort({
+                votes: '-1'
+            }).exec(function (err, result) {
                 if (err) throw err;
-
-                if (doc.length) {
-                    postStates = doc
+                if (result.length) {
+                    posts = result
                 }
-            }).then(function () {
-                Post.aggregate([{
-                        $match: {
-                            subreddit: req.params.subreddit
-                        }
-                    },
-                    {
-                        $sort: {
-                            votes: -1
-                        }
-                    },
-                    {
-                        $lookup: {
-                            from: "postStates",
-                            localField: "_id", // field in the orders collection
-                            foreignField: "ref", // field in the items collection
-                            as: "states"
-                        }
-                    }
-                ]).exec(function (err, result) {
-                    if (err) throw err;
 
-                    if (result.length) {
-                        posts = result
-                    }
-
-                    console.log(`[${req.params.subreddit}] fetching posts!`)
-                    res.render("./subreddit/subreddit", {
-                        info: subreddit,
-                        posts: posts,
-                        state: subscribed,
-                        isAuth: req.isAuthenticated()
-                    })
-                });
+                console.log(`[${req.params.subreddit}] fetching posts!`)
+                res.render("./subreddit/subreddit", {
+                    info: subreddit,
+                    posts: posts,
+                    state: subscribed,
+                    isAuth: req.isAuthenticated()
+                })
             });
         });
     });
@@ -129,43 +104,23 @@ router.get('/:subreddit/:id/comments', function (req, res) {
                     post = doc[0]
                 }
             }).then(function () {
-                PostState.find({
-                    username: req.session.user,
+
+                Comment.find({
                     ref: req.params.id
-                }, function (err, doc) {
+                }).sort({
+                    votes: '-1'
+                }).exec(function (err, result) {
                     if (err) throw err;
-
-                    if (doc.length) {
-                        postStates = doc[0]
+                    if (result.length) {
+                        comments = result
                     }
-                }).then(function () {
-                    Comment.aggregate([{
-                            $match: {
-                                ref: mongoose.Types.ObjectId(req.params.id)
-                            }
-                        },
-                        {
-                            $lookup: {
-                                from: "commentStates",
-                                localField: "_id", // field in the orders collection
-                                foreignField: "ref", // field in the items collection
-                                as: "states"
-                            }
-                        }
-                    ]).exec(function (err, result) {
-                        if (err) throw err;
 
-                        if (result.length) {
-                            comments = result
-                        }
-
-                        res.render('./post', {
-                            info: info,
-                            post: post,
-                            comments: comments,
-                            state: subscribed,
-                            isAuth: req.isAuthenticated()
-                        })
+                    res.render('./post', {
+                        info: info,
+                        post: post,
+                        comments: comments,
+                        state: subscribed,
+                        isAuth: req.isAuthenticated()
                     })
                 })
             })

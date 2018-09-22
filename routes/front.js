@@ -37,9 +37,10 @@ router.get('/', function (req, res) {
                     postStates = doc
                 }
             }).then(function () {
-                Post.find({}, function (err, result) {
+                Post.find({}).sort({
+                    votes: '-1'
+                }).exec(function (err, result) {
                     if (err) throw err;
-
                     if (result.length) {
                         posts = result
                     }
