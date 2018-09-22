@@ -36,6 +36,7 @@ app.use('/', require('./routes/auth'));
 app.use('/', require('./routes/front'));
 app.use('/', require('./routes/index'));
 app.use('/r/', require('./routes/subreddit'));
+app.use('/u/', require('./routes/profile'));
 
 app.get('*', function (req, res) {
 

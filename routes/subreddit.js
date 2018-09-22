@@ -42,7 +42,6 @@ router.get('/:subreddit', function (req, res) {
                 // res.send("Unable to find subreddit state")
                 return;
             } else {
-                console.log(doc)
                 subscribed = true
             }
         }).then(function () {
@@ -94,7 +93,6 @@ router.get('/:subreddit', function (req, res) {
 });
 
 router.get('/:subreddit/:id/comments', function (req, res) {
-    console.log("viewing POST")
     let info = undefined
     let post = undefined
     let comments = undefined
@@ -119,7 +117,6 @@ router.get('/:subreddit/:id/comments', function (req, res) {
                 // res.send("Unable to find subreddit state")
                 return;
             } else {
-                console.log(doc)
                 subscribed = true
             }
         }).then(function () {
@@ -162,7 +159,6 @@ router.get('/:subreddit/:id/comments', function (req, res) {
                             comments = result
                         }
 
-                        console.log(result)
                         res.render('./post', {
                             info: info,
                             post: post,
@@ -204,7 +200,6 @@ router.get('/:subreddit/submit/post', function (req, res) {
             // res.send("Unable to find subreddit state")
             return;
         } else {
-            console.log(doc)
             subscribed = true
         }
     }).then(function () {
@@ -253,7 +248,6 @@ router.get('/:subreddit/submit/link', function (req, res) {
             // res.send("Unable to find subreddit state")
             return;
         } else {
-            console.log(doc)
             subscribed = true
         }
     }).then(function () {
@@ -281,7 +275,6 @@ router.post('/:subreddit/submit/link', function (req, res) {
     }
 
     if (checkURL(req.body.link)) {
-        console.log("its an image")
         type = "img"
     }
 
@@ -304,6 +297,7 @@ router.post('/:subreddit/submit/link', function (req, res) {
 router.post('/:subreddit/search', function (req, res) {
     let subreddit = undefined
     let posts = undefined
+    let subscribed = false
 
     Subreddit.find({
         name: req.params.subreddit
@@ -314,31 +308,46 @@ router.post('/:subreddit/search', function (req, res) {
             subreddit = doc[0]
         }
     }).then(function () {
-        Post.find({
-            $and: [{
-                    subreddit: req.params.subreddit
-                },
-                {
-                    title: {
-                        $regex: '.*' + req.body.query + '.*',
-                        $options: 'i'
-                    }
-                }
-            ]
-        }).sort({
-            votes: '-1'
-        }).exec(function (err, result) {
+        Profile.find({
+            username: req.session.user,
+            subscribed: req.params.subreddit,
+        }, function (err, doc) {
             if (err) throw err;
-            if (result.length) {
-                posts = result
-            }
 
-            console.log(`[${req.params.subreddit}] searching for posts which contain '{${req.body.query}}'`)
-            res.render("./subreddit/subreddit_search", {
-                info: subreddit,
-                posts: result,
-                query: req.body.query,
-                isAuth: req.isAuthenticated(),
+            if (!doc.length) {
+                // res.send("Unable to find subreddit state")
+                return;
+            } else {
+                subscribed = true
+            }
+        }).then(function () {
+            Post.find({
+                $and: [{
+                        subreddit: req.params.subreddit
+                    },
+                    {
+                        title: {
+                            $regex: '.*' + req.body.query + '.*',
+                            $options: 'i'
+                        }
+                    }
+                ]
+            }).sort({
+                votes: '-1'
+            }).exec(function (err, result) {
+                if (err) throw err;
+                if (result.length) {
+                    posts = result
+                }
+
+                console.log(`[${req.params.subreddit}] searching for posts which contain '{${req.body.query}}'`)
+                res.render("./subreddit/subreddit_search", {
+                    info: subreddit,
+                    posts: result,
+                    state: subscribed,
+                    query: req.body.query,
+                    isAuth: req.isAuthenticated(),
+                })
             })
         })
     })

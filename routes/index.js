@@ -66,7 +66,6 @@ router.put('/save/post/:id', function (req, res) {
     };
 
     PostState.findOneAndUpdate(query, update, options, function (error, result) {
-        console.log(result)
         if (error) throw error;
         res.send('nice')
     })
@@ -94,9 +93,6 @@ router.put('/unsave/post/:id', function (req, res) {
 
 // VOTING POST
 router.put('/vote/post/:id', function (req, res) {
-    console.log('is it working')
-    console.log(req.body.state)
-    console.log(req.body.vote)
     let query = {
         username: req.session.user,
         ref: req.params.id
@@ -161,7 +157,6 @@ router.put('/save/comment/:id', function (req, res) {
     };
 
     CommentState.findOneAndUpdate(query, update, options, function (error, result) {
-        console.log(result)
         if (error) throw error;
         res.send('nice')
     })
@@ -194,7 +189,6 @@ router.put('/unsave/comment/:id', function (req, res) {
         }
     }).then(function () {
         CommentState.findOneAndUpdate(query, update, options, function (error, result) {
-            console.log(result)
             if (error) throw error;
             res.send('nice')
         })
@@ -285,4 +279,27 @@ router.put('/unsubscribe/:subreddit', function (req, res) {
     })
 });
 
+router.get('/check/states/posts', function (req, res) {
+    PostState.find({
+        username: req.session.user
+    }, function (err, doc) {
+        if (err) throw err
+
+        if (doc.length) {
+            res.send(doc)
+        }
+    })
+})
+
+router.get('/check/states/comments', function (req, res) {
+    CommentState.find({
+        username: req.session.user
+    }, function (err, doc) {
+        if (err) throw err
+
+        if (doc.length) {
+            res.send(doc)
+        }
+    })
+})
 module.exports = router;

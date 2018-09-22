@@ -1,0 +1,97 @@
+<html>
+    <title>/u/<%= profile_user %></title>
+<%- include('../partials/head') %>
+
+
+<body>
+    <%- include('../partials/nav', {user: locals.user}) %>
+    <%- include('../partials/jumbotron', {name: profile_user}) %>
+    <span id="auth"><%= isAuth %></span>
+
+    <div class="grid-container">
+        <div class="sidebar">
+            <img id="profile-pic" src="/images/default.png" height="134" width="134">
+            <div id="profile-info">Karma:<span class="karma"> 0 </span> | Joined:<span class="joined"> 0 </span></div><br>
+            
+            <a class="btn btn-block btn-primary" href="/u/<%= profile_user %>/posts">Posts</a><br>
+            <a class="btn btn-block btn-outline-primary" href="/u/<%= profile_user %>/comments">Comments</a><br>
+            <a class="btn btn-block btn-outline-primary" href="/u/<%= profile_user %>/saved">Saved</a><br>
+
+            <h3 class="text-center">Subscribed</h3>
+            <table class="table table-striped">
+                <tbody>
+            <% if (subscribed != undefined) { %>
+                <% subscribed.forEach((s) => { %>
+                    <tr>
+                    <td><a href="/r/<%= s %>">/r/<%= s %></a></td>
+                    </tr>
+                <% }); %>
+        
+                    <% if(subscribed.length == 0) { %>
+                        <span class="text-center">You are not subscribed to any subreddit</span>
+                    <% } %>
+                <% } %>
+            </tbody>
+            </table>
+        </div>
+
+        <div class="main">
+                <% if (posts != undefined) { 
+                    posts.forEach((post) => { %>
+            <article class="post" data-ref="<%= post._id %>">
+                <div class="arrows">
+                        <div class="upvote-post auth-req"><i class="far fa-caret-square-up"></i></div> 
+                        <span class="votes" data-ref="<%= post._id %>"><%= post.votes %></span>
+                        <div class="downvote-post auth-req"><i class="far fa-caret-square-down"></i></div>
+                </div>
+
+                <% if(post.type == "img") { %>
+                <a href="<%= post.link %>"><img src="<%= post.link %>" height="55" width="55" class="thumbnail"></a>
+                <% } else if (post.type == "link") { %>
+                <a href="<%= post.link %>"><img src="/images/link.png" height="55" width="55" class="thumbnail"></a>
+                <% } else { %>
+                <a href="/r/<%= post.subreddit %>/<%= post._id %>"><img src="/images/post.png" height="55" width="55" class="thumbnail"></a>
+                <% } %>
+
+                <div class="info">
+                    <header>
+                        <% if(post.type == "post") { %>
+                        <a href="/r/<%= post.subreddit %>/<%= post._id %>"><%= post.title %></a>
+                        <%  } else { %>
+                        <a href="<%= post.link %>"><%= post.title %></a>
+                        <% } %>
+
+                    </header>
+                    <div>
+                        submitted <time title="<%= post.time %>">-</time>
+                        by <span><a href="/u/<%= post.username %>"><%= post.username %></a></span>
+                        from <span><a href="/r/<%= post.subreddit %>">/r/<%= post.subreddit %></a></span>
+                    </div>
+                    <ul>
+                        <li><a href="/r/<%=post.subreddit %>/<%= post._id %>">comments</a></li>
+                        <li><a href="javascript:void(0)" class="save-post auth-req">save</a></li>
+                        <% if(post.username == locals.user) { %>
+                            <li><a href="javascript:void(0)" class="delete-post auth-req">delete</a></li>
+                        <% } %>
+
+                    </ul>
+                </div>
+            </article>
+            <% });%>
+            <% } else { %>
+            There are no posts.
+            <% } %>
+        </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+        <script src="/js/index.js"></script>
+        <script src="/js/post.js"></script>
+        <script src="/js/load.js"></script>
+
+</body>
+
+</html>

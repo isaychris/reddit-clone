@@ -1,5 +1,6 @@
 $("document").ready(function () {
 
+
     $(".thumbnail").on('error', function () {
         $(this).attr('src', '../images/image.png');
     });
@@ -46,7 +47,6 @@ $("document").ready(function () {
         let sub = $("#subreddit-name").text();
         let that = $(this)
 
-        console.log($(this).text())
         if ($(this).text() == "Subscribe") {
             $.ajax({
                 type: "put",

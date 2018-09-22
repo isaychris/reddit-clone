@@ -28,7 +28,6 @@ router.get('/', function (req, res) {
                 subreddits = doc
             }
         }).then(function () {
-            console.log(req.session.user)
             PostState.find({
                 username: req.session.user
             }, function (err, doc) {
@@ -36,28 +35,13 @@ router.get('/', function (req, res) {
 
                 if (doc.length) {
                     postStates = doc
-                    console.log(doc)
                 }
             }).then(function () {
-                Post.aggregate([{
-                        $sort: {
-                            votes: -1
-                        }
-                    },
-                    {
-                        $lookup: {
-                            from: "postStates",
-                            localField: "_id", // field in the orders collection
-                            foreignField: "ref", // field in the items collection
-                            as: "states",
-                        }
-                    }
-                ]).exec(function (err, result) {
+                Post.find({}, function (err, result) {
                     if (err) throw err;
 
                     if (result.length) {
                         posts = result
-                        console.log(result)
                     }
 
                     console.log(`[Frontpage] fetching posts!`)

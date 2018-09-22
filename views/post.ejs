@@ -1,5 +1,5 @@
 <html>
-    <title><%= info.name %></title>
+    <title><%= post.title %></title>
     <%- include('partials/head') %>
 
 <body>
@@ -20,34 +20,11 @@
 
         <div class="main">
             <div class="comment-wrapper">
-                <article data-ref="<%= post._id %>">
+                <article class="post" data-ref="<%= post._id %>">
                     <div class="arrows">
-                            <% if(locals.isauth) { %>
-                                <% if(postStates != undefined) { %>
-                                    <% if(postStates.vote == "up") { %>
-                                        <div class="upvote-post auth-req  up-enabled"><i class="far fa-caret-square-up"></i></div> 
-                                        <span class="votes" data-ref="<%= post._id %>"><%= post.votes %></span>
-                                        <div class="downvote-post auth-req"><i class="far fa-caret-square-down"></i></div>
-                                    <% } else if (postStates.vote == "down") { %>
-                                        <div class="upvote-post auth-req"><i class="far fa-caret-square-up"></i></div> 
-                                        <span class="votes" data-ref="<%= post._id %>"><%= post.votes %></span>
-                                        <div class="downvote-post auth-req  down-enabled"><i class="far fa-caret-square-down"></i></div>
-                                    <% } else { %>
-                                        <div class="upvote-post auth-req"><i class="far fa-caret-square-up"></i></div> 
-                                        <span class="votes" data-ref="<%= post._id %>"><%= post.votes %></span>
-                                        <div class="downvote-post auth-req"><i class="far fa-caret-square-down"></i></div>
-                                    <% } %>
-                                    
-                                <% } else {%>
-                                    <div class="upvote-post auth-req"><i class="far fa-caret-square-up"></i></div> 
-                                    <span class="votes" data-ref="<%= post._id %>"><%= post.votes %></span>
-                                    <div class="downvote-post auth-req"><i class="far fa-caret-square-down"></i></div>
-                                <% } %>
-                            <% } else { %>
                                 <div class="upvote-post auth-req"><i class="far fa-caret-square-up"></i></div> 
                                 <span class="votes" data-ref="<%= post._id %>"><%= post.votes %></span>
                                 <div class="downvote-post auth-req"><i class="far fa-caret-square-down"></i></div>
-                            <% } %>
                     </div>
 
                     <div class="info">
@@ -68,15 +45,7 @@
                         <p class="border border-primary"><% if(post.type == "post") { %><%= post.body %><%  } else { %><%= post.link %><% } %></p>
                         <ul>
                             <% if(locals.isauth) { %>
-                                <% if(postStates != undefined) { %>
-                                    <% if(postStates.saved === true) { %>
-                                        <li><a href="javascript:void(0)" class="save-post auth-req">unsave</a></li>
-                                    <% } else { %>
-                                        <li><a href="javascript:void(0)" class="save-post auth-req">save</a></li>
-                                    <% } %>
-                                <% } else { %>
-                                    <li><a href="javascript:void(0)" class="save-post auth-req">save</a></li>
-                                <% } %>
+                                <li><a href="javascript:void(0)" class="save-post auth-req">save</a></li>
 
                                 <% if(post.username == locals.user) { %>
                                     <li><a href="javascript:void(0)" class="edit-post auth-req">edit</a></li>
@@ -106,7 +75,7 @@
                     comments.forEach((comment) => { %>
 
             <div class="comment-wrapper">
-                <article data-ref="<%= comment._id %>">
+                <article class="comment" data-ref="<%= comment._id %>">
                     <ul>
                         <li><span><a href="/u/<%= comment.username %>"><%= comment.username %></a></span></li> • 
                         <li><span id="comment-votes"><%= comment.votes %></span> points</li> • 
@@ -115,47 +84,19 @@
                     <div class="comment-body"><%= comment.body %></div>
                     <ul>
                         <li>
-                                <% if(locals.isauth) { %>
-                                    <% if(comment.states[0] != undefined) { %>
-                                        <% if(comment.states[0].vote == "up") { %>
-                                            <i class="far fa-caret-square-up upvote-comment auth-req up-enabled"></i>
-                                            <i class="far fa-caret-square-down downvote-comment auth-req"></i>
-                                        <% } else if (comment.states[0].vote == "down") { %>
-                                            <i class="far fa-caret-square-up upvote-comment auth-req"></i>
-                                            <i class="far fa-caret-square-down downvote-comment auth-req down-enabled"></i>
-                                        <% } else { %>
-                                            <i class="far fa-caret-square-up upvote-comment auth-req"></i>
-                                            <i class="far fa-caret-square-down downvote-comment auth-req"></i>
-                                        <% } %>
-                                        
-                                    <% } else {%>
-                                        <i class="far fa-caret-square-up upvote-comment auth-req"></i>
-                                        <i class="far fa-caret-square-down downvote-comment auth-req"></i>
-                                    <% } %>
-                                <% } else { %>
-                                    <i class="far fa-caret-square-up upvote-comment auth-req"></i>
-                                    <i class="far fa-caret-square-down downvote-comment auth-req"></i>
-                                <% } %>
+                            <i class="far fa-caret-square-up upvote-comment auth-req"></i>
+                            <i class="far fa-caret-square-down downvote-comment auth-req"></i>
                         </li>   
                         <li><span><a href="javascript:void(0)" class="reply-comment auth-req">reply</a></span></li>
 
                         <% if(locals.isauth) { %>
-                            <% if(comment.states[0] != undefined) { %>
-                                <% if(comment.states[0].saved === true) { %>
-                                    <li><a href="javascript:void(0)" class="save-comment auth-req">unsave</a></li>
-                                <% } else { %>
-                                    <li><a href="javascript:void(0)" class="save-comment auth-req">save</a></li>
-                                <% } %>
-                            <% } else { %>
-                                <li><a href="javascript:void(0)" class="save-comment auth-req">save</a></li>
-                            <% } %>
-                        <% } else { %>
-                        <% }  %>
+                            <li><a href="javascript:void(0)" class="save-comment auth-req">save</a></li>
 
-                        <% if(comment.username == locals.user) { %>
-                        <li><span><a href="javascript:void(0)" class="edit-comment auth-req">edit</a></span></li>
-                        <li><span><a href="javascript:void(0)" class="delete-comment auth-req">delete</a></span></li>
-                        <% } %>
+                            <% if(comment.username == locals.user) { %>
+                            <li><span><a href="javascript:void(0)" class="edit-comment auth-req">edit</a></span></li>
+                            <li><span><a href="javascript:void(0)" class="delete-comment auth-req">delete</a></span></li>
+                            <% } %>
+                            <% } %>
                     </ul>
                 </article>
             </div>
@@ -165,10 +106,14 @@
             <% } %>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
         <script src="/js/index.js"></script>
         <script src="/js/post.js"></script>
         <script src="/js/comment.js"></script>
+        <script src="/js/load.js"></script>
+
 </body>
 </html>
