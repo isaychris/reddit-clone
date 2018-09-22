@@ -2,7 +2,7 @@
 A reddit clone written using node.js / express.js / mongodb / passport.js
 
 Work in Progress!
-![Image](https://i.imgur.com/Vx4PN8L.png)
+![Image](https://i.imgur.com/hcZuyx2.png)
 
 ### Website:
 https://seiya-reddit.herokuapp.com/
@@ -32,11 +32,10 @@ https://seiya-reddit.herokuapp.com/
 # Screenshots:
 ![Image](https://i.imgur.com/QWmcJG7.png)
 ![Image](https://i.imgur.com/Cf1kpy7.png)
-![Image](https://i.imgur.com/Vx4PN8L.png)
+![Image](https://i.imgur.com/ZsCjSVN.png)
 ![Image](https://i.imgur.com/uhOO63j.png)
 ![Image](https://i.imgur.com/DCPlzyN.png)
 ![Image](https://i.imgur.com/0nOk7TX.png)
-
 ![Image](https://i.imgur.com/0mqKZLl.png)
 ![Image](https://i.imgur.com/tgZYkFF.png)
 ![Image](https://i.imgur.com/1DdEGf9.png)
