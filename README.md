@@ -2,7 +2,7 @@
 A reddit clone written using node.js / express.js / mongodb / passport.js
 
 Work in Progress!
-![Image](https://i.imgur.com/ResU1lW.png)
+![Image](https://i.imgur.com/Vx4PN8L.png)
 
 ### Website:
 https://seiya-reddit.herokuapp.com/
@@ -23,17 +23,23 @@ https://seiya-reddit.herokuapp.com/
 * Authentication
 
 ### TODO:
-* Profile pages
+* Show saved posts in profile page
+* Show karma & join date in profile page
+* Account Management
 * Nested comments
 * Refactoring
 
 # Screenshots:
 ![Image](https://i.imgur.com/QWmcJG7.png)
 ![Image](https://i.imgur.com/Cf1kpy7.png)
-![Image](https://i.imgur.com/SULVp9A.png)
-![Image](https://i.imgur.com/fHH9guv.png)
-![Image](https://i.imgur.com/oFh0qKq.png)
-![Image](https://i.imgur.com/moZQec1.png)
-![Image](https://i.imgur.com/hgaKbc0.png)
-![Image](https://i.imgur.com/UYXQhOn.png)
+![Image](https://i.imgur.com/Vx4PN8L.png)
+![Image](https://i.imgur.com/uhOO63j.png)
+![Image](https://i.imgur.com/DCPlzyN.png)
+![Image](https://i.imgur.com/0nOk7TX.png)
 
+![Image](https://i.imgur.com/0mqKZLl.png)
+![Image](https://i.imgur.com/tgZYkFF.png)
+![Image](https://i.imgur.com/1DdEGf9.png)
+![Image](https://i.imgur.com/wSv3pII.png)
+![Image](https://i.imgur.com/bN3WISK.png)
+![Image](https://i.imgur.com/jbPGlu0.png)
