@@ -17,31 +17,31 @@ $("document").ready(function () {
         }
     });
 
-    $(".save-post").click(function () {
-        let query = $(this).parent().parent().parent().parent()
-        let ref = query.data('ref')
-        let that = $(this)
+    // $(".save-post").click(function () {
+    //     let query = $(this).parent().parent().parent().parent()
+    //     let ref = query.data('ref')
+    //     let that = $(this)
 
-        if ($(this).text() == "save") {
-            $.ajax({
-                type: "put",
-                url: `/save/post/${ref}`,
-                success: function (result) {
-                    that.text('unsave');
-                }
-            });
-        } else {
-            $.ajax({
-                type: "put",
-                url: `/unsave/post/${ref}`,
-                success: function (result) {
-                    that.text('save');
-                }
-            });
-        }
-        return false;
+    //     if ($(this).text() == "save") {
+    //         $.ajax({
+    //             type: "put",
+    //             url: `/save/post/${ref}`,
+    //             success: function (result) {
+    //                 that.text('unsave');
+    //             }
+    //         });
+    //     } else {
+    //         $.ajax({
+    //             type: "put",
+    //             url: `/unsave/post/${ref}`,
+    //             success: function (result) {
+    //                 that.text('save');
+    //             }
+    //         });
+    //     }
+    //     return false;
 
-    })
+    // })
 
     $("#subscribe").click(function () {
         let sub = $("#subreddit-name").text();

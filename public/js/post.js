@@ -61,21 +61,32 @@ $("document").ready(function () {
     $(".save-post").click(function () {
         let query = $(this).parent().parent().parent().parent()
         let ref = query.data('ref')
+        let that = $(this)
 
         if ($(this).text() == "save") {
+            //alert('save')
             $.ajax({
                 type: "put",
                 url: `/save/post/${ref}`,
+                success: function (res) {
+                    if (res == "success") {
+                        that.text('unsave');
+                        return false;
+                    }
+                }
             });
-            $(this).text('unsave');
-
-        } else {
+        } else if ($(this).text() == "unsave") {
+            //alert("unsave")
             $.ajax({
                 type: "put",
                 url: `/unsave/post/${ref}`,
-
-            });
-            $(this).text('save');
+                success: function (res) {
+                    if (res == "success") {
+                        that.text('save');
+                        return false;
+                    }
+                }
+            })
         }
         return false;
     })

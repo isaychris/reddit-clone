@@ -60,6 +60,7 @@ $("document").ready(function () {
     })
 
     $(".save-comment").click(function () {
+        alert('clicked')
         let query = $(this).parent().parent().parent()
         let ref = query.data('ref')
         let that = $(this)
@@ -68,16 +69,22 @@ $("document").ready(function () {
             $.ajax({
                 type: "put",
                 url: `/save/comment/${ref}`,
-                success: function (result) {
-                    that.text('unsave');
+                success: function (res) {
+                    if (res == "success") {
+                        that.text('unsave');
+                        return false;
+                    }
                 }
             });
-        } else {
+        } else if ($(this).text() == "unsave") {
             $.ajax({
                 type: "put",
                 url: `/unsave/comment/${ref}`,
-                success: function (result) {
-                    that.text('save');
+                success: function (res) {
+                    if (res == "success") {
+                        that.text('save');
+                        return false;
+                    }
                 }
             });
         }

@@ -22,29 +22,29 @@ $("document").ready(function () {
                     }
                 });
             }
-        }).then(function () {
-            $.ajax({
-                type: "get",
-                url: `/check/states/comments/`,
-                success: function (data) {
-                    $(".comment").each(function (index) {
+        })
 
-                        for (let ele of data) {
-                            if (ele.ref == $(this).data("ref")) {
-                                if (ele.vote == "up") {
-                                    $(this).find(".upvote-comment").addClass("up-enabled")
-                                } else if (ele.vote == "down") {
-                                    $(this).find(".downvote-comment").addClass("down-enabled")
-                                }
+        $.ajax({
+            type: "get",
+            url: `/check/states/comments/`,
+            success: function (data) {
+                $(".comment").each(function (index) {
 
-                                if (ele.saved == true) {
-                                    $(this).find(".save-comment").text("unsave")
-                                }
+                    for (let ele of data) {
+                        if (ele.ref == $(this).data("ref")) {
+                            if (ele.vote == "up") {
+                                $(this).find(".upvote-comment").addClass("up-enabled")
+                            } else if (ele.vote == "down") {
+                                $(this).find(".downvote-comment").addClass("down-enabled")
+                            }
+
+                            if (ele.saved == true) {
+                                $(this).find(".save-comment").text("unsave")
                             }
                         }
-                    });
-                }
-            })
+                    }
+                });
+            }
         })
     }
 })

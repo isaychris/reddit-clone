@@ -7,7 +7,8 @@ const accountSchema = new mongoose.Schema({
     },
     password: {
         type: String
-    }
+    },
+    created: Date
 });
 
 module.exports = mongoose.model('Account', accountSchema);

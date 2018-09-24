@@ -23,9 +23,7 @@ https://seiya-reddit.herokuapp.com/
 * Authentication
 
 ### TODO:
-* Show saved posts in profile page
-* Show karma & join date in profile page
-* Account Management
+* Calculate karma
 * Nested comments
 * Refactoring
 

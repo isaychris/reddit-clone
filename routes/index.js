@@ -65,9 +65,23 @@ router.put('/save/post/:id', function (req, res) {
         setDefaultsOnInsert: true
     };
 
-    PostState.findOneAndUpdate(query, update, options, function (error, result) {
+    Profile.update({
+        username: req.session.user
+    }, {
+        $push: {
+            saved_posts: req.params.id
+        }
+    }, function (err, doc) {
+        if (err) throw err;
+    });
+
+    PostState.findOneAndUpdate(query, update, options, function (error, doc) {
         if (error) throw error;
-        res.send('nice')
+
+        if (doc) {
+            console.log(`[${req.params.id}] post saved!`)
+            res.send("success")
+        }
     })
 })
 
@@ -85,9 +99,23 @@ router.put('/unsave/post/:id', function (req, res) {
         setDefaultsOnInsert: true
     };
 
-    PostState.findOneAndUpdate(query, update, options, function (error, result) {
+    Profile.update({
+        username: req.session.user
+    }, {
+        $pull: {
+            saved_posts: req.params.id
+        }
+    }, function (err, doc) {
+        if (err) throw err;
+    });
+
+    PostState.findOneAndUpdate(query, update, options, function (error, doc) {
         if (error) throw error;
-        res.send('nice')
+
+        if (doc) {
+            console.log(`[${req.params.id}] post unsaved!`)
+            res.send("success")
+        }
     })
 });
 
@@ -146,7 +174,7 @@ router.delete('/delete/comment/:id', function (req, res) {
 router.put('/save/comment/:id', function (req, res) {
     let query = {
         username: req.session.user,
-        ref: mongoose.Types.ObjectId(req.params.id)
+        ref: req.params.id
     };
     let update = {
         saved: true
@@ -156,17 +184,32 @@ router.put('/save/comment/:id', function (req, res) {
         setDefaultsOnInsert: true
     };
 
-    CommentState.findOneAndUpdate(query, update, options, function (error, result) {
+    Profile.update({
+        username: req.session.user
+    }, {
+        $push: {
+            saved_comments: req.params.id
+        }
+    }, function (err, doc) {
+        if (err) throw err;
+    });
+
+    CommentState.findOneAndUpdate(query, update, options, function (error, doc) {
         if (error) throw error;
-        res.send('nice')
+
+        if (doc) {
+            console.log(`[${req.params.id}] comment saved!`)
+            res.send("success")
+        }
     })
-});
+})
+
 
 // UNSAVING COMMENT
 router.put('/unsave/comment/:id', function (req, res) {
     let query = {
         username: req.session.user,
-        ref: mongoose.Types.ObjectId(req.params.id)
+        ref: req.params.id
     };
     let update = {
         saved: false
@@ -176,22 +219,23 @@ router.put('/unsave/comment/:id', function (req, res) {
         setDefaultsOnInsert: true
     };
 
-
-    Comment.update({
-        _id: req.params.id
+    Profile.update({
+        username: req.session.user
     }, {
-        votes: req.body.vote
-    }, function (err, result) {
-        if (err) throw err;
-
-        if (result) {
-            console.log(`[${req.params.id}] comment vote count changed!`)
+        $pull: {
+            saved_comments: req.params.id
         }
-    }).then(function () {
-        CommentState.findOneAndUpdate(query, update, options, function (error, result) {
-            if (error) throw error;
-            res.send('nice')
-        })
+    }, function (err, doc) {
+        if (err) throw err;
+    });
+
+    CommentState.findOneAndUpdate(query, update, options, function (error, doc) {
+        if (error) throw error;
+
+        if (doc) {
+            console.log(`[${req.params.id}] comment unsaved!`)
+            res.send("success")
+        }
     })
 });
 

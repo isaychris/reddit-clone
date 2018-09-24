@@ -35,7 +35,8 @@ router.post("/register", validateRegister(), function (req, res) {
     // save account details with hash password in database
     Account({
       username: req.body.username,
-      password: hash
+      password: hash,
+      created: Date.now()
     }).save(function (err, doc) {
       // if user already exists, register page is rendered with error message
       if (err) {

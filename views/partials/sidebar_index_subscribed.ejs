@@ -8,10 +8,8 @@
             <td><a href="/r/<%= s %>">/r/<%= s %></a></td>
             </tr>
         <% }); %>
-
-            <% if(subscribed.length == 0) { %>
-                <span class="text-center">You are not subscribed to any subreddit</span>
-            <% } %>
+        <% } else { %>
+            <span class="text-center">You are not subscribed to any subreddit</span>
         <% } %>
     </tbody>
     </table>
