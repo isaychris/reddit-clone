@@ -14,17 +14,18 @@ https://seiya-reddit.herokuapp.com/
 * Creating subreddits
 * Saving / deleting posts and comments
 * Upvote / downvote posts and comments
-* Subscribing
+* Subscribing / Unsubscribing
 * Editing posts and comments
 * Searching for posts
 * Relative time
 * Database
 * Login
 * Authentication
+* Hashed & salted passwords
+* Profile pages
+* Karma
 
 ### TODO:
-* Calculate karma
-* Nested comments
 * Refactoring
 
 # Screenshots:
