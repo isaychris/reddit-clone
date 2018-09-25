@@ -121,6 +121,42 @@ router.put('/unsave/post/:id', function (req, res) {
 
 // VOTING POST
 router.put('/vote/post/:id', function (req, res) {
+    console.log(req.params.id)
+
+
+    if (req.body.action == "increment") {
+        console.log("increment")
+        Profile.update({
+            username: req.body.user
+        }, {
+            $inc: {
+                karma_post: 1
+            }
+        }, function (err, result) {
+            if (err) throw err;
+
+            if (result) {
+                console.log(`[${req.session.user}] post karma increased!`)
+            }
+        });
+    } else if (req.body.action == "decrement") {
+        console.log("decrement")
+
+        Profile.update({
+            username: req.body.user
+        }, {
+            $inc: {
+                karma_post: -1
+            }
+        }, function (err, result) {
+            if (err) throw err;
+
+            if (result) {
+                console.log(`[${req.session.user}] post karma decreased!`)
+            }
+        });
+    }
+
     let query = {
         username: req.session.user,
         ref: req.params.id
@@ -143,15 +179,16 @@ router.put('/vote/post/:id', function (req, res) {
         if (result) {
             console.log(`[${req.params.id}] post vote count changed!`)
         }
-    }).then(function () {
-        PostState.findOneAndUpdate(query, update, options, function (err, result) {
-            if (err) throw err;
+    })
 
-            if (result) {
-                console.log(`[${req.params.id}] post vote count changed!`)
-                res.send("OK")
-            }
-        })
+
+    PostState.findOneAndUpdate(query, update, options, function (err, result) {
+        if (err) throw err;
+
+        if (result) {
+            console.log(`[${req.params.id}] post vote count changed!`)
+            res.send("OK")
+        }
     })
 })
 
@@ -241,6 +278,51 @@ router.put('/unsave/comment/:id', function (req, res) {
 
 // VOTING ON COMMENT
 router.put('/vote/comment/:id', function (req, res) {
+    if (req.body.action == "increment") {
+        console.log("increment")
+        Profile.update({
+            username: req.body.user
+        }, {
+            $inc: {
+                karma_comment: 1
+            }
+        }, function (err, result) {
+            if (err) throw err;
+
+            if (result) {
+                console.log(`[${req.session.user}] comment karma increased!`)
+            }
+        });
+    } else if (req.body.action == "decrement") {
+        console.log("decrement")
+
+        Profile.update({
+            username: req.body.user
+        }, {
+            $inc: {
+                karma_comment: -1
+            }
+        }, function (err, result) {
+            if (err) throw err;
+
+            if (result) {
+                console.log(`[${req.session.user}] comment karma decreased!`)
+            }
+        });
+    }
+
+    Comment.update({
+        _id: req.params.id
+    }, {
+        votes: req.body.vote
+    }, function (err, result) {
+        if (err) throw err;
+
+        if (result) {
+            console.log(`[${req.params.id}] comment vote count changed!`)
+        }
+    });
+
     let query = {
         username: req.session.user,
         ref: req.params.id
@@ -253,25 +335,13 @@ router.put('/vote/comment/:id', function (req, res) {
         setDefaultsOnInsert: true
     };
 
-    Comment.update({
-        _id: req.params.id
-    }, {
-        votes: req.body.vote
-    }, function (err, result) {
+    CommentState.findOneAndUpdate(query, update, options, function (err, result) {
         if (err) throw err;
 
         if (result) {
-            console.log(`[${req.params.id}] comment vote count changed!`)
+            console.log(`[${req.session.user}] comment state set!`)
+            res.send("OK")
         }
-    }).then(function () {
-        CommentState.findOneAndUpdate(query, update, options, function (err, result) {
-            if (err) throw err;
-
-            if (result) {
-                console.log(`[${req.params.id}] comment vote count changed!`)
-                res.send("OK")
-            }
-        })
     })
 });
 

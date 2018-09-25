@@ -11,6 +11,7 @@ router.get('/', function (req, res) {
     let subscribed = undefined;
     let subreddits = undefined;
     let posts = undefined;
+    let karma = 0;
 
     Profile.find({
         username: req.session.user
@@ -19,6 +20,7 @@ router.get('/', function (req, res) {
 
         if (result.length) {
             subscribed = result[0]['subscribed'];
+            karma = result[0]['karma_post'] + result[0]['karma_comment']
         }
     }).then(function () {
         Subreddit.find({}, function (err, doc) {
@@ -50,6 +52,7 @@ router.get('/', function (req, res) {
                         posts: posts,
                         subreddits: subreddits,
                         subscribed: subscribed,
+                        karma: karma,
                         isAuth: req.isAuthenticated()
                     })
                 });
@@ -60,6 +63,7 @@ router.get('/', function (req, res) {
 
 router.get('/submit/post', function (req, res) {
     let subscribed = undefined;
+    let karma = 0;
 
     Profile.find({
         username: req.session.user
@@ -68,17 +72,21 @@ router.get('/submit/post', function (req, res) {
 
         if (result.length) {
             subscribed = result[0]['subscribed']
+            karma = result[0]['karma_post'] + result[0]['karma_comment']
+
         }
 
         res.render("./front/front_post", {
             isAuth: req.isAuthenticated(),
-            subscribed: subscribed
+            subscribed: subscribed,
+            karma: karma
         });
     })
 });
 
 router.get('/submit/link', function (req, res) {
     let subscribed = undefined;
+    let karma = 0;
 
     Profile.find({
         username: req.session.user
@@ -87,10 +95,12 @@ router.get('/submit/link', function (req, res) {
 
         if (result.length) {
             subscribed = result[0]['subscribed']
+            karma = result[0]['karma_post'] + result[0]['karma_comment']
         }
 
         res.render("./front/front_link", {
             isAuth: req.isAuthenticated(),
+            karma: karma,
             subscribed: subscribed
         });
     })
@@ -99,6 +109,7 @@ router.get('/submit/link', function (req, res) {
 
 router.get('/submit/subreddit', function (req, res) {
     let subscribed = undefined;
+    let karma = 0;
 
     Profile.find({
         username: req.session.user
@@ -107,10 +118,12 @@ router.get('/submit/subreddit', function (req, res) {
 
         if (result.length) {
             subscribed = result[0]['subscribed']
+            karma = result[0]['karma_post'] + result[0]['karma_comment']
         }
 
         res.render("./front/front_subreddit", {
             isAuth: req.isAuthenticated(),
+            karma: karma,
             subscribed: result[0]['subscribed']
         });
     })
@@ -191,6 +204,7 @@ router.post('/search', function (req, res) {
     let subscribed = undefined;
     let subreddits = undefined;
     let posts = undefined;
+    let karma = 0;
 
     Profile.find({
             username: req.session.user
@@ -198,6 +212,7 @@ router.post('/search', function (req, res) {
             if (err) throw err;
             if (result.length) {
                 subscribed = result[0]['subscribed'];
+                karma = result[0]['karma_post'] + result[0]['karma_comment']
             }
         })
         .then(function () {
@@ -229,6 +244,7 @@ router.post('/search', function (req, res) {
                                 posts: result,
                                 subreddits: subreddits,
                                 subscribed: subscribed,
+                                karma: karma,
                                 query: req.body.query,
                                 isAuth: req.isAuthenticated()
                             })

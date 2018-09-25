@@ -3,15 +3,18 @@
 <%- include('../partials/head') %>
 
 <body>
-    <%- include('../partials/nav', {user: locals.user}) %>
+    <%- include('../partials/nav', {user: locals.user, karma}) %>
     <%- include('../partials/jumbotron', {name: profile_user}) %>
     <span id="auth"><%= isAuth %></span>
 
     <div class="grid-container">
         <div class="sidebar">
             <img id="profile-pic" src="/images/default.png" height="134" width="134"><br>
-            <div id="profile-info">Karma:<span class="karma"> 0 </span> | Joined:<span class="joined"> <%= created %></span></div>
-            
+            <div id="profile-info">
+                Karma: <span class="karma"><%=karma%></span>
+                Joined: <span class="joined"><%= created %></span>
+            </div>  
+
             <a class="btn btn-block btn-primary" href="/u/<%= profile_user %>/posts">Posts</a><br>
             <a class="btn btn-block btn-outline-primary" href="/u/<%= profile_user %>/comments">Comments</a><br>
             <div class="btn-group" style="width: 100%">
@@ -69,7 +72,7 @@
                     </header>
                     <div>
                         submitted <time title="<%= post.time %>">-</time>
-                        by <span><a href="/u/<%= post.username %>"><%= post.username %></a></span>
+                        by <span class="post-user"><a href="/u/<%= post.username %>"><%= post.username %></a></span>
                         from <span><a href="/r/<%= post.subreddit %>">/r/<%= post.subreddit %></a></span>
                     </div>
                     <ul class="post-options">
@@ -86,6 +89,11 @@
             <% } else { %>
             There are no posts.
             <% } %>
+            
+            <% if(posts.length == 0) { %>
+                There are no posts.
+            <% } %>
+            
         </div>
         </div>
 

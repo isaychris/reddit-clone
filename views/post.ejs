@@ -38,7 +38,7 @@
 
                         <div>
                             submitted <time title="<%= post.time %>">-</time>
-                            by <span><a href="/u/<%= post.username %>"><%= post.username %></a></span>
+                            by <span class="post-user"><a href="/u/<%= post.username %>"><%= post.username %></a></span>
                             from <span><a href="/r/<%= post.subreddit %>">/r/<%= post.subreddit %></a></span>
                         </div>
 
@@ -77,7 +77,7 @@
             <div class="comment-wrapper">
                 <article class="comment" data-ref="<%= comment._id %>">
                     <ul>
-                        <li><span><a href="/u/<%= comment.username %>"><%= comment.username %></a></span></li> • 
+                        <li><span class="comment-user"><a href="/u/<%= comment.username %>"><%= comment.username %></a></span></li> • 
                         <li><span class ="comment-votes"><%= comment.votes %></span> points</li> • 
                         <time title="<%= comment.time %>">-</time> </li>
                     </ul>

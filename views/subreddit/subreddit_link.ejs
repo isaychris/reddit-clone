@@ -3,7 +3,7 @@
     <%- include('../partials/head') %>
 
 <body>
-    <%- include('../partials/nav', {user: locals.user}) %>
+    <%- include('../partials/nav', {user: locals.user, karma}) %>
     <%- include('../partials/jumbotron', {name: info.name}) %>
     <span id="auth"><%= isAuth %></span>
 

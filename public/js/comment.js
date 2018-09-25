@@ -104,6 +104,8 @@ $("document").ready(function () {
 
         let ref = query.data('ref')
         let votes = query.find('.comment-votes')
+        let comment_user = query.find('.comment-user').text()
+
         let counter;
 
         // if upvote is already toggled and user presses it again, 
@@ -118,7 +120,9 @@ $("document").ready(function () {
                 url: `/vote/comment/${ref}`,
                 data: {
                     vote: counter,
-                    state: "neutral"
+                    state: "neutral",
+                    action: "decrement",
+                    user: comment_user
                 }
             });
             return false;
@@ -136,7 +140,9 @@ $("document").ready(function () {
                 url: `/vote/comment/${ref}`,
                 data: {
                     vote: counter,
-                    state: "neutral"
+                    state: "neutral",
+                    action: "increment",
+                    user: comment_user
                 }
             });
         }
@@ -153,7 +159,9 @@ $("document").ready(function () {
                 url: `/vote/comment/${ref}`,
                 data: {
                     vote: counter,
-                    state: "up"
+                    state: "up",
+                    action: "increment",
+                    user: comment_user
                 }
             });
         }
@@ -167,6 +175,7 @@ $("document").ready(function () {
 
         let ref = query.data('ref')
         let votes = query.find('.comment-votes')
+        let comment_user = query.find('.comment-user').text()
         let counter;
 
         // if downvote is already toggled and user presses it again, 
@@ -181,7 +190,9 @@ $("document").ready(function () {
                 url: `/vote/comment/${ref}`,
                 data: {
                     vote: counter,
-                    state: "neutral"
+                    state: "neutral",
+                    action: "increment",
+                    user: comment_user
                 }
             });
             return false;
@@ -199,7 +210,9 @@ $("document").ready(function () {
                 url: `/vote/comment/${ref}`,
                 data: {
                     vote: counter,
-                    state: "neutral"
+                    state: "neutral",
+                    action: "decrement",
+                    user: comment_user
                 }
             });
 
@@ -215,7 +228,9 @@ $("document").ready(function () {
                 url: `/vote/comment/${ref}`,
                 data: {
                     vote: counter,
-                    state: "down"
+                    state: "down",
+                    action: "decrement",
+                    user: comment_user
                 }
             });
         }

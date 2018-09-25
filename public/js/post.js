@@ -88,8 +88,9 @@ $("document").ready(function () {
         let query = $(this).closest('article')
         let ref = query.data('ref')
 
-        let votes = query.find('.comment-votes')
-        let down_arrow = $(this).parent().find(".downvote-post")
+        let votes = query.find('.post-votes')
+        let down_arrow = query.find(".downvote-post")
+        let post_user = query.find('.post-user').text()
         let counter;
 
         // if upvote is already toggled and user presses it again, 
@@ -101,11 +102,13 @@ $("document").ready(function () {
 
             $.ajax({
                 type: "put",
+                url: `/vote/post/${ref}`,
                 data: {
                     vote: counter,
-                    state: "neutral"
+                    state: "neutral",
+                    action: "decrement",
+                    user: post_user
                 },
-                url: `/vote/post/${ref}`,
                 success: function (res) {}
             });
             return false;
@@ -122,7 +125,9 @@ $("document").ready(function () {
                 type: "put",
                 data: {
                     vote: counter,
-                    state: "neutral"
+                    state: "neutral",
+                    action: "increment",
+                    user: post_user
                 },
                 url: `/vote/post/${ref}`,
                 success: function (res) {}
@@ -140,7 +145,9 @@ $("document").ready(function () {
                 type: "put",
                 data: {
                     vote: counter,
-                    state: "up"
+                    state: "up",
+                    action: "increment",
+                    user: post_user
                 },
                 url: `/vote/post/${ref}`,
                 success: function (res) {}
@@ -150,9 +157,12 @@ $("document").ready(function () {
     });
 
     $(".downvote-post").click(function () {
-        let up_arrow = $(this).parent().find(".upvote-post")
-        let query = $(this).parent().find('span')
-        let ref = $(this).parent().find('span').data('ref')
+        let query = $(this).closest('article')
+        let ref = query.data('ref')
+
+        let votes = query.find('.post-votes')
+        let up_arrow = query.find(".upvote-post")
+        let post_user = query.find('.post-user').text()
         let counter;
 
         // if downvote is already toggled and user presses it again, 
@@ -166,7 +176,9 @@ $("document").ready(function () {
                 type: "put",
                 data: {
                     vote: counter,
-                    state: "neutral"
+                    state: "neutral",
+                    action: "increment",
+                    user: post_user
                 },
                 url: `/vote/post/${ref}`,
                 success: function (res) {}
@@ -185,7 +197,9 @@ $("document").ready(function () {
                 type: "put",
                 data: {
                     vote: counter,
-                    state: "neutral"
+                    state: "neutral",
+                    action: "decrement",
+                    user: post_user
                 },
                 url: `/vote/post/${ref}`,
                 success: function (res) {}
@@ -202,7 +216,9 @@ $("document").ready(function () {
                 type: "put",
                 data: {
                     vote: counter,
-                    state: "down"
+                    state: "down",
+                    action: "decrement",
+                    user: post_user
                 },
                 url: `/vote/post/${ref}`,
                 success: function (res) {}
