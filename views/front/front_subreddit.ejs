@@ -14,14 +14,14 @@
             </div>
 
         <div class="main">
-            <h3>new subreddit</h3>
+            <h3>new subbeddit</h3>
             <div class="submit-wrapper">
                 <% if(!locals.user) { %>
-                    You must be logged in to submit a post / link / subreddit.
+                    You must be logged in to submit a post / link / subbeddit.
                 <% } else { %>
                 <form id="form-subreddit" action="/submit/subreddit" method="post">
-                    <input type="text" class="form-control" name="subreddit" id="subreddit_form" placeholder="Enter subreddit" required>
-                    <div class="invalid-feedback">That subreddit already exists!</div><br>
+                    <input type="text" class="form-control" name="subreddit" id="subreddit_form" placeholder="Enter subbeddit" required>
+                    <div class="invalid-feedback">That subbeddit already exists!</div><br>
                     <textarea class="form-control" rows="5" name="description" placeholder="Enter description" required></textarea><br>
                     <button type="submit" class="btn btn-primary auth-req">Submit</button>
                 </form>

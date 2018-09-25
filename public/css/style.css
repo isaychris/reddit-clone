@@ -125,3 +125,13 @@ tr {
     margin-right: 10px;
     border-radius: 0.50em;
 }
+
+.post-options li,
+.comment-options li {
+    margin-right: 10px;
+}
+
+.post-body,
+.comment-body {
+    white-space: pre-wrap;
+}

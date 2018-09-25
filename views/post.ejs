@@ -64,8 +64,8 @@
                     You must be <a href="/login">logged in</a> to leave a comment
                 <% } else { %>
                 <form action="/r/<%=info.name%>/<%= post._id %>/comments" method="post">
-                    <textarea class="form-control" name="comment" rows="2" placeholder="Comment here ..." required
-                        maxlength="150"></textarea><br>
+                    <textarea class="form-control comment-text" name="comment" rows="2" placeholder="Comment here ..." required
+                        maxlength="1000"></textarea><br>
                     <button class="btn btn-primary auth-req" type="submit">Submit</button>
                 </form>
                 <% }; %>

@@ -1,4 +1,6 @@
 $("document").ready(function () {
+    autosize($('.comment-text'))
+
     $(".edit-post").click(function () {
         let query = $(this).closest('article')
         let ref = query.data('ref')
@@ -59,7 +61,6 @@ $("document").ready(function () {
         let that = $(this)
 
         if ($(this).text() == "save") {
-            alert('saved')
             $.ajax({
                 type: "put",
                 url: `/save/post/${ref}`
@@ -70,7 +71,6 @@ $("document").ready(function () {
                 }
             })
         } else if ($(this).text() == "unsave") {
-            alert('unsaved')
             $.ajax({
                 type: "put",
                 url: `/unsave/post/${ref}`,

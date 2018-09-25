@@ -46,7 +46,7 @@
                         from <span><a href="/r/<%= post.subreddit %>">/r/<%= post.subreddit %></a></span>
                     </div>
                     <ul class="post-options">
-                        <li><a href="/r/<%=post.subreddit %>/<%= post._id %>">comments</a></li>
+                        <li><a href="/r/<%=post.subreddit %>/<%= post._id %>"><%=post.num_of_comments%> comments</a></li>
                         <li><a href="javascript:void(0)" class="save-post auth-req">save</a></li>
                         <% if(post.username == locals.user) { %>
                             <li><a href="javascript:void(0)" class="delete-post auth-req">delete</a></li>

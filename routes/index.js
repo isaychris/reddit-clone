@@ -53,6 +53,16 @@ router.delete('/delete/post/:id', function (req, res) {
 
 // SAVING POST
 router.put('/save/post/:id', function (req, res) {
+    Profile.update({
+        username: req.session.user
+    }, {
+        $push: {
+            saved_posts: req.params.id
+        }
+    }, function (err, doc) {
+        if (err) throw err;
+    });
+
     let query = {
         username: req.session.user,
         ref: req.params.id
@@ -65,23 +75,14 @@ router.put('/save/post/:id', function (req, res) {
         setDefaultsOnInsert: true
     };
 
-    Profile.update({
-        username: req.session.user
-    }, {
-        $push: {
-            saved_posts: req.params.id
-        }
-    }, function (err, doc) {
-        if (err) throw err;
-    });
-
     PostState.findOneAndUpdate(query, update, options, function (error, doc) {
         if (error) throw error;
 
         if (doc) {
             console.log(`[${req.params.id}] post saved!`)
-            res.send("success")
         }
+        res.send("success")
+
     })
 })
 
@@ -114,8 +115,9 @@ router.put('/unsave/post/:id', function (req, res) {
 
         if (doc) {
             console.log(`[${req.params.id}] post unsaved!`)
-            res.send("success")
         }
+        res.send("success")
+
     })
 });
 
@@ -196,13 +198,33 @@ router.put('/vote/post/:id', function (req, res) {
 // DELETING COMMENT
 router.delete('/delete/comment/:id', function (req, res) {
     Comment.find({
+        _id: req.params.id
+    }).exec().then((result) => {
+        Post.update({
+            _id: result[0]['ref']
+        }, {
+            $inc: {
+                num_of_comments: -1
+            }
+        }, function (err, result) {
+            if (err) throw err;
+
+            if (result.length) {
+                console.log(`[${req.params.subreddit}] number of comment updated!`)
+            }
+        })
+    }).catch((err) => {
+        console.log(err)
+    })
+
+    Comment.find({
             _id: req.params.id
         })
         .remove(function (err, doc) {
             if (err) throw err;
 
             console.log(`[${req.params.id}] comment deleted!`)
-            res.send(doc);
+            res.send("OK");
         });
 });
 

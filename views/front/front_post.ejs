@@ -17,13 +17,13 @@
             <h3>new post</h3>
             <div class="submit-wrapper">
                 <% if(!locals.user) { %>
-                    You must be logged in to submit a post / link / subreddit.
+                    You must be logged in to submit a post / link / subbeddit.
                 <% } else { %>
                 <form id="form-post-or-link" action="/submit/post" method="post">
                     <input type="text" class="form-control" name="title" placeholder="Enter title" required><br>
                     <textarea class="form-control" rows="5" name="text" placeholder="Enter body" required></textarea><br>
-                    <input type="text" class="form-control" name="subreddit" id="subreddit_form" placeholder="Enter subreddit" required><br>
-                    <div class="invalid-feedback">That subreddit doesn't exist!</div><br>
+                    <input type="text" class="form-control" name="subreddit" id="subreddit_form" placeholder="Enter subbeddit" required><br>
+                    <div class="invalid-feedback">That subbeddit doesn't exist!</div><br>
                     <button type="submit" class="btn btn-primary auth-req">Submit</button>
                 </form>
                 <% } %>

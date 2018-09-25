@@ -9,10 +9,9 @@ $("document").ready(function () {
 
         // display a text area with the comment body and hide comment options
         query.find(".comment-body").html(`<textarea class="form-control comment-text">${body}</textarea>`)
-        query.find(".comment-body").append(`<br>
-        <button class='btn btn-primary mr-1 edit-comment-submit' data-ref="${ref}">Save</button>
-        <button class='btn btn-primary edit-comment-cancel' data-ref="${ref}">Cancel</button>`);
-        autosize($('.comment-text'))
+        query.find(".comment-body").append(`<br><button class='btn btn-primary mr-1 edit-comment-submit' data-ref="${ref}">Save</button><button class='btn btn-primary edit-comment-cancel' data-ref="${ref}">Cancel</button>`);
+        autosize(query.find('.comment-text'))
+
         options.hide();
 
 
@@ -56,7 +55,7 @@ $("document").ready(function () {
         if (confirm("Are you sure you want to delete?")) {
             $.ajax({
                 type: "delete",
-                url: `/delete/comment/${ref}`
+                url: `/delete/comment/${ref}`,
             }).done(function (res) {
                 query.remove();
             })

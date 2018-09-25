@@ -155,6 +155,24 @@ router.get('/:subreddit/:id/comments', function (req, res) {
 
 // SUBMITTING A COMMENT
 router.post('/:subreddit/:id/comments', function (req, res) {
+
+    Post.update({
+        _id: req.params.id
+    }, {
+        $inc: {
+            num_of_comments: 1
+        }
+    }, function (err, result) {
+        if (err) throw err;
+
+        if (!result.length) {
+            console.log("something went wrong")
+        }
+        if (result.length) {
+            console.log(`[${req.params.subreddit}] number of comment updated!`)
+        }
+    })
+
     Comment({
         body: req.body.comment,
         username: req.session.user,

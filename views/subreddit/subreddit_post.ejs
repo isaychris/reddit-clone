@@ -18,7 +18,7 @@
             <h3>new post</h3>
             <div class="submit-wrapper">
                     <% if(!locals.user) { %>
-                        You must be logged in to submit a post / link / subreddit.
+                        You must be logged in to submit a post / link / subbeddit.
                     <% } else { %>      
                 <form action="/r/<%= info.name %>/submit/post" method="post">
                     <input type="text" class="form-control" name="title" placeholder="Enter title" required><br>

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
+    username: String,
+    subreddit: String,
     title: String,
     body: String,
     time: {
@@ -9,12 +11,14 @@ const postSchema = new mongoose.Schema({
     },
     type: String,
     link: String,
-    username: String,
     votes: {
         type: Number,
         default: 0
     },
-    subreddit: String,
+    num_of_comments: {
+        type: Number,
+        default: 0
+    }
 });
 
 module.exports = mongoose.model('Post', postSchema);

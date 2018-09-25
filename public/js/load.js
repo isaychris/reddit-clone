@@ -1,4 +1,4 @@
-$("document").ready(function () {
+$("article").ready(function () {
 
     // if the user is authenticated, load the users comment states and post states
     if ($("#auth").text() == "true") {
