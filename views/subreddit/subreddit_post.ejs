@@ -1,6 +1,6 @@
-<html>
-    <title><%= info.name %></title>
-    <%- include('../partials/head') %>
+<!doctype html>
+<html lang="en">
+    <%- include('../partials/head', {title: info.name + " - new post"}) %>
 
 <body>
     <%- include('../partials/nav', {user: locals.user, karma}) %>

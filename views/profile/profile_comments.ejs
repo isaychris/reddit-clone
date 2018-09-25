@@ -1,7 +1,6 @@
-<html>
-    <title>/u/<%= profile_user %></title>
-<%- include('../partials/head') %>
-
+<!doctype html>
+<html lang="en">
+        <%- include('../partials/head', {title: "/u/" + profile_user + " - comments" }) %>
 
 <body>
     <%- include('../partials/nav', {user: locals.user, karma}) %>
@@ -84,7 +83,7 @@
             There are no comments.
             <% } %>
  
-            <% if(posts.length == 0) { %>
+            <% if(comments.length == 0) { %>
                 There are no comments.
             <% } %>
             

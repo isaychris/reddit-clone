@@ -1,6 +1,6 @@
-<html>
-    <title><%= post.title %></title>
-    <%- include('partials/head') %>
+<!doctype html>
+<html lang="en">
+    <%- include('partials/head', {title: post.title}) %>
 
 <body>
     <%- include('partials/nav', {user: locals.user}) %>

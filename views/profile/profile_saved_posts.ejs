@@ -1,6 +1,6 @@
-<html>
-    <title>/u/<%= profile_user %></title>
-<%- include('../partials/head') %>
+<!doctype html>
+<html lang="en">
+    <%- include('../partials/head', {title: "/u/" + profile_user + " - saved posts" }) %>
 
 <body>
     <%- include('../partials/nav', {user: locals.user, karma}) %>
