@@ -7,7 +7,7 @@ Work in Progress!
 ### Website:
 https://seiya-reddit.herokuapp.com/
 
-### Current Working:
+### Features:
 * Viewing subreddits
 * Viewing posts
 * Submitting posts/links/comments
@@ -24,9 +24,21 @@ https://seiya-reddit.herokuapp.com/
 * Hashed & salted passwords
 * Profile pages
 * Karma
+* API
 
 ### TODO:
 * Refactoring
+
+# API:
+URL | Method | Details
+---- | ---- | ----
+/api/frontpage | GET | Retrieves all posts from frontpage
+/api/r/```subreddit``` | GET | Retrieves all post from ```subreddit```
+/api/post/```id``` | GET | Retrieves post specified by ```id```
+/api/comments/```id``` | GET | Retrieves all comments for post specified by ```id```
+/api/u/```user``` | GET | Retrieves profile information about ```user```
+/api/u/```user```/posts | GET | Retrieves all posts by ```user```
+/api/u/```user```/comments | GET | Retrieves all comments by ```user```
 
 # Screenshots:
 ![Image](https://i.imgur.com/QWmcJG7.png)

@@ -38,6 +38,8 @@ app.use('/', require('./routes/index'));
 app.use('/', require('./routes/settings'));
 app.use('/r/', require('./routes/subreddit'));
 app.use('/u/', require('./routes/profile'));
+app.use('/api', require('./routes/api'));
+
 
 app.get('*', function (req, res) {
     res.render("./error")
