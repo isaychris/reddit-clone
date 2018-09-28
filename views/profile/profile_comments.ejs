@@ -34,6 +34,9 @@
                     <td><a href="/r/<%= s %>">/r/<%= s %></a></td>
                     </tr>
                 <% }); %>
+                    <% if(subscribed.length == 0) { %>
+                        They are not subscribed to any subbeddit
+                    <% } %>
                 <% } else { %>
                     <span class="text-center">They are not subscribed to any subbeddit</span>
                 <% } %>
@@ -79,12 +82,11 @@
                 </article>
             </div>
             <% });%>
+                <% if(comments.length == 0) { %>
+                    There are no comments.
+                <% } %>
             <% } else { %>
             There are no comments.
-            <% } %>
- 
-            <% if(comments.length == 0) { %>
-                There are no comments.
             <% } %>
             
         </div>

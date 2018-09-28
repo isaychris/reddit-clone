@@ -34,6 +34,9 @@
                     <td><a href="/r/<%= s %>">/r/<%= s %></a></td>
                     </tr>
                 <% }); %>
+                    <% if(subscribed.length == 0) { %>
+                        They are not subscribed to any subbeddit
+                    <% } %>
                 <% } else { %>
                     <span class="text-center">They are not subscribed to any subbeddit</span>
                 <% } %>
@@ -79,14 +82,14 @@
                 </article>
             </div>
             <% });%>
+                <% if(comments.length == 0) { %>
+                    There are no saved comments.
+                <% } %>
             <% } else { %>
             They are no saved comments.
             <% } %>
 
-            
-            <% if(comments.length == 0) { %>
-                There are no saved comments.
-            <% } %>
+        
         </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
