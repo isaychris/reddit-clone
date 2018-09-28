@@ -4,25 +4,6 @@ A reddit clone written using node.js / express.js / mongodb / passport.js
 ### Website:
 https://seiya-reddit.herokuapp.com/
 
-### Features:
-* Viewing subreddits
-* Viewing posts
-* Submitting posts/links/comments
-* Creating subreddits
-* Saving / deleting posts and comments
-* Upvote / downvote posts and comments
-* Subscribing / Unsubscribing
-* Editing posts and comments
-* Searching for posts
-* Relative time
-* Database
-* Login
-* Authentication
-* Hashed & salted passwords
-* Profile pages
-* Karma
-* API
-=======
 ![Image](https://i.imgur.com/HbpGIZP.png)
 
 
@@ -43,9 +24,7 @@ https://seiya-reddit.herokuapp.com/
 * Login / Register
 * Hash / salted passwords
 * Change password / delete account
-
-### TODO:
-* Refactoring
+* API
 
 # API:
 URL | Method | Details
