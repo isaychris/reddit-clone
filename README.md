@@ -1,12 +1,10 @@
-# Reddit
+# Beddit
 A reddit clone written using node.js / express.js / mongodb / passport.js
-
-Work in Progress!
-![Image](https://i.imgur.com/hcZuyx2.png)
 
 ### Website:
 https://seiya-reddit.herokuapp.com/
 
+<<<<<<< HEAD
 ### Features:
 * Viewing subreddits
 * Viewing posts
@@ -25,6 +23,28 @@ https://seiya-reddit.herokuapp.com/
 * Profile pages
 * Karma
 * API
+=======
+![Image](https://i.imgur.com/HbpGIZP.png)
+
+
+### Features:
+* Frontpage
+* Subreddits
+* Submitting comments / posts / links
+* Voting on posts / comments
+* Saving posts / comments
+* Editing posts / comments
+* Deleting posts / comments
+* Subscribing
+* Searching
+* Profile pages
+* Karma system
+* Relative time
+* Validation
+* Login / Register
+* Hash / salted passwords
+* Change password / delete account
+>>>>>>> e491e0398a06bb703aa63caee5595ad9c2c75a56
 
 ### TODO:
 * Refactoring
@@ -43,13 +63,16 @@ URL | Method | Details
 # Screenshots:
 ![Image](https://i.imgur.com/QWmcJG7.png)
 ![Image](https://i.imgur.com/Cf1kpy7.png)
-![Image](https://i.imgur.com/ZsCjSVN.png)
-![Image](https://i.imgur.com/uhOO63j.png)
-![Image](https://i.imgur.com/DCPlzyN.png)
-![Image](https://i.imgur.com/0nOk7TX.png)
-![Image](https://i.imgur.com/0mqKZLl.png)
-![Image](https://i.imgur.com/tgZYkFF.png)
-![Image](https://i.imgur.com/1DdEGf9.png)
-![Image](https://i.imgur.com/wSv3pII.png)
-![Image](https://i.imgur.com/bN3WISK.png)
-![Image](https://i.imgur.com/jbPGlu0.png)
+![Image](https://i.imgur.com/vwjY3hI.png)
+![Image](https://i.imgur.com/f0cJpfS.png)
+![Image](https://i.imgur.com/fOl9v5E.png)
+![Image](https://i.imgur.com/RSZ1ruw.png)
+![Image](https://i.imgur.com/4aHHz4W.png)
+![Image](https://i.imgur.com/g1sjo8w.png)
+![Image](https://i.imgur.com/BVlLpbB.png)
+![Image](https://i.imgur.com/YfNOatP.png)
+![Image](https://i.imgur.com/c9r0FlE.png)
+![Image](https://i.imgur.com/Hny7gIj.png)
+![Image](https://i.imgur.com/G5TlBe2.png)
+![Image](https://i.imgur.com/EQNKpbN.png)
+![Image](https://i.imgur.com/s8jfuap.png)
