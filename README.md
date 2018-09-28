@@ -4,7 +4,6 @@ A reddit clone written using node.js / express.js / mongodb / passport.js
 ### Website:
 https://seiya-reddit.herokuapp.com/
 
-<<<<<<< HEAD
 ### Features:
 * Viewing subreddits
 * Viewing posts
@@ -44,7 +43,6 @@ https://seiya-reddit.herokuapp.com/
 * Login / Register
 * Hash / salted passwords
 * Change password / delete account
->>>>>>> e491e0398a06bb703aa63caee5595ad9c2c75a56
 
 ### TODO:
 * Refactoring
