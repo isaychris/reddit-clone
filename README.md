@@ -27,8 +27,8 @@ https://seiya-beddit.herokuapp.com/
 * API
 
 # API:
-URL | Method | Details
----- | ---- | ----
+URL | Method | Details | Body
+---- | ---- | ---- | ----
 /api/frontpage | GET | Retrieves all posts from frontpage
 /api/r/```subreddit``` | GET | Retrieves all posts from ```subreddit```
 /api/post/```id``` | GET | Retrieves post by ```id```
@@ -36,6 +36,7 @@ URL | Method | Details
 /api/u/```user``` | GET | Retrieves profile information about ```user```
 /api/u/```user```/posts | GET | Retrieves all posts by ```user```
 /api/u/```user```/comments | GET | Retrieves all comments by ```user```
+/api/register | POST | Registers an account | ```username```, ```password```
 
 # Screenshots:
 ![Image](https://i.imgur.com/QWmcJG7.png)

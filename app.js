@@ -42,6 +42,7 @@ app.use('/api', require('./routes/api'));
 
 
 app.get('*', function (req, res) {
+    res.status(404);
     res.render("./error")
 });
 
