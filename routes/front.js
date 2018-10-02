@@ -12,6 +12,33 @@ router.get('/', function (req, res) {
     let subreddits = undefined;
     let posts = undefined;
     let karma = 0;
+    let sort = undefined;
+
+    switch (req.query.sort) {
+        case "top":
+            console.log("top")
+            sort = {
+                votes: -1
+            }
+            break;
+        case "new":
+            console.log("newest")
+            sort = {
+                time: -1
+            }
+            break;
+        case "old":
+            console.log("oldest")
+            sort = {
+                time: 1
+            }
+            break;
+        default:
+            console.log("default")
+            sort = {
+                votes: -1
+            }
+    }
 
     Profile.find({
         username: req.session.user
@@ -39,9 +66,7 @@ router.get('/', function (req, res) {
                     postStates = doc
                 }
             }).then(function () {
-                Post.find({}).sort({
-                    votes: '-1'
-                }).exec(function (err, result) {
+                Post.find({}).sort(sort).exec(function (err, result) {
                     if (err) throw err;
                     if (result.length) {
                         posts = result

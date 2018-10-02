@@ -23,6 +23,30 @@ router.get('/:user/posts', function (req, res) {
     let created = undefined;
     let karma = 0
 
+    let sort = undefined;
+
+    switch (req.query.sort) {
+        case "top":
+            sort = {
+                votes: -1
+            }
+            break;
+        case "new":
+            sort = {
+                time: -1
+            }
+            break;
+        case "old":
+            sort = {
+                time: 1
+            }
+            break;
+        default:
+            sort = {
+                votes: -1
+            }
+    }
+
     Profile.find({
         username: req.params.user
     }, function (err, result) {
@@ -57,9 +81,7 @@ router.get('/:user/posts', function (req, res) {
             Post.find({
                     username: req.params.user
                 })
-                .sort({
-                    votes: '-1'
-                }).exec(function (err, result) {
+                .sort(sort).exec(function (err, result) {
                     if (err) throw err;
 
                     if (result.length) {
@@ -84,6 +106,30 @@ router.get('/:user/comments', function (req, res) {
     let comments = undefined;
     let created = undefined;
     let karma = 0
+
+    let sort = undefined;
+
+    switch (req.query.sort) {
+        case "top":
+            sort = {
+                votes: -1
+            }
+            break;
+        case "new":
+            sort = {
+                time: -1
+            }
+            break;
+        case "old":
+            sort = {
+                time: 1
+            }
+            break;
+        default:
+            sort = {
+                votes: -1
+            }
+    }
 
     Profile.find({
         username: req.params.user
@@ -120,9 +166,7 @@ router.get('/:user/comments', function (req, res) {
                     }
                 },
                 {
-                    $sort: {
-                        votes: -1
-                    }
+                    $sort: sort
                 },
                 {
                     $lookup: {
@@ -162,6 +206,30 @@ router.get('/:user/saved/posts', function (req, res) {
     let subscribed = undefined
     let karma = 0
 
+    let sort = undefined;
+
+    switch (req.query.sort) {
+        case "top":
+            sort = {
+                votes: -1
+            }
+            break;
+        case "new":
+            sort = {
+                time: -1
+            }
+            break;
+        case "old":
+            sort = {
+                time: 1
+            }
+            break;
+        default:
+            sort = {
+                votes: -1
+            }
+    }
+
     Profile.find({
         username: req.params.user
     }, function (err, result) {
@@ -187,9 +255,7 @@ router.get('/:user/saved/posts', function (req, res) {
             _id: {
                 $in: result[0].saved_posts
             }
-        }).sort({
-            votes: '-1'
-        })
+        }).sort(sort)
     }).then((result) => {
         res.render("./profile/profile_saved_posts", {
             profile_user: req.params.user,
@@ -208,6 +274,30 @@ router.get('/:user/saved/comments', function (req, res) {
     let created = undefined
     let subscribed = undefined
     let karma = 0
+
+    let sort = undefined;
+
+    switch (req.query.sort) {
+        case "top":
+            sort = {
+                votes: -1
+            }
+            break;
+        case "new":
+            sort = {
+                time: -1
+            }
+            break;
+        case "old":
+            sort = {
+                time: 1
+            }
+            break;
+        default:
+            sort = {
+                votes: -1
+            }
+    }
 
     Profile.find({
         username: req.params.user
@@ -240,9 +330,7 @@ router.get('/:user/saved/comments', function (req, res) {
                 }
             },
             {
-                $sort: {
-                    votes: -1
-                }
+                $sort: sort
             },
             {
                 $lookup: {

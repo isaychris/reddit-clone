@@ -17,6 +17,7 @@ https://seiya-beddit.herokuapp.com/
 * Deleting posts / comments
 * Subscribing
 * Searching
+* Sorting
 * Profile pages
 * Karma system
 * Relative time

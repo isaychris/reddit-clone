@@ -3,10 +3,22 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 
 let Account = require("../models/account")
+let Profile = require("../models/profile")
 
 router.get('/settings', authenticateUser(), function (req, res) {
     if (req.isAuthenticated()) {
-        res.render('./settings')
+        Profile.find({
+            username: req.session.user
+        }, function (err, result) {
+            if (err) throw err;
+
+            if (result.length) {
+                karma = result[0]['karma_post'] + result[0]['karma_comment']
+                res.render('./settings', {
+                    karma: karma
+                })
+            }
+        })
     } else {
         res.render('./login')
     }

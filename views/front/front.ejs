@@ -15,6 +15,9 @@
         </div>
 
         <div class="main">
+                <%- include('../partials/sort') %>
+
+
                 <% if (posts != undefined) { 
                     posts.forEach((post) => { %>
             <article class="post" data-ref="<%= post._id %>">
@@ -71,6 +74,7 @@
         <script src="/js/load.js"></script>
         <script src="/js/index.js"></script>
         <script src="/js/post.js"></script>
+        <script src="/js/sort.js"></script>
 
 </body>
 

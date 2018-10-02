@@ -21,6 +21,30 @@ router.get('/:subreddit', function (req, res) {
     let subscribed = false;
     let karma = 0
 
+    let sort = undefined;
+
+    switch (req.query.sort) {
+        case "top":
+            sort = {
+                votes: -1
+            }
+            break;
+        case "new":
+            sort = {
+                time: -1
+            }
+            break;
+        case "old":
+            sort = {
+                time: 1
+            }
+            break;
+        default:
+            sort = {
+                votes: -1
+            }
+    }
+
     Profile.find({
         username: req.session.user
     }, function (err, result) {
@@ -57,9 +81,7 @@ router.get('/:subreddit', function (req, res) {
         }).then(function () {
             Post.find({
                 subreddit: req.params.subreddit
-            }).sort({
-                votes: '-1'
-            }).exec(function (err, result) {
+            }).sort(sort).exec(function (err, result) {
                 if (err) throw err;
                 if (result.length) {
                     posts = result
@@ -84,6 +106,30 @@ router.get('/:subreddit/:id/comments', function (req, res) {
     let comments = undefined
     let subscribed = false;
     let karma = 0
+
+    let sort = undefined;
+
+    switch (req.query.sort) {
+        case "top":
+            sort = {
+                votes: -1
+            }
+            break;
+        case "new":
+            sort = {
+                time: -1
+            }
+            break;
+        case "old":
+            sort = {
+                time: 1
+            }
+            break;
+        default:
+            sort = {
+                votes: -1
+            }
+    }
 
     Profile.find({
         username: req.session.user
@@ -131,9 +177,7 @@ router.get('/:subreddit/:id/comments', function (req, res) {
 
                 Comment.find({
                     ref: req.params.id
-                }).sort({
-                    votes: '-1'
-                }).exec(function (err, result) {
+                }).sort(sort).exec(function (err, result) {
                     if (err) throw err;
                     if (result.length) {
                         comments = result

@@ -57,9 +57,7 @@
                     </div>
                 </article>
             </div>
-
-            <h3> Comments </h3>
-            <div class="submit-wrapper">
+                            <div class="submit-wrapper">
                 <% if(!isAuth) { %>
                     You must be <a href="/login">logged in</a> to leave a comment
                 <% } else { %>
@@ -70,7 +68,17 @@
                 </form>
                 <% }; %>
             </div>
-            <hr>
+            <hr>         
+              
+            <div class="btn-group">
+                    <h4 style="margin-right:10px;">Comments </h4><a class="dropdown-toggle" style="height:25px; margin-top:5px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item sort-top" href="?sort=top">Top</a>
+                        <a class="dropdown-item sort-new" href="?sort=new">New</a>
+                        <a class="dropdown-item sort-old" href="?sort=old">Old</a>
+                    </div>
+                </div><br>
             <% if (comments != undefined) { 
                     comments.forEach((comment) => { %>
 
@@ -115,6 +123,7 @@
         <script src="/js/index.js"></script>
         <script src="/js/post.js"></script>
         <script src="/js/comment.js"></script>
+        <script src="/js/sort.js"></script>
 
 </body>
 </html>
