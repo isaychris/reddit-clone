@@ -122,7 +122,7 @@ router.post("/login", function (req, res) {
   })
 })
 
-// middleware which makes input lowercase and checks if it is valid.
+// MIDDLEWARE
 function validateRegister() {
   return function (req, res, next) {
     // make input not case sensitive

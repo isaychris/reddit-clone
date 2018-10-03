@@ -1,61 +1,15 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
 const router = express.Router();
 
-let Account = require("../models/account")
-let Profile = require("../models/profile")
+// CONTROLLERS
+let settings_controller = require("../controllers/settings_controller")
 
-router.get('/settings', authenticateUser(), function (req, res) {
-    if (req.isAuthenticated()) {
-        Profile.find({
-            username: req.session.user
-        }, function (err, result) {
-            if (err) throw err;
+// ROUTES
+router.get('/settings', authenticateUser(), settings_controller.view);
+router.put('/settings/change/password', settings_controller.change_password);
+router.delete('/settings/delete/account', settings_controller.delete_account);
 
-            if (result.length) {
-                karma = result[0]['karma_post'] + result[0]['karma_comment']
-                res.render('./settings', {
-                    karma: karma
-                })
-            }
-        })
-    } else {
-        res.render('./login')
-    }
-});
-
-router.put('/settings/change/password', function (req, res) {
-    bcrypt.hash(req.body.password, 10, function (err, hash) {
-        if (err) throw err
-
-        Account.update({
-            username: req.session.user
-        }, {
-            password: hash
-        }, function (err, result) {
-            if (err) throw err;
-
-            if (result) {
-                console.log(`[${req.session.user}] password changed!`)
-                res.send("OK")
-            }
-        });
-    });
-});
-
-router.delete('/settings/delete/account', function (req, res) {
-    Account.find({
-        username: req.session.user
-    }).remove(function (err, result) {
-        if (err) throw err;
-
-        if (result) {
-            console.log(`[${req.session.user}] account deleted!`)
-            res.send("OK")
-        }
-    });
-});
-
+// MIDDLEWARE
 function authenticateUser() {
     return function (req, res, next) {
         if (req.isAuthenticated()) {
@@ -64,4 +18,5 @@ function authenticateUser() {
         res.redirect("login");
     };
 }
+
 module.exports = router

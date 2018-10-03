@@ -104,13 +104,12 @@ $("document").ready(function () {
         let ref = query.data('ref')
         let votes = query.find('.comment-votes')
         let comment_user = query.find('.comment-user').text()
-
         let counter;
 
         // if upvote is already toggled and user presses it again, 
         // toggle off the upvote button and decrement vote.
         if ($(this).hasClass("up-enabled")) {
-            counter = vote.text();
+            counter = votes.text();
             votes.text(--counter);
             $(this).removeClass("up-enabled");
 
