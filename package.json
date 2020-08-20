@@ -13,7 +13,7 @@
   "author": "isaychris",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.0",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "ejs-lint": "^0.3.0",
