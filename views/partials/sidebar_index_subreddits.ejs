@@ -1,11 +1,17 @@
 <h4 class="text-center">Subbeddits (<%=subreddits.length %>)</h4>
 <table class="table table-striped">
   <tbody>
-    <% if (subreddits != undefined) { subreddits.forEach((s) => { %>
-    <tr>
-      <td><a href="/r/<%= s.name %>">/r/<%= s.name %></a></td>
-    </tr>
-    <% }); %> <% if(subreddits.length == 0) { %> You are not subscribed to any
-    subbeddit <% } %> <% } %>
+    <% if (subreddits != undefined) { subreddits.forEach((s) => { %> <% if
+    (s.name.length > 15){ %>
+    <div>
+      <a href="/r/<%= s.name %>">/r/<%= s.name.substring(0,15) %>...</a>
+    </div>
+
+    <% } else{%>
+    <div>
+      <a href="/r/<%= s.name %>">/r/<%= s.name %></a>
+    </div>
+    <% }%> <% }) %> <% if(subreddits.length === 0) { %> You are not subscribed
+    to any subbeddit <% } %> <% } %>
   </tbody>
 </table>
