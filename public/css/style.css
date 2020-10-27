@@ -1,137 +1,161 @@
-#auth {
-    display: none;
+body {
+  background: #ecf0f1;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
+.navbar {
+  border-bottom: 1px solid #c9cccd;
+}
+
+.view-github {
+  transition: 0.3s;
+  background: #c9cccd;
+}
+.view-github:hover {
+  opacity: 0.7;
+}
+
+.btn {
+  transition: 0.3s !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: 5px !important;
+}
+
+#auth {
+  display: none;
+}
 
 .grid-container {
-    margin-left: 15px;
-    margin-right: 15px;
-    display: grid;
-    height: 100%;
-    grid-template-columns: 1fr 320px;
-    grid-template-rows: 1fr;
-    grid-gap: 15px 15px;
-    grid-template-areas: "main sidebar";
+  margin-left: 15px;
+  margin-right: 15px;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 320px;
+  grid-template-rows: 1fr;
+  grid-gap: 15px 15px;
+  grid-template-areas: "main sidebar";
 }
 
 .sidebar {
-    grid-area: sidebar;
+  grid-area: sidebar;
 }
 
 .main {
-    grid-area: main;
+  grid-area: main;
 }
 
 .module {
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
 }
 
 .main article {
-    background-color: #e9ecef;
-    margin-bottom: 15px;
-    border-radius: 0.25rem;
-    border: 1px solid #ced4da;
+  background-color: #e9ecef;
+  margin-bottom: 15px;
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
 }
 
 .main ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .main li {
-    display: inline;
+  display: inline;
 }
 
 .main header {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .arrows {
-    position: relative;
-    float: left;
-    padding-left: 5px;
-    padding-right: 5px;
-    margin-top: 5px;
+  position: relative;
+  float: left;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-top: 5px;
 }
-
 
 .upvote,
 .downvote,
 .votes {
-    display: block;
-    margin: auto;
-    text-align: center;
+  display: block;
+  margin: auto;
+  text-align: center;
 }
 
 .info {
-    margin-left: 35px;
+  margin-left: 35px;
 }
 
 .sidebar ul {
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
 }
 
 .actions button {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 #user-info {
-    float: right;
-    color: white;
+  float: right;
+  color: white;
 }
 
 article {
-    padding: 10px;
+  padding: 10px;
 }
 
 form {
-    margin: 0;
+  margin: 0;
 }
 
 tr {
-    line-height: 5px !important;
+  line-height: 5px !important;
 }
 
 .jumbotron-fluid {
-    border-bottom: 1px solid #ced4da;
-    padding: 32px;
-    margin-bottom: 15px;
+  border-bottom: 1px solid #ced4da;
+  padding: 32px;
+  margin-bottom: 15px;
 }
 
 .border {
-    border-radius: 0.25em;
+  border-radius: 0.25em;
 }
 
 .hide-options {
-    display: none;
+  display: none;
 }
 
 .upvote-post,
 .downvote-post,
 .upvote-comment,
 .downvote-comment {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .thumbnail {
-    float: left;
-    margin-top: 5px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 0.50em;
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 0.5em;
 }
 
 .post-options li,
 .comment-options li {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .post-body,
 .comment-body {
-    white-space: pre-wrap;
+  white-space: pre-wrap;
 }

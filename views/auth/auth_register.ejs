@@ -13,19 +13,20 @@
       href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
     />
     <link rel="stylesheet" type="text/css" href="/css/auth.css" />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
 
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">
-      <img
-        src="/images/icon.png"
-        width="30"
-        height="30"
-        class="d-inline-block align-top"
-        alt=""
-      />
-      Beddit
-    </a>
+  <nav class="navbar navbar-light bg-white">
+    <div class="container">
+      <a
+        class="navbar-brand d-flex justify-content-center align-items-center"
+        href="/"
+      >
+        <img src="/images/icon.png" width="40" height="40" alt="" />
+
+        <div class="navbar-brand-text ml-2"> Beddit </div>
+      </a>
+    </div>
   </nav>
 
   <body>
@@ -37,7 +38,7 @@
         </div>
         <% } %>
         <div class="card text-center">
-          <h5 class="card-header">Register</h5>
+          <div class="card-header bg-whtie">Create New Account</div>
           <div class="card-body">
             <img
               src="images/default.png"
@@ -74,19 +75,23 @@
                 /> </div
               ><br />
               <button class="btn btn-primary" type="submit" style="width: 100%"
-                >Enter</button
+                >Sign Up</button
               >
               <span id="lower"
-                >Already a member? <a href="/login">Sign in</a></span
+                >Already a member? <a href="/login">Login</a></span
               >
             </form>
           </div> </div
         ><br />
-        <div id="footer"
-          ><a href="https://github.com/isaychris/reddit"
-            >View the project on GitHub</a
-          ></div
+
+        <a
+          href="https://github.com/isaychris/reddit"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-decoration-none view-github d-block py-3 text-center text-dark"
         >
+          View the project on GitHub
+        </a>
       </div>
     </div>
   </body>
