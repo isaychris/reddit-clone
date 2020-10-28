@@ -7,13 +7,13 @@
     "Frontpage"}) %>
     <span id="auth"><%= isAuth %></span>
 
-    <div class="front-page mt-5">
+    <div class="front-page mt-4">
       <div class="container">
         <div class="row flex-lg-row-reverse">
           <div class="col-lg-4">
+            <!-- sidebar -->
             <div class="sidebar">
-              <%- include('../partials/sidebar_index_actions') %> <%-
-              include('../partials/sidebar_index_subscribed', {isAuth,
+              <%- include('../partials/sidebar_index_subscribed', {isAuth,
               subscribed}) %> <%-
               include('../partials/sidebar_index_subreddits', {subreddits}) %>
             </div>
@@ -23,6 +23,7 @@
             <div class="main">
               <% if (posts != undefined) { posts.forEach((post) => { %>
 
+              <!-- post -->
               <article
                 class="post my-3 px-3 bg-white"
                 data-ref="<%= post._id %>"

@@ -1,14 +1,31 @@
 <% if(isAuth) { %>
-<h4 class="text-center">Subscribed (<%=subscribed.length %>)</h4>
-<table class="table table-striped">
-  <tbody>
-    <% if (subscribed != undefined) { %> <% subscribed.forEach((s) => { %>
-    <tr>
-      <td><a href="/r/<%= s %>">/r/<%= s %></a></td>
-    </tr>
-    <% }); %> <% } else { %>
-    <span class="text-center">You are not subscribed to any subbeddit</span>
-    <% } %>
-  </tbody>
-</table>
+<div class="subscribe-wrapper my-3 bg-white">
+  <!-- header -->
+  <div
+    class="subscribe-header d-flex justify-content-between align-items-center p-3 border-bottom"
+  >
+    <div class="subscribe-count mb-0"
+      >Subscribe (<%= subscribed ? subscribed.length : 0 %>)</div
+    >
+  </div>
+
+  <!-- content -->
+  <div class="subscribe-content px-3 py-4">
+    <% if (subscribed) { subscribed.forEach((sub) => { %> <% if (sub.length >
+    30){ %>
+    <div>
+      <a class="text-dark" href="/r/<%= sub %>"
+        >/r/<%= sub.substring(0,30) %>...</a
+      >
+    </div>
+
+    <% } else{%>
+    <div>
+      <a class="text-dark" href="/r/<%= sub %>">/r/<%= sub %></a>
+    </div>
+    <% }%> <% }) %> <% if(!subscribed.length) { %>
+    <span> You are not subscribed to any subbeddit </span>
+    <% } %> <% } %>
+  </div>
+</div>
 <% } %>

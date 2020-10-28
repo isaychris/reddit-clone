@@ -18,37 +18,58 @@
       <%- include('../partials/sort') %>
     </div>
 
-    <!-- post search -->
-    <form id="form-search" action="/search/" method="post">
-      <div class="input-group">
-        <input
-          type="text"
-          class="form-control"
-          name="query"
-          placeholder="Find a post"
-          required
-        />
-        <div class="input-group-append">
-          <button class="btn btn-secondary submit" type="submit">
-            <i class="fa fa-search" aria-hidden="true"></i>
-          </button>
+    <div class="d-flex justify-content-center align-items-center flex-grow-1">
+      <!-- post search -->
+      <form id="form-search" action="/search/" method="post" class="mr-4">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            name="query"
+            placeholder="Find a post"
+            style="width: 300px"
+            required
+          />
+          <div class="input-group-append">
+            <button class="btn btn-secondary submit" type="submit">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
+      </form>
+
+      <!-- add new post  -->
+      <div class="button-group">
+        <a
+          class="btn btn-primary auth-req mr-2"
+          href="/submit/post"
+          id="submit-post"
+          >New post</a
+        >
+        <a
+          class="btn btn-outline-secondary auth-req"
+          href="/submit/link"
+          id="submit-link"
+          >New link</a
+        >
       </div>
-    </form>
+    </div>
 
     <!-- user -->
     <div id="user-info">
       <% if(user) { %>
       <!-- Example single danger button -->
       <div class="btn-group">
-        <button
-          type="button"
-          class="btn btn-primary dropdown-toggle"
+        <span
+          role="button"
+          class="dropdown-toggle"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
-          ><span id="user"><%= user %></span></button
         >
+          <span id="user" class="d-none"><%= user %></span>
+          <img src="/images/nav_avatar.jpg" alt="" class="nav-avatar" />
+        </span>
         <div class="dropdown-menu dropdown-menu-right">
           <h6 class="dropdown-header"
             >Karma: <span id="karma"><%=karma%></span></h6

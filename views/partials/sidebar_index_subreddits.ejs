@@ -1,7 +1,16 @@
-<div class="subreddit bg-white">
-  <div class="text-center border-bottom mb-0 p-3"
-    >Subbeddits (<%=subreddits ? subreddits.length : 0 %>)</div
+<div class="subreddit-wrapper my-3 bg-white">
+  <!-- subreddit header -->
+  <div
+    class="subreddit-header d-flex justify-content-between align-items-center p-3 border-bottom"
   >
+    <div class="subreddit-count mb-0"
+      >Subbeddits (<%=subreddits ? subreddits.length : 0 %>)</div
+    >
+
+    <a class="auth-req" href="/submit/subreddit" id="create-subreddit"
+      >Create subbeddit</a
+    >
+  </div>
 
   <div class="subreddit-content px-3 py-4">
     <% if (subreddits) { subreddits.forEach((subreddit) => { %> <% if
@@ -18,7 +27,8 @@
         >/r/<%= subreddit.name %></a
       >
     </div>
-    <% }%> <% }) %> <% if(!subreddits.length) { %> You are not subscribed to any
+    <% }%> <% }) %> <% if(!subreddits.length) { %>
+    <span> You are not subscribed to any </span>
     subbeddit <% } %> <% } %>
   </div>
 </div>

@@ -3,10 +3,63 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  font-size: 14px !important;
 }
 
+#auth {
+  display: none;
+}
+
+.text-lg {
+  font-size: 18px !important;
+}
+
+.nav-top {
+  background: url("../images/nav_top.jpg");
+  height: 30vh;
+}
+.nav-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
 .navbar {
   border-bottom: 1px solid #c9cccd;
+}
+
+.dropdown-item {
+  font-size: 14px !important;
+}
+
+.btn,
+input {
+  transition: 0.3s !important;
+  box-shadow: none !important;
+  outline: none !important;
+  font-size: 14px !important;
+}
+.btn {
+  padding: 8px 16px !important;
+  transition: 0.3s !important;
+  border-radius: 3px !important;
+}
+input {
+  background: #f3f5f9 !important;
+  padding: 0 18px !important;
+  border: none !important;
+}
+.btn:hover {
+  opacity: 0.8;
+}
+.btn-primary {
+  background: #1abc9c !important;
+  border: solid 1px #1abc9c !important;
+}
+.btn-outline-secondary {
+  border: solid 1px #1abc9c !important;
+}
+.btn-outline-secondary:hover {
+  background: #1abc9c !important;
 }
 
 .view-github {
@@ -17,28 +70,11 @@ body {
   opacity: 0.7;
 }
 
-.btn,
-input {
-  transition: 0.3s !important;
-  box-shadow: none !important;
-  border: none !important;
-  outline: none !important;
-  border: 5px !important;
-}
-
-#auth {
-  display: none;
-}
-
-.nav-top {
-  background: url("../images/nav_top.jpg");
-  height: 30vh;
-}
-
-input {
-  background: #f3f5f9 !important;
-  font-size: 14px !important;
-  padding: 0 18px !important;
+.upvote-post,
+.downvote-post,
+.upvote-comment,
+.downvote-comment {
+  cursor: pointer;
 }
 /* .grid-container {
   margin-left: 15px;
@@ -147,13 +183,6 @@ form {
 /* .hide-options {
   display: none;
 } */
-
-.upvote-post,
-.downvote-post,
-.upvote-comment,
-.downvote-comment {
-  cursor: pointer;
-}
 
 /* .thumbnail {
   float: left;
