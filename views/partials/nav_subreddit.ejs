@@ -1,0 +1,115 @@
+<div
+  class="nav-top d-flex justify-content-center align-items-center flex-column"
+>
+  <div class="display-4 mb-3"><%= name %></div>
+
+  <!-- subscribe button -->
+  <span id="subreddit-name" class="d-none"><%= name %></span>
+
+  <% if(locals.isauth) { %> <% if(state == false) { %>
+  <a class="btn btn-primary auth-req" href="javascript:void(0)" id="subscribe"
+    >Subscribe</a
+  >
+  <% } else if (state == true) { %>
+  <a class="btn btn-primary auth-req" href="javascript:void(0)" id="subscribe"
+    >Unsubscribe</a
+  >
+  <% } %> <% } else {%>
+  <a class="btn btn-primary auth-req" href="javascript:void(0)" id="subscribe"
+    >Subscribe</a
+  >
+  <% } %>
+</div>
+
+<!-- navigation -->
+<nav class="navbar navbar-light bg-white">
+  <div class="container">
+    <div class="d-flex justify-content-center align-items-center">
+      <!-- logo -->
+      <a
+        class="navbar-brand mr-5 d-flex justify-content-center align-items-center"
+        href="/"
+      >
+        <img src="/images/icon.png" width="40" height="40" alt="" />
+
+        <div class="navbar-brand-text ml-2"> Beddit </div>
+      </a>
+
+      <!-- sort -->
+      <%- include('../partials/sort') %>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center flex-grow-1">
+      <!-- post search -->
+      <form
+        id="form-search"
+        action="/r/<%=name%>/search/"
+        method="post"
+        class="mr-4"
+      >
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            name="query"
+            placeholder="Find a post"
+            style="width: 300px"
+            required
+          />
+          <div class="input-group-append">
+            <button class="btn btn-secondary submit" type="submit">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- add new post  -->
+      <div class="button-group">
+        <a
+          class="btn btn-primary auth-req mr-2"
+          href="/r/<%=name%>/submit/post"
+          id="submit-post"
+          >New post</a
+        >
+        <a
+          class="btn btn-outline-secondary auth-req"
+          href="/r/<%=name%>/submit/link"
+          id="submit-link"
+          >New link</a
+        >
+      </div>
+    </div>
+
+    <!-- user -->
+    <div id="user-info">
+      <% if(user) { %>
+      <!-- Example single danger button -->
+      <div class="btn-group">
+        <span
+          role="button"
+          class="dropdown-toggle"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <span id="user" class="d-none"><%= user %></span>
+          <img src="/images/nav_avatar.jpg" alt="" class="nav-avatar" />
+        </span>
+        <div class="dropdown-menu dropdown-menu-right">
+          <h6 class="dropdown-header"
+            >Karma: <span id="karma"><%=karma%></span></h6
+          >
+          <div class="dropdown-divider"></div>
+
+          <a class="dropdown-item" href="/u/<%=user%>">Profile</a>
+          <a class="dropdown-item" href="/settings">Settings</a>
+          <a class="dropdown-item" href="/logout">Logout</a>
+        </div>
+      </div>
+      <% } else { %>
+      <a class="btn btn-success" href="/login" id="user-settings">Sign in</a>
+      <% } %>
+    </div>
+  </div>
+</nav>
