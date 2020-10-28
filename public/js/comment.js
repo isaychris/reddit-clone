@@ -13,7 +13,7 @@ $("document").ready(function () {
     query
       .find(".comment-body")
       .append(
-        `<br><button class='btn btn-primary mr-1 edit-comment-submit' data-ref="${ref}">Save</button><button class='btn btn-primary edit-comment-cancel' data-ref="${ref}">Cancel</button>`
+        `<br><button class='btn btn-primary mr-2 edit-comment-submit' data-ref="${ref}">Save</button><button class='btn btn-outline-secondary edit-comment-cancel' data-ref="${ref}">Cancel</button>`
       );
     autosize(query.find(".comment-text"));
 
