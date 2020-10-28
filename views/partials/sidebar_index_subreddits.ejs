@@ -1,17 +1,24 @@
-<h4 class="text-center">Subbeddits (<%=subreddits.length %>)</h4>
-<table class="table table-striped">
-  <tbody>
-    <% if (subreddits != undefined) { subreddits.forEach((s) => { %> <% if
-    (s.name.length > 15){ %>
+<div class="subreddit bg-white">
+  <div class="text-center border-bottom mb-0 p-3"
+    >Subbeddits (<%=subreddits.length%>)</div
+  >
+
+  <div class="subreddit-content px-3 py-4">
+    <% if (subreddits) { subreddits.forEach((subreddit) => { %> <% if
+    (subreddit.name.length > 30){ %>
     <div>
-      <a href="/r/<%= s.name %>">/r/<%= s.name.substring(0,15) %>...</a>
+      <a class="text-dark" href="/r/<%= subreddit.name %>"
+        >/r/<%= subreddit.name.substring(0,30) %>...</a
+      >
     </div>
 
     <% } else{%>
     <div>
-      <a href="/r/<%= s.name %>">/r/<%= s.name %></a>
+      <a class="text-dark" href="/r/<%= subreddit.name %>"
+        >/r/<%= subreddit.name %></a
+      >
     </div>
-    <% }%> <% }) %> <% if(subreddits.length === 0) { %> You are not subscribed
-    to any subbeddit <% } %> <% } %>
-  </tbody>
-</table>
+    <% }%> <% }) %> <% if(!subreddits.length) { %> You are not subscribed to any
+    subbeddit <% } %> <% } %>
+  </div>
+</div>
