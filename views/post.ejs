@@ -4,8 +4,7 @@
 
 <body>
     
-    <%- include('partials/nav', {user: locals.user}) %>
-    <%- include('partials/jumbotron', {name: info.name}) %>
+    <%- include('partials/nav', {user: locals.user, name:info.name}) %>
     <span id="auth"><%= isAuth %></span>
 
     <div class="grid-container">

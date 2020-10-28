@@ -3,8 +3,7 @@
   <%- include('../partials/head', {title: "Beddit - Frontpage"}) %>
 
   <body>
-    <%- include('../partials/nav', {user: locals.user, karma}) %> <%-
-    include('../partials/jumbotron', {name: "Frontpage"}) %>
+    <%- include('../partials/nav', {user: locals.user, karma, name: "Frontpage"}) %> 
     <span id="auth"><%= isAuth %></span>
 
     <div class="container">

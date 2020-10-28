@@ -4,8 +4,8 @@
   %>
 
   <body>
-    <%- include('../partials/nav', {user: locals.user, karma}) %> <%-
-    include('../partials/jumbotron', {name: profile_user}) %>
+    <%- include('../partials/nav', {user: locals.user, karma, name:
+    profile_user}) %>
     <span id="auth"><%= isAuth %></span>
 
     <div class="grid-container">

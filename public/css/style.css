@@ -28,6 +28,10 @@ body {
   display: none;
 }
 
+.nav-top {
+  background: url("../images/nav_top.jpg");
+  height: 30vh;
+}
 /* .grid-container {
   margin-left: 15px;
   margin-right: 15px;
