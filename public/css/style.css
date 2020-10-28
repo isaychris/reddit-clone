@@ -24,9 +24,9 @@ body {
   border: 5px !important;
 }
 
-#auth {
+/* #auth {
   display: none;
-}
+} */
 
 .nav-top {
   background: url("../images/nav_top.jpg");

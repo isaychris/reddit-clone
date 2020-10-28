@@ -5,7 +5,8 @@
   <body>
     <%- include('../partials/nav', {user: locals.user, karma, name:info.name})
     %>
-    <span id="auth"><%= isAuth %></span>
+    <span id="auth" class="d-none"><%= isAuth %></span>
+    <span id="subreddit-name" class="d-none"><%= info.name%></span>
 
     <div class="grid-container">
       <div class="sidebar">
@@ -76,25 +77,18 @@
                 ></span
               >
             </div>
-            <ul class="post-options">
-              <li
-                ><a href="/r/<%=post.subreddit %>/<%= post._id %>"
-                  ><%=post.num_of_comments%> comments</a
-                ></li
+
+            <div class="post-options">
+              <a href="/r/<%=post.subreddit %>/<%= post._id %>"
+                ><%=post.num_of_comments%> comments</a
               >
-              <li
-                ><a href="javascript:void(0)" class="save-post auth-req"
-                  >save</a
-                ></li
-              >
+              <a href="javascript:void(0)" class="save-post auth-req">save</a>
               <% if(post.username == locals.user) { %>
-              <li
-                ><a href="javascript:void(0)" class="delete-post auth-req"
-                  >delete</a
-                ></li
+              <a href="javascript:void(0)" class="delete-post auth-req"
+                >delete</a
               >
               <% } %>
-            </ul>
+            </div>
           </div>
         </article>
         <% });%> <% } else { %> There are no posts. <% } %>
