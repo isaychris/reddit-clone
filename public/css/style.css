@@ -28,7 +28,7 @@ body {
   display: none;
 }
 
-.grid-container {
+/* .grid-container {
   margin-left: 15px;
   margin-right: 15px;
   display: grid;
@@ -37,49 +37,50 @@ body {
   grid-template-rows: 1fr;
   grid-gap: 15px 15px;
   grid-template-areas: "main sidebar";
-}
+} */
 
-.sidebar {
+/* .sidebar {
   grid-area: sidebar;
-}
+} */
 
-.main {
+/* .main {
   grid-area: main;
-}
+} */
 
-.module {
+/* .module {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
-}
+} */
 
-.main article {
+/* .main article {
   background-color: #e9ecef;
   margin-bottom: 15px;
   border-radius: 0.25rem;
   border: 1px solid #ced4da;
-}
+} */
 
-.main ul {
+/* .main ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
+} */
 
-.main li {
+/* .main li {
   display: inline;
-}
+} */
 
-.main header {
+/* .main header {
   font-weight: bold;
-}
+} */
 
+/* 
 .arrows {
   position: relative;
   float: left;
   padding-left: 5px;
   padding-right: 5px;
   margin-top: 5px;
-}
+} */
 
 .upvote,
 .downvote,
@@ -89,51 +90,51 @@ body {
   text-align: center;
 }
 
-.info {
+/* .info {
   margin-left: 35px;
-}
+} */
 
-.sidebar ul {
+/* .sidebar ul {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
-}
+} */
 
-.actions button {
+/* .actions button {
   display: block;
   width: 100%;
-}
+} */
 
-#user-info {
+/* #user-info {
   float: right;
   color: white;
-}
+} */
 
-article {
+/* article {
   padding: 10px;
-}
-
+} */
+/* 
 form {
   margin: 0;
-}
+} */
 
-tr {
+/* tr {
   line-height: 5px !important;
-}
+} */
 
-.jumbotron-fluid {
+/* .jumbotron-fluid {
   border-bottom: 1px solid #ced4da;
   padding: 32px;
   margin-bottom: 15px;
-}
+} */
 
-.border {
+/* .border {
   border-radius: 0.25em;
-}
+} */
 
-.hide-options {
+/* .hide-options {
   display: none;
-}
+} */
 
 .upvote-post,
 .downvote-post,
@@ -142,20 +143,20 @@ tr {
   cursor: pointer;
 }
 
-.thumbnail {
+/* .thumbnail {
   float: left;
   margin-top: 5px;
   margin-left: 10px;
   margin-right: 10px;
   border-radius: 0.5em;
-}
+} */
 
-.post-options li,
+/* .post-options li,
 .comment-options li {
   margin-right: 10px;
-}
+} */
 
-.post-body,
+/* .post-body,
 .comment-body {
   white-space: pre-wrap;
-}
+} */
