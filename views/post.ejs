@@ -43,16 +43,17 @@
                         </div>
 
                         <p class="border border-primary post-body"><% if(post.type == "post") { %><%= post.body %><%  } else { %><%= post.link %><% } %></p>
-                        <ul class="post-options">
+
+                        <div class="post-options">
                             <% if(locals.isauth) { %>
-                                <li><a href="javascript:void(0)" class="save-post auth-req">save</a></li>
+                         <a href="javascript:void(0)" class="save-post auth-req">save</a>
 
                                 <% if(post.username == locals.user) { %>
-                                    <li><a href="javascript:void(0)" class="edit-post auth-req">edit</a></li>
-                                    <li><a href="javascript:void(0)" class="delete-post auth-req">delete</a></li>
+                                  <a href="javascript:void(0)" class="edit-post auth-req">edit</a>
+                               <a href="javascript:void(0)" class="delete-post auth-req">delete</a>
                                 <% } %>
                             <% } %>
-                        </ul>
+                                </div>
 
                     </div>
                 </article>

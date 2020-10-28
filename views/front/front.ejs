@@ -21,10 +21,12 @@
 
           <div class="col-lg-8">
             <div class="main">
-              <%- include('../partials/sort') %> <% if (posts != undefined) {
-              posts.forEach((post) => { %>
+              <% if (posts != undefined) { posts.forEach((post) => { %>
 
-              <article class="post px-3 bg-white" data-ref="<%= post._id %>">
+              <article
+                class="post my-3 px-3 bg-white"
+                data-ref="<%= post._id %>"
+              >
                 <div class="row">
                   <!-- voting -->
                   <div
@@ -138,21 +140,27 @@
                     class="col-2 px-0 d-flex align-items-center justify-content-center flex-column"
                   >
                     <div class="post-options w-100">
+                      <!-- comment -->
                       <div
                         class="comment-wrapper d-flex justify-content-center align-items-center py-3 border-bottom"
                       >
-                        <div
-                          class="comment-bg d-flex justify-content-center align-items-center"
+                        <a
+                          class="text-white"
+                          href="/r/<%=post.subreddit %>/<%= post._id %>"
                         >
-                          <a
-                            class="text-white"
-                            href="/r/<%=post.subreddit %>/<%= post._id %>"
-                            ><%=post.num_of_comments%></a
+                          <div
+                            class="comment-bg d-flex justify-content-center align-items-center"
                           >
-                          <div class="comment-bg-mark"></div>
-                        </div>
+                            <span class="comment-count">
+                              <%=post.num_of_comments%>
+                            </span>
+
+                            <div class="comment-bg-mark"></div>
+                          </div>
+                        </a>
                       </div>
 
+                      <!-- save -->
                       <div
                         class="save-post-wrapper d-flex justify-content-center align-items-center border-bottom"
                       >
@@ -161,6 +169,7 @@
                         >
                       </div>
 
+                      <!-- delete -->
                       <div
                         class="delete-post-wrapper d-flex justify-content-center align-items-center"
                       >

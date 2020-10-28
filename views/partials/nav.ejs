@@ -3,14 +3,40 @@
 </div>
 <nav class="navbar navbar-light bg-white">
   <div class="container">
-    <a
-      class="navbar-brand d-flex justify-content-center align-items-center"
-      href="/"
-    >
-      <img src="/images/icon.png" width="40" height="40" alt="" />
+    <div class="d-flex justify-content-center align-items-center">
+      <!-- logo -->
+      <a
+        class="navbar-brand mr-5 d-flex justify-content-center align-items-center"
+        href="/"
+      >
+        <img src="/images/icon.png" width="40" height="40" alt="" />
 
-      <div class="navbar-brand-text ml-2"> Beddit </div>
-    </a>
+        <div class="navbar-brand-text ml-2"> Beddit </div>
+      </a>
+
+      <!-- sort -->
+      <%- include('../partials/sort') %>
+    </div>
+
+    <!-- post search -->
+    <form id="form-search" action="/search/" method="post">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          name="query"
+          placeholder="Find a post"
+          required
+        />
+        <div class="input-group-append">
+          <button class="btn btn-secondary submit" type="submit">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- user -->
     <div id="user-info">
       <% if(user) { %>
       <!-- Example single danger button -->

@@ -5,7 +5,7 @@
   <body>
     <%- include('../partials/nav', {user: locals.user, karma, name:info.name})
     %>
-    <span id="auth" class="d-none"><%= isAuth %></span>
+    <span id="auth"><%= isAuth %></span>
     <span id="subreddit-name" class="d-none"><%= info.name%></span>
 
     <div class="grid-container">
@@ -16,8 +16,7 @@
       </div>
 
       <div class="main">
-        <%- include('../partials/sort') %> <% if (posts != undefined) {
-        posts.forEach((post) => { %>
+        <% if (posts != undefined) { posts.forEach((post) => { %>
         <article class="post" data-ref="<%= post._id %>">
           <div class="arrows">
             <div class="upvote-post auth-req"
