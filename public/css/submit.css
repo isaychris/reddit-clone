@@ -1,26 +1,25 @@
-.submit-wrapper {
+/* .submit-wrapper {
     background-color: #e9ecef;
     margin-bottom: 15px;
     border-radius: 0.25rem;
     padding: 15px;
     border: 1px solid #ced4da;
-}
-
-
+} */
+/* 
 .post-wrapper {
-    background-color: #e9ecef;
-    margin-bottom: 15px;
-    border-radius: 0.25rem;
-}
+  background-color: #e9ecef;
+  margin-bottom: 15px;
+  border-radius: 0.25rem;
+} */
 
-p {
-    padding: 10px;
-}
+/* p {
+  padding: 10px;
+} */
 
 .down-enabled {
-    color: blue;
+  color: blue;
 }
 
 .up-enabled {
-    color: orange;
+  color: orange;
 }

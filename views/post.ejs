@@ -7,99 +7,134 @@
     %>
     <span id="auth"><%= isAuth %></span>
 
-    <div class="subscribed">
+    <div
+      class="info-wrapper d-flex justify-content-center align-items-center flex-column"
+    >
       <h4 class="text-center">Information</h4>
-      <p><%= info.description %></p>
+      <span><%= info.description %></span>
     </div>
 
     <div class="main">
       <div class="container">
-        <div class="comment-wrapper">
-          <article class="post" data-ref="<%= post._id %>">
-            <div class="arrows">
-              <div class="upvote-post auth-req"
-                ><i class="far fa-caret-square-up"></i
-              ></div>
-              <span class="post-votes" data-ref="<%= post._id %>"
-                ><%= post.votes %></span
+        <!-- post -->
+        <article class="post" data-ref="<%= post._id %>">
+          <div class="row">
+            <!-- post voting -->
+            <div class="col-1">
+              <div
+                class="arrows d-flex justify-content-center align-items-center flex-column"
               >
-              <div class="downvote-post auth-req"
-                ><i class="far fa-caret-square-down"></i
-              ></div>
-            </div>
-
-            <div class="info">
-              <header>
-                <% if(post.type == "post") { %>
-                <a href="/r/<%= post.subreddit %>/<%= post._id %>"
-                  ><%= post.title %></a
+                <div class="upvote-post auth-req"
+                  ><i class="far fa-caret-square-up"></i
+                ></div>
+                <span class="post-votes" data-ref="<%= post._id %>"
+                  ><%= post.votes %></span
                 >
-                <% } else { %>
-                <a href="<%= post.link %>"><%= post.title %></a>
-                <% } %>
-              </header>
-
-              <div>
-                submitted <time title="<%= post.time %>">-</time> by
-                <span class="post-user"
-                  ><a href="/u/<%= post.username %>"
-                    ><%= post.username %></a
-                  ></span
-                >
-                from
-                <span
-                  ><a href="/r/<%= post.subreddit %>"
-                    >/r/<%= post.subreddit %></a
-                  ></span
-                >
-              </div>
-
-              <p class="border border-primary post-body"
-                ><% if(post.type == "post") { %><%= post.body %><% } else {
-                %><%= post.link %><% } %></p
-              >
-
-              <div class="post-options">
-                <% if(locals.isauth) { %>
-                <a href="javascript:void(0)" class="save-post auth-req">save</a>
-
-                <% if(post.username == locals.user) { %>
-                <a href="javascript:void(0)" class="edit-post auth-req">edit</a>
-                <a href="javascript:void(0)" class="delete-post auth-req"
-                  >delete</a
-                >
-                <% } %> <% } %>
+                <div class="downvote-post auth-req"
+                  ><i class="far fa-caret-square-down"></i
+                ></div>
               </div>
             </div>
-          </article>
-        </div>
 
-        <div class="submit-wrapper">
-          <% if(!isAuth) { %>
-          <span>
-            You must be <a href="/login">logged in</a> to leave a comment
-          </span>
-          <% } else { %>
-          <form
-            action="/r/<%=info.name%>/<%= post._id %>/comments"
-            method="post"
-          >
-            <textarea
-              class="form-control comment-text"
-              name="comment"
-              rows="2"
-              placeholder="Comment here ..."
-              required
-              maxlength="1000"
-            ></textarea>
-            <button class="btn btn-primary auth-req" type="submit"
-              >Submit</button
-            >
-          </form>
-          <% }; %>
-        </div>
+            <!-- post info -->
+            <div class="col-11">
+              <div class="info bg-white">
+                <!-- post header -->
+                <div class="post-header py-3 px-4 bg-light">
+                  <!-- post title -->
+                  <header class="post-title mb-1">
+                    <% if(post.type == "post") { %>
+                    <a
+                      class="text-dark text-lg"
+                      href="/r/<%= post.subreddit %>/<%= post._id %>"
+                      ><%= post.title %></a
+                    >
+                    <% } else { %>
+                    <a href="<%= post.link %>"><%= post.title %></a>
+                    <% } %>
+                  </header>
 
-        <hr />
+                  <!-- post status -->
+                  <div class="post-status">
+                    submitted <time title="<%= post.time %>">-</time> by
+                    <span class="post-user"
+                      ><a href="/u/<%= post.username %>"
+                        ><%= post.username %></a
+                      ></span
+                    >
+                    from
+                    <span
+                      ><a href="/r/<%= post.subreddit %>"
+                        >/r/<%= post.subreddit %></a
+                      ></span
+                    >
+                  </div>
+                </div>
+
+                <!-- post article -->
+                <div class="post-body border-top border-bottom py-3 px-4"
+                  ><% if(post.type == "post") { %><%= post.body %><% } else {
+                  %><%= post.link %><% } %></div
+                >
+
+                <!-- post actions -->
+                <div class="post-options py-3 px-4 bg-light">
+                  <% if(locals.isauth) { %>
+                  <a
+                    href="javascript:void(0)"
+                    class="save-post auth-req mr-3 text-capitalize"
+                  >
+                    <i class="fas fa-bookmark"></i>
+                    <span class="save-post-span">save</span>
+                  </a>
+
+                  <% if(post.username == locals.user) { %>
+                  <a href="javascript:void(0)" class="edit-post auth-req mr-3">
+                    <i class="fas fa-pencil-alt"></i>
+                    <span>Edit</span>
+                  </a>
+
+                  <a href="javascript:void(0)" class="delete-post auth-req">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>Delete</span></a
+                  >
+                  <% } %> <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="comment-textarea mt-4">
+          <div class="row">
+            <div class="col-1"></div>
+            <div class="col-11">
+              <% if(!isAuth) { %>
+              <span>
+                You must be <a href="/login">logged in</a> to leave a comment
+              </span>
+              <% } else { %>
+              <form
+                action="/r/<%=info.name%>/<%= post._id %>/comments"
+                method="post"
+              >
+                <textarea
+                  class="form-control comment-text px-3 py-2"
+                  name="comment"
+                  rows="3"
+                  placeholder="Comment here ..."
+                  required
+                  maxlength="1000"
+                ></textarea>
+
+                <button class="btn btn-primary auth-req mt-3" type="submit"
+                  >Submit</button
+                >
+              </form>
+              <% }; %>
+            </div>
+          </div>
+        </div>
 
         <!-- sort comment -->
         <div

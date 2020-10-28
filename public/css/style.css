@@ -32,34 +32,39 @@ body {
 }
 
 .btn,
-input {
+input,
+textarea {
   transition: 0.3s !important;
   box-shadow: none !important;
   outline: none !important;
   font-size: 14px !important;
 }
-.btn {
-  padding: 8px 16px !important;
-  transition: 0.3s !important;
-  border-radius: 3px !important;
+textarea {
+  border: none !important;
 }
 input {
   background: #f3f5f9 !important;
   padding: 0 18px !important;
   border: none !important;
 }
+.btn {
+  padding: 8px 16px !important;
+  transition: 0.3s !important;
+  border-radius: 3px !important;
+}
 .btn:hover {
   opacity: 0.8;
 }
-.btn-primary {
-  background: #1abc9c !important;
-  border: solid 1px #1abc9c !important;
-}
+.btn-primary,
 .btn-outline-secondary {
   border: solid 1px #1abc9c !important;
 }
+.btn-primary,
 .btn-outline-secondary:hover {
   background: #1abc9c !important;
+}
+.border-primary {
+  border: solid 1px #1abc9c !important;
 }
 
 .view-github {
