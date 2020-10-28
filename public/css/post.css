@@ -1,10 +1,32 @@
-.comment-wrapper {
-    background-color: #e9ecef;
-    margin-bottom: 15px;
-    border-radius: 0.25rem;
-}
+/* .comment-wrapper {
+  background-color: #e9ecef;
+  margin-bottom: 15px;
+  border-radius: 0.25rem;
+} */
 
 .info p {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.comment-bg {
+  background-color: #bdc3c7;
+  border-radius: 2px;
+  padding: 12px 17px;
+  font-size: 14px;
+  position: relative;
+  width: 50px;
+}
+
+.comment-bg-mark {
+  width: 11px;
+  height: 11px;
+  background-color: #bdc3c7;
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  margin-bottom: -5px;
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }
