@@ -8,7 +8,7 @@
     <span id="auth"><%= isAuth %></span>
 
     <div
-      class="info-wrapper d-flex justify-content-center align-items-center flex-column"
+      class="info-wrapper my-3 d-flex justify-content-center align-items-center flex-column"
     >
       <h4 class="text-center">Information</h4>
       <span><%= info.description %></span>
@@ -37,7 +37,7 @@
             </div>
 
             <!-- post info -->
-            <div class="col-11">
+            <div class="col-11 p-0">
               <div class="info bg-white">
                 <!-- post header -->
                 <div class="post-header py-3 px-4 bg-light">
@@ -105,10 +105,11 @@
           </div>
         </article>
 
+        <!-- comment textarea -->
         <div class="comment-textarea mt-4">
           <div class="row">
-            <div class="col-1"></div>
-            <div class="col-11">
+            <div class="col-1"> </div>
+            <div class="col-11 p-0">
               <% if(!isAuth) { %>
               <span>
                 You must be <a href="/login">logged in</a> to leave a comment
@@ -136,48 +137,97 @@
           </div>
         </div>
 
-        <!-- sort comment -->
+        <!-- comment section -->
         <div
-          class="comment-heading d-flex justify-content-center align-items-center"
+          class="comment-heading d-flex justify-content-center align-items-center mt-5"
         >
-          <h4>Comment</h4>
-          <%- include('./partials/sort') %>
+          <h4 class="text-center mb-0">Comment</h4>
+          <!-- sorting -->
+          <div class="comment-sort position-absolute">
+            <%- include('./partials/sort') %>
+          </div>
         </div>
 
         <div class="comment-wrapper">
           <% if (comments) { comments.forEach((comment) => { %>
 
-          <article class="comment" data-ref="<%= comment._id %>">
-            <span class="comment-user">
-              <a href="/u/<%= comment.username %>"><%= comment.username %></a>
-            </span>
+          <article class="comment my-5" data-ref="<%= comment._id %>">
+            <div class="row">
+              <div class="col-1 mt-1">
+                <!-- comment voting -->
+                <div
+                  class="comment-options d-flex justify-content-center align-items-center flex-column"
+                >
+                  <i
+                    class="far fa-caret-square-up upvote-comment mb-2 auth-req"
+                  ></i>
 
-            <span class="comment-votes"><%= comment.votes %> points</span>
-            <time title="<%= comment.time %>">-</time>
+                  <i
+                    class="far fa-caret-square-down downvote-comment auth-req"
+                  ></i>
+                </div>
+              </div>
 
-            <div class="comment-body"><%= comment.body %></div>
+              <!-- comment header -->
+              <div class="col-11 p-0">
+                <div class="comment-header">
+                  <span class="comment-user mr-1">
+                    <a href="/u/<%= comment.username %>"
+                      ><%= comment.username %></a
+                    >
+                  </span>
 
-            <!-- vote comment -->
-            <div class="comment-options">
-              <i class="far fa-caret-square-up upvote-comment auth-req"></i>
+                  <span class="comment-votes-wrapper mr-2">
+                    <span class="comment-votes"><%= comment.votes %></span>
+                    <span> points </span>
+                  </span>
 
-              <i class="far fa-caret-square-down downvote-comment auth-req"></i>
+                  <time title="<%= comment.time %>">-</time>
+                </div>
+
+                <!-- comment body-->
+                <div class="comment-body mt-1 mb-2"><%= comment.body %></div>
+
+                <div class="comment-actions">
+                  <!-- reply -->
+                  <a
+                    class="reply-comment auth-req text-capitalize mr-3"
+                    href="javascript:void(0)"
+                  >
+                    <i class="fas fa-comment-alt"></i>
+                    <span> reply </span>
+                  </a>
+
+                  <% if(locals.isauth) { %>
+                  <!-- save -->
+                  <a
+                    class="save-comment auth-req text-capitalize mr-3"
+                    href="javascript:void(0)"
+                  >
+                    <i class="fas fa-bookmark"></i>
+                    <span class="save-comment-span">save</span>
+                  </a>
+                  <!-- edit -->
+                  <% if(comment.username == locals.user) { %>
+                  <a
+                    class="edit-comment mr-3 auth-req"
+                    href="javascript:void(0)"
+                  >
+                    <i class="fas fa-pencil-alt"></i>
+                    <span class="edit-comment-span text-capitalize">edit</span>
+                  </a>
+                  <!-- delete -->
+                  <a
+                    class="delete-comment mr-3 auth-req"
+                    href="javascript:void(0)"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                    <span class="delete-comment text-capitalize">delete</span>
+                  </a>
+                </div>
+                <% } %> <% } %>
+              </div>
             </div>
-
-            <a href="javascript:void(0)" class="reply-comment auth-req"
-              >reply</a
-            >
-
-            <% if(locals.isauth) { %>
-            <a href="javascript:void(0)" class="save-comment auth-req">save</a>
-
-            <% if(comment.username == locals.user) { %>
-            <a href="javascript:void(0)" class="edit-comment auth-req">edit</a>
-
-            <a href="javascript:void(0)" class="delete-comment auth-req"
-              >delete</a
-            >
-            <% } %> <% } %>
           </article>
           <% });%> <% } else { %> There are no comments. <% } %>
         </div>

@@ -80,7 +80,12 @@
               <a href="/r/<%=post.subreddit %>/<%= post._id %>"
                 ><%=post.num_of_comments%> comments</a
               >
-              <a href="javascript:void(0)" class="save-post auth-req">save</a>
+              <a
+                href="javascript:void(0)"
+                class="save-post auth-req text-capitalize"
+              >
+                <span class="save-post-span">save</span>
+              </a>
               <% if(post.username == locals.user) { %>
               <a href="javascript:void(0)" class="delete-post auth-req"
                 >delete</a

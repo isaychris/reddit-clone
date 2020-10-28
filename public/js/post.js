@@ -14,7 +14,7 @@ $("document").ready(function () {
     query
       .find(".post-body")
       .append(
-        "<br><button class='btn btn-primary mr-1 edit_submit'>Save</button><button class='btn btn-primary edit_cancel'>Cancel</button>"
+        "<br><button class='btn btn-primary mr-2 edit_submit'>Save</button><button class='btn btn-outline-secondary edit_cancel'>Cancel</button>"
       );
     autosize(query.find(".post-text"));
 
@@ -67,7 +67,7 @@ $("document").ready(function () {
   $(".save-post").click(function () {
     let query = $(this).closest("article");
     let ref = query.data("ref");
-    let that = $(".save-post-span");
+    let that = $(this).find(".save-post-span");
 
     if (that.text() === "save") {
       $.ajax({

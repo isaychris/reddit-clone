@@ -165,9 +165,12 @@
                       <div
                         class="save-post-wrapper d-flex justify-content-center align-items-center border-bottom"
                       >
-                        <a href="javascript:void(0)" class="save-post auth-req"
-                          >save</a
+                        <a
+                          href="javascript:void(0)"
+                          class="save-post auth-req text-capitalize"
                         >
+                          <span class="save-post-span">save</span>
+                        </a>
                       </div>
 
                       <!-- delete -->
@@ -177,7 +180,7 @@
                         <% if(post.username === locals.user) { %>
                         <a
                           href="javascript:void(0)"
-                          class="delete-post auth-req"
+                          class="delete-post auth-req text-capitalize"
                           >delete</a
                         >
                         <% } %>

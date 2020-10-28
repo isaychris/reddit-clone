@@ -30,3 +30,7 @@
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+
+.comment-sort {
+  margin-left: 190px;
+}

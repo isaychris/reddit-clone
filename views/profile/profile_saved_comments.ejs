@@ -73,7 +73,9 @@
                             <i class="far fa-caret-square-down downvote-comment auth-req"></i>
                         </li>   
 
-                        <li><a href="javascript:void(0)" class="save-comment auth-req">save</a></li>
+                        <li><a href="javascript:void(0)" class="save-comment auth-req text-capitalize">
+                            <span class="save-post-span">save</span>
+                        </a></li>
 
                             <% if(comment.username == locals.user) { %>
                             <li><span><a href="javascript:void(0)" class="edit-comment auth-req">edit</a></span></li>
