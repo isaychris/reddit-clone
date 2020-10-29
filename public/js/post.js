@@ -70,6 +70,7 @@ $("document").ready(function () {
     let that = $(this).find(".save-post-span");
 
     if (that.text() === "save") {
+      alert("saved");
       $.ajax({
         type: "put",
         url: `/save/post/${ref}`,
@@ -80,6 +81,7 @@ $("document").ready(function () {
         }
       });
     } else if (that.text() === "unsave") {
+      alert("unsaved");
       $.ajax({
         type: "put",
         url: `/unsave/post/${ref}`,
