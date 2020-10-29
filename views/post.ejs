@@ -3,8 +3,8 @@
   <%- include('partials/head', {title: post.title}) %>
 
   <body>
-    <%- include('partials/nav_subreddit', {user: locals.user, name:info.name})
-    %>
+    <%- include('partials/nav_subreddit', {user: locals.user, name:info.name,
+    description: info.description}) %>
     <span id="auth"><%= isAuth %></span>
 
     <div

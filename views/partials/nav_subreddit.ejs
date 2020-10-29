@@ -1,21 +1,37 @@
 <div
   class="nav-top d-flex justify-content-center align-items-center flex-column"
 >
-  <div class="display-4 mb-3"><%= name %></div>
+  <div
+    class="nav-top-caption d-flex justify-content-center align-items-center flex-column"
+  >
+    <div class="nav-top-title display-4 mb-2"><%= name %></div>
+    <% if(description) { %>
+    <div class="nav-top-description"><%= description %></div>
+    <% } %>
+  </div>
 
   <!-- subscribe button -->
   <span id="subreddit-name" class="d-none"><%= name %></span>
 
   <% if(locals.isauth) { %> <% if(state == false) { %>
-  <a class="btn btn-primary auth-req" href="javascript:void(0)" id="subscribe"
+  <a
+    class="btn btn-primary auth-req mt-3"
+    href="javascript:void(0)"
+    id="subscribe"
     >Subscribe</a
   >
   <% } else if (state == true) { %>
-  <a class="btn btn-primary auth-req" href="javascript:void(0)" id="subscribe"
+  <a
+    class="btn btn-primary auth-req mt-3"
+    href="javascript:void(0)"
+    id="subscribe"
     >Unsubscribe</a
   >
   <% } %> <% } else {%>
-  <a class="btn btn-primary auth-req" href="javascript:void(0)" id="subscribe"
+  <a
+    class="btn btn-primary auth-req mt-3"
+    href="javascript:void(0)"
+    id="subscribe"
     >Subscribe</a
   >
   <% } %>

@@ -3,15 +3,13 @@
   <%- include('../partials/head', {title: "Beddit - " + info.name}) %>
 
   <body>
-    <%- include('../partials/nav', {user: locals.user, karma, name:info.name})
-    %>
+    <%- include('../partials/nav_subreddit', {user: locals.user, karma,
+    name:info.name, description: info.description}) %>
     <span id="auth"><%= isAuth %></span>
 
     <div class="grid-container">
       <div class="sidebar">
-        <%- include('../partials/sidebar_subreddit_actions', {name: info.name,
-        state: state}) %> <%- include('../partials/sidebar_subreddit_info',
-        {desc: info.description}) %>
+        <span>state: <%= state %> </span>
       </div>
 
       <div class="main">
