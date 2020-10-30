@@ -60,6 +60,7 @@ $("document").ready(function () {
         query.remove();
       });
     }
+    location.reload();
     return false;
   });
 
