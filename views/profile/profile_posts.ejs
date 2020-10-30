@@ -65,7 +65,9 @@
 
         <!-- user posts -->
         <div class="user-posts mt-5">
-          <div class="user-posts-title text-lg">Your posts</div>
+          <div class="user-posts-title text-lg"
+            >Your <%= currentProfilePage %></div
+          >
           <% if (posts != undefined) { posts.forEach((post) => { %>
           <article class="post my-3 px-3 bg-white" data-ref="<%= post._id %>">
             <div class="row">

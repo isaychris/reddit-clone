@@ -68,7 +68,9 @@
 
         <!-- user comments -->
         <div class="user-comments mt-5">
-          <div class="user-comments-title text-lg mb-0">Your comments</div>
+          <div class="user-comments-title text-lg mb-0"
+            >Your <%= currentProfilePage %></div
+          >
           <% if (comments.length) { comments.forEach((comment) => { %>
           <article
             class="comment px-3 my-4 bg-white"
