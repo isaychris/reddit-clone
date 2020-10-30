@@ -7,142 +7,196 @@
     %>
     <span id="auth"><%= isAuth %></span>
 
-    <div class="grid-container">
-      <div class="sidebar">
-        <form id="form-search" action="/search/" method="post">
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              name="query"
-              placeholder="Find a post"
-              value="<%= query %>"
-              required
-            />
-            <div class="input-group-append">
-              <button class="btn btn-primary submit" type="submit"
-                >Search</button
-              >
+    <div class="front-page mt-4">
+      <div class="container">
+        <div class="row flex-lg-row-reverse">
+          <div class="col-lg-4">
+            <!-- sidebar -->
+            <div class="sidebar">
+              <%- include('../partials/sidebar_index_subscribed', {isAuth,
+              subscribed}) %> <%-
+              include('../partials/sidebar_index_subreddits', {subreddits}) %>
             </div>
           </div>
-        </form>
-        <div class="btn-group" style="width: 100%">
-          <a
-            class="btn btn-success auth-req"
-            href="/submit/link"
-            id="submit-link"
-            style="width: 100%"
-            >New link</a
-          >
-          <a
-            class="btn btn-primary auth-req"
-            href="/submit/post"
-            id="submit-post"
-            style="width: 100%"
-            >New post</a
-          >
+
+          <div class="col-lg-8">
+            <div class="main">
+              <% if (posts.length) { posts.forEach((post) => { %>
+              <!-- post -->
+              <article
+                class="post my-3 px-3 bg-white"
+                data-ref="<%= post._id %>"
+              >
+                <div class="row">
+                  <!-- voting -->
+                  <div
+                    class="col-1 px-0 py-3 d-flex justify-content-center align-items-center"
+                  >
+                    <div
+                      class="arrows d-flex justify-content-center align-items-center flex-column"
+                    >
+                      <!-- upvote -->
+                      <div class="upvote-post auth-req"
+                        ><i class="far fa-caret-square-up"></i
+                      ></div>
+
+                      <span class="post-votes m-0" data-ref="<%= post._id %>">
+                        <% if (post.votes > 999999999999) { %>
+                        <span class="m-0">
+                          <%= post.votes.toString()[0] %>.<%=
+                          post.votes.toString()[1] %> T
+                        </span>
+                        <% } else if (post.votes > 999999999) { %>
+                        <span class="m-0">
+                          <%= post.votes.toString()[0] %>.<%=
+                          post.votes.toString()[1] %> B
+                        </span>
+                        <% } else if (post.votes > 999999) { %>
+                        <span class="m-0">
+                          <%= post.votes.toString()[0] %>.<%=
+                          post.votes.toString()[1] %> M
+                        </span>
+                        <% } else if(post.votes > 999 ) { %>
+                        <span class="m-0">
+                          <%= post.votes.toString()[0] %>.<%=
+                          post.votes.toString()[1] %> k
+                        </span>
+                        <% } else{ %>
+                        <span class="m-0"> <%= post.votes %> </span>
+                        <% } %>
+                      </span>
+
+                      <!-- downvote -->
+                      <div class="downvote-post auth-req"
+                        ><i class="far fa-caret-square-down"></i
+                      ></div>
+                    </div>
+                  </div>
+
+                  <!-- main post -->
+                  <div
+                    class="col-9 py-3 d-flex d-flex align-items-center border-left border-right"
+                  >
+                    <!-- post image -->
+                    <div class="post-imagem mr-3">
+                      <% if(post.type === "img") { %>
+                      <a href="<%= post.link %>"
+                        ><img
+                          src="<%=post.link%>"
+                          height="55"
+                          width="55"
+                          class="thumbnail"
+                      /></a>
+                      <% } else if (post.type === "link") { %>
+                      <a href="<%= post.link %>"
+                        ><img
+                          src="/images/link.png"
+                          height="55"
+                          width="55"
+                          class="thumbnail"
+                      /></a>
+                      <% } else { %>
+                      <a href="/r/<%= post.subreddit %>/<%= post._id %>"
+                        ><img
+                          src="/images/post.png"
+                          height="55"
+                          width="55"
+                          class="thumbnail"
+                      /></a>
+                      <% } %>
+                    </div>
+
+                    <!-- post info -->
+                    <div class="info">
+                      <header>
+                        <% if(post.type == "post") { %>
+                        <a href="/r/<%= post.subreddit %>/<%= post._id %>"
+                          ><%= post.title %></a
+                        >
+                        <% } else { %>
+                        <a href="<%= post.link %>"><%= post.title %></a>
+                        <% } %>
+                      </header>
+
+                      <div>
+                        submitted <time title="<%= post.time %>">-</time> by
+                        <span class="post-user"
+                          ><a href="/u/<%= post.username %>"
+                            ><%= post.username %></a
+                          ></span
+                        >
+                        from
+                        <span
+                          ><a href="/r/<%= post.subreddit %>"
+                            >/r/<%= post.subreddit %></a
+                          ></span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- post actions -->
+                  <div
+                    class="col-2 px-0 d-flex align-items-center justify-content-center flex-column"
+                  >
+                    <div class="post-options w-100">
+                      <!-- comment -->
+                      <div
+                        class="comment-wrapper d-flex justify-content-center align-items-center py-3 border-bottom"
+                      >
+                        <a
+                          class="text-white"
+                          href="/r/<%=post.subreddit %>/<%= post._id %>"
+                        >
+                          <div
+                            class="comment-bg d-flex justify-content-center align-items-center"
+                          >
+                            <span class="comment-count">
+                              <%=post.num_of_comments%>
+                            </span>
+
+                            <div class="comment-bg-mark"></div>
+                          </div>
+                        </a>
+                      </div>
+
+                      <!-- save -->
+                      <div
+                        class="save-post-wrapper d-flex justify-content-center align-items-center border-bottom"
+                      >
+                        <a
+                          href="javascript:void(0)"
+                          class="save-post auth-req text-capitalize"
+                        >
+                          <i class="fas fa-bookmark"></i>
+                          <span class="save-post-span">save</span>
+                        </a>
+                      </div>
+
+                      <!-- delete -->
+                      <div
+                        class="delete-post-wrapper d-flex justify-content-center align-items-center"
+                      >
+                        <% if(post.username === locals.user) { %>
+                        <a
+                          href="javascript:void(0)"
+                          class="delete-post auth-req text-capitalize"
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                          delete
+                        </a>
+                        <% } %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <% });%> <% } else { %>
+              <div class="text-lg">No posts matched.</div>
+              <% } %>
+            </div>
+          </div>
         </div>
-        <br /><br />
-
-        <a
-          class="btn btn-block btn-light auth-req"
-          href="/submit/subreddit"
-          id="create-subreddit"
-          >Create subbeddit</a
-        ><br />
-
-        <%- include('../partials/sidebar_index_subscribed', {isAuth,
-        subscribed}) %>
-      </div>
-
-      <div class="main">
-        <% if (posts != undefined) { %>
-        <h4>Results (<%= posts.length %>)</h4>
-        <% } %> <% if (posts != undefined) { posts.forEach((post) => { %>
-        <article class="post" data-ref="<%= post._id %>">
-          <div class="arrows">
-            <div class="upvote-post auth-req"
-              ><i class="far fa-caret-square-up"></i
-            ></div>
-            <span class="post-votes" data-ref="<%= post._id %>"
-              ><%= post.votes %></span
-            >
-            <div class="downvote-post auth-req"
-              ><i class="far fa-caret-square-down"></i
-            ></div>
-          </div>
-
-          <% if(post.type == "img") { %>
-          <a href="<%= post.link %>"
-            ><img src="<%=post.link%>" height="55" width="55" class="thumbnail"
-          /></a>
-          <% } else if (post.type == "link") { %>
-          <a href="<%= post.link %>"
-            ><img
-              src="/images/link.png"
-              height="55"
-              width="55"
-              class="thumbnail"
-          /></a>
-          <% } else { %>
-          <a href="/r/<%= post.subreddit %>/<%= post._id %>"
-            ><img
-              src="/images/post.png"
-              height="55"
-              width="55"
-              class="thumbnail"
-          /></a>
-          <% } %>
-
-          <div class="info">
-            <header>
-              <% if(post.type == "post") { %>
-              <a href="/r/<%= post.subreddit %>/<%= post._id %>"
-                ><%= post.title %></a
-              >
-              <% } else { %>
-              <a href="<%= post.link %>"><%= post.title %></a>
-              <% } %>
-            </header>
-            <div>
-              submitted <time title="<%= post.time %>">-</time> by
-              <span
-                ><a href="/u/<%= post.username %>"
-                  ><%= post.username %></a
-                ></span
-              >
-              from
-              <span
-                ><a href="/r/<%= post.subreddit %>"
-                  >/r/<%= post.subreddit %></a
-                ></span
-              >
-            </div>
-            <ul>
-              <li
-                ><a href="/r/<%=post.subreddit %>/<%= post._id %>"
-                  >comments</a
-                ></li
-              >
-              <li
-                ><a href="javascript:void(0)" class="save-post auth-req"
-                  >save</a
-                ></li
-              >
-              <% if(post.username == locals.user) { %>
-              <li
-                ><a href="javascript:void(0)" class="delete-post auth-req">
-                  <i class="fas fa-trash-alt"></i>
-                  delete
-                </a></li
-              >
-              <% } %>
-            </ul>
-          </div>
-        </article>
-        <% });%> <% } else { %>
-        <h4>Results (0)</h4>
-        There are no posts. <% } %>
       </div>
     </div>
 
