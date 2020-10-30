@@ -190,18 +190,16 @@ exports.comments = function (req, res) {
         if (err) throw err;
 
         if (result.length) {
-          comments = result;
+          comments = result.filter((comment) => comment.parent.length > 0);
+        } else {
+          comments = [];
         }
         console.log(`[Profile] fetching comments from ${req.params.user} !`);
-
-        const newComments = comments.filter(
-          (comment) => comment.parent.length > 0
-        );
 
         res.render("./profile/profile_comments", {
           currentProfilePage: "comments",
           profile_user: req.params.user,
-          comments: newComments,
+          comments: comments,
           karma: karma,
           created: created,
           subscribed: subscribed,
