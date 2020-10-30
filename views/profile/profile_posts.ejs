@@ -234,8 +234,12 @@
               </div>
             </div>
           </article>
-          <% });%> <% if(posts.length == 0) { %> There are no posts. <% } %> <%
-          } else { %> There are no posts. <% } %>
+          <% });%> <% if(posts.length == 0) { %>
+
+          <div class="text-lg">There are no posts</div>
+          <% } %> <% } else { %>
+          <div class="text-lg">There are no posts</div>
+          <% } %>
         </div>
       </div>
     </div>
