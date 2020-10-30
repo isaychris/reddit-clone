@@ -11,6 +11,12 @@
       <div class="container">
         <div class="row flex-lg-row-reverse">
           <div class="col-12">
+            <% if (posts.length){ %>
+            <div class="front-search-title text-lg mb-3">
+              Your search result in <%= info.name %>
+            </div>
+            <% } %>
+
             <div class="main">
               <% if (posts.length) { posts.forEach((post) => { %>
               <!-- post -->
@@ -185,7 +191,7 @@
                 </div>
               </article>
               <% });%> <% } else { %>
-              <div class="text-lg">No posts matched.</div>
+              <div class="text-lg">No posts matched in <%= info.name %>.</div>
               <% } %>
             </div>
           </div>

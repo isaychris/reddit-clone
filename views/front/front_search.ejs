@@ -20,8 +20,14 @@
           </div>
 
           <div class="col-lg-8">
+            <% if (posts.length){ %>
+            <div class="front-search-title text-lg mb-3">
+              Your search result
+            </div>
+            <% } %>
             <div class="main">
               <% if (posts.length) { posts.forEach((post) => { %>
+
               <!-- post -->
               <article
                 class="post my-3 px-3 bg-white"
