@@ -13,9 +13,10 @@
       href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
     />
     <link rel="stylesheet" type="text/css" href="/css/auth.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
   </head>
 
-  <%- include('partials/nav', {user: locals.user, karma}) %>
+  <%- include('partials/nav', {user: locals.user, karma, name:"Settings"}) %>
 
   <body>
     <div class="container">
