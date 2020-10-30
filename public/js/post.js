@@ -77,6 +77,7 @@ $("document").ready(function () {
       }).done(function (res) {
         if (res === "success") {
           that.text("unsave");
+          location.reload();
           return false;
         }
       });
@@ -88,6 +89,7 @@ $("document").ready(function () {
       }).done(function (res) {
         if (res === "success") {
           that.text("save");
+          location.reload();
           return false;
         }
       });

@@ -275,7 +275,7 @@ exports.saved_posts = function (req, res) {
       }).sort(sort);
     })
     .then((result) => {
-      res.render("./profile/profile_saved_posts", {
+      res.render("./profile/profile_posts", {
         profile_user: req.params.user,
         posts: result,
         karma: karma,
@@ -371,7 +371,7 @@ exports.saved_comments = function (req, res) {
       ]);
     })
     .then((result) => {
-      res.render("./profile/profile_saved_comments", {
+      res.render("./profile/profile_comments", {
         profile_user: req.params.user,
         comments: result,
         karma: karma,
