@@ -121,7 +121,7 @@
                 <!-- post image -->
                 <div class="post-imagem mr-3">
                   <% if(post.type === "img") { %>
-                  <a href="<%= post.link %>"
+                  <a href="/r/<%= post.subreddit %>/<%= post._id %>"
                     ><img
                       src="<%=post.link%>"
                       height="55"
@@ -129,7 +129,7 @@
                       class="thumbnail"
                   /></a>
                   <% } else if (post.type === "link") { %>
-                  <a href="<%= post.link %>"
+                  <a href="/r/<%= post.subreddit %>/<%= post._id %>"
                     ><img
                       src="/images/link.png"
                       height="55"
@@ -155,7 +155,9 @@
                       ><%= post.title %></a
                     >
                     <% } else { %>
-                    <a href="<%= post.link %>"><%= post.title %></a>
+                    <a href="/r/<%= post.subreddit %>/<%= post._id %>"
+                      ><%= post.title %></a
+                    >
                     <% } %>
                   </header>
 
