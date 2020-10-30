@@ -171,8 +171,8 @@
                 </div>
               </div>
 
-              <!-- comment header -->
               <div class="col-11 p-0">
+                <!-- comment header -->
                 <div class="comment-header">
                   <span class="comment-user mr-1">
                     <a href="/u/<%= comment.username %>"
@@ -232,7 +232,14 @@
               </div>
             </div>
           </article>
-          <% });%> <% } else { %> There are no comments. <% } %>
+          <% });%> <% } else { %>
+          <div class="no-comment mb-5 mt-4">
+            <div class="row">
+              <div class="col-1"> </div>
+              <div class="col-11 p-0 text-lg"> There are no comments. </div>
+            </div>
+          </div>
+          <% } %>
         </div>
       </div>
     </div>

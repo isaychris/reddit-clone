@@ -22,7 +22,7 @@
 
           <!-- profile info -->
           <div class="profile-info mb-4">
-            <div class="karma-count text-center"> Karmaaaa: <%=karma%> </div>
+            <div class="karma-count text-center"> Karma: <%=karma%> </div>
             <div class="join-date text-center"> Joined: <%= created %> </div>
           </div>
 
@@ -30,7 +30,9 @@
           <div
             class="profile-view-actions d-flex justify-content-center align-items-center"
           >
-            <a class="mr-3" href="/u/<%= profile_user %>/posts">Posts</a>
+            <a class="mr-3" href="/u/<%= profile_user %>/posts">
+              <u> Posts </u>
+            </a>
             <a class="mr-3" href="/u/<%= profile_user %>/comments">Comments</a>
             <div class="btn-group text-primary">
               <span
