@@ -13,7 +13,7 @@
         <article class="post" data-ref="<%= post._id %>">
           <div class="row">
             <!-- post info -->
-            <div class="col-12">
+            <div class="col-12 p-0">
               <div class="info bg-white">
                 <!-- post header -->
                 <div class="post-header py-3 bg-light">
@@ -67,7 +67,9 @@
                           ><%= post.title %></a
                         >
                         <% } else { %>
-                        <a href="<%= post.link %>"><%= post.title %></a>
+                        <a href="/r/<%= post.subreddit %>/<%= post._id %>"
+                          ><%= post.title %></a
+                        >
                         <% } %>
                       </header>
 
@@ -132,8 +134,8 @@
         <!-- comment textarea -->
         <div class="comment-textarea mt-4">
           <div class="row">
-            <div class="col-1"> </div>
-            <div class="col-11 p-0">
+            <!-- <div class="col-1"> </div> -->
+            <div class="col-12 p-0">
               <% if(!isAuth) { %>
               <span>
                 You must be <a href="/login">logged in</a> to leave a comment
@@ -260,8 +262,7 @@
           <% });%> <% } else { %>
           <div class="no-comment mb-5 mt-4">
             <div class="row">
-              <div class="col-1"> </div>
-              <div class="col-11 p-0 text-lg"> There are no comments. </div>
+              <div class="col-12 p-0 text-lg"> There are no comments. </div>
             </div>
           </div>
           <% } %>
