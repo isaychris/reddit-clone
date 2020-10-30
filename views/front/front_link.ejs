@@ -7,52 +7,69 @@
     %>
     <span id="auth"><%= isAuth %></span>
 
-    <div class="grid-container">
-      <div class="sidebar">
-        <%- include('../partials/sidebar_index_subscribed', {isAuth,
-        subscribed}) %>
-      </div>
+    <div class="front-create-post mt-4">
+      <div class="container">
+        <div class="row flex-lg-row-reverse">
+          <div class="col-lg-4">
+            <!-- sidebar -->
+            <div class="sidebar">
+              <%- include('../partials/sidebar_index_subscribed', {isAuth,
+              subscribed}) %>
+            </div>
+          </div>
 
-      <div class="main">
-        <h4>new link</h4>
-        <div class="submit-wrapper">
-          <% if(!locals.user) { %> You must be logged in to submit a post / link
-          / subbeddit. <% } else { %>
+          <div class="col-lg-8">
+            <div class="submit-post-title text-lg mb-4">Create a link</div>
+            <div class="submit-post-wrapper">
+              <% if(!locals.user) { %> You must be logged in to submit a post /
+              link / subbeddit. <% } else { %>
 
-          <form id="form-post-or-link" action="/submit/link" method="post">
-            <input
-              type="text"
-              class="form-control"
-              name="title"
-              placeholder="Enter title"
-              required
-            /><br />
-            <input
-              type="text"
-              class="form-control"
-              name="link"
-              placeholder="Enter link"
-              required
-            /><br />
-            <input
-              type="text"
-              class="form-control"
-              name="subreddit"
-              id="subreddit_form"
-              placeholder="Enter subbeddit"
-              required
-            />
-            <div class="invalid-feedback">That subbeddit doesn't exist!</div
-            ><br />
-            <button
-              type="submit"
-              class="btn btn-primary auth-req"
-              id="link-submit-button"
-              >Submit</button
-            >
-          </form>
+              <form id="form-post-or-link" action="/submit/link" method="post">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control p-4"
+                    name="title"
+                    placeholder="Enter title"
+                    required
+                  />
+                </div>
 
-          <% } %>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control p-4 bg-white"
+                    name="link"
+                    placeholder="Enter link"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control p-4"
+                    name="subreddit"
+                    id="subreddit_form"
+                    placeholder="Enter subbeddit"
+                    required
+                  />
+                  <div class="invalid-feedback"
+                    >That subbeddit doesn't exist!</div
+                  >
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-primary auth-req"
+                  id="link-submit-button"
+                  >Submit</button
+                >
+              </form>
+
+              <% } %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
