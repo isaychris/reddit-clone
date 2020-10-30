@@ -27,9 +27,31 @@
                 <div class="upvote-post auth-req"
                   ><i class="far fa-caret-square-up"></i
                 ></div>
-                <span class="post-votes" data-ref="<%= post._id %>"
-                  ><%= post.votes %></span
-                >
+                <span class="post-votes" data-ref="<%= post._id %>">
+                  <% if (post.votes > 999999999999) { %>
+                  <span class="m-0">
+                    <%= post.votes.toString()[0] %>.<%= post.votes.toString()[1]
+                    %> T
+                  </span>
+                  <% } else if (post.votes > 999999999) { %>
+                  <span class="m-0">
+                    <%= post.votes.toString()[0] %>.<%= post.votes.toString()[1]
+                    %> B
+                  </span>
+                  <% } else if (post.votes > 999999) { %>
+                  <span class="m-0">
+                    <%= post.votes.toString()[0] %>.<%= post.votes.toString()[1]
+                    %> M
+                  </span>
+                  <% } else if(post.votes > 999 ) { %>
+                  <span class="m-0">
+                    <%= post.votes.toString()[0] %>.<%= post.votes.toString()[1]
+                    %> k
+                  </span>
+                  <% } else{ %>
+                  <span class="m-0"> <%= post.votes %> </span>
+                  <% } %>
+                </span>
                 <div class="downvote-post auth-req"
                   ><i class="far fa-caret-square-down"></i
                 ></div>
