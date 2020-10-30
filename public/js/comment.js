@@ -9,11 +9,13 @@ $("document").ready(function () {
     // display a text area with the comment body and hide comment options
     query
       .find(".comment-body")
-      .html(`<textarea class="form-control comment-text">${body}</textarea>`);
+      .html(
+        `<textarea class="form-control comment-text border mb-2">${body}</textarea>`
+      );
     query
       .find(".comment-body")
       .append(
-        `<br><button class='btn btn-primary mr-2 edit-comment-submit' data-ref="${ref}">Save</button><button class='btn btn-outline-secondary edit-comment-cancel' data-ref="${ref}">Cancel</button>`
+        `<button class='btn btn-primary mr-2 mb-3 edit-comment-submit' data-ref="${ref}">Save</button> <button class='btn btn-outline-secondary mb-3 edit-comment-cancel' data-ref="${ref}">Cancel</button>`
       );
     autosize(query.find(".comment-text"));
 
