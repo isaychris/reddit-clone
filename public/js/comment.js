@@ -47,7 +47,6 @@ $("document").ready(function () {
         options.show();
       });
     });
-    location.reload();
     return false;
   });
 
@@ -63,9 +62,9 @@ $("document").ready(function () {
         url: `/delete/comment/${ref}`,
       }).done(function (res) {
         query.remove();
+        location.reload();
       });
     }
-    location.reload();
     return false;
   });
 

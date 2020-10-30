@@ -10,11 +10,13 @@ $("document").ready(function () {
     let options = query.find(".post-options");
     query
       .find(".post-body")
-      .html(`<textarea class="form-control post-text">${body}</textarea>`);
+      .html(
+        `<textarea class="form-control post-text border mb-2">${body}</textarea>`
+      );
     query
       .find(".post-body")
       .append(
-        "<br><button class='btn btn-primary mr-2 edit_submit'>Save</button><button class='btn btn-outline-secondary edit_cancel'>Cancel</button>"
+        "<button class='btn btn-primary mr-2 mb-3 edit_submit'>Save</button> <button class='btn btn-outline-secondary edit_cancel mb-3'>Cancel</button>"
       );
     autosize(query.find(".post-text"));
 
@@ -58,9 +60,9 @@ $("document").ready(function () {
         url: `/delete/post/${ref}`,
       }).done(function (res) {
         query.remove();
+        location.reload();
       });
     }
-    location.reload();
     return false;
   });
 
