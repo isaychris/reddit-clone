@@ -3,46 +3,51 @@
   <%- include('../partials/head', {title: info.name + " - new link"}) %>
 
   <body>
-    <%- include('../partials/nav', {user: locals.user, karma,name: info.name})
-    %>
-
+    <%- include('../partials/nav_subreddit', {user: locals.user, karma,
+    name:info.name, description: info.description}) %>
     <span id="auth"><%= isAuth %></span>
 
-    <div class="grid-container">
-      <div class="sidebar">
-        <%- include('../partials/sidebar_subreddit_actions', {name: info.name,
-        state: state}) %> <%- include('../partials/sidebar_subreddit_info',
-        {desc: info.description}) %>
-      </div>
-
-      <div class="main">
-        <h4>new link</h4>
-        <div class="submit-wrapper">
-          <% if(!locals.user) { %> You must be logged in to submit a post / link
-          / subbeddit. <% } else { %>
-          <form action="/r/<%= info.name %>/submit/link" method="post">
-            <input
-              type="text"
-              class="form-control"
-              name="title"
-              placeholder="Enter title"
-              required
-            /><br />
-            <input
-              type="text"
-              class="form-control"
-              name="link"
-              placeholder="Enter link"
-              required
-            /><br />
-            <button
-              type="submit"
-              class="btn btn-primary"
-              id="link-submit-button"
-              >Submit</button
+    <div class="front-create-post mt-4">
+      <div class="container">
+        <div class="row flex-lg-row-reverse">
+          <div class="col-12">
+            <div class="submit-post-title text-lg mb-4"
+              >Create a link in <%=info.name%></div
             >
-          </form>
-          <% } %>
+            <div class="submit-post-wrapper">
+              <% if(!locals.user) { %> You must be logged in to submit a post /
+              link / subbeddit. <% } else { %>
+              <form action="/r/<%= info.name %>/submit/link" method="post">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control py-4"
+                    name="title"
+                    placeholder="Enter title"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control bg-white py-4"
+                    name="link"
+                    placeholder="Enter link"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  class="mt-3 btn btn-primary"
+                  id="link-submit-button"
+                  >Submit</button
+                >
+              </form>
+              <% } %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
