@@ -1,3 +1,11 @@
+.down-enabled {
+  color: blue;
+}
+
+.up-enabled {
+  color: orange;
+}
+
 /* .submit-wrapper {
     background-color: #e9ecef;
     margin-bottom: 15px;
@@ -15,11 +23,3 @@
 /* p {
   padding: 10px;
 } */
-
-.down-enabled {
-  color: blue;
-}
-
-.up-enabled {
-  color: orange;
-}
