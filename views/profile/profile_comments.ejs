@@ -70,21 +70,30 @@
         <div class="user-comments mt-5">
           <div class="user-comments-title text-lg mb-0">Your comments</div>
           <% if (comments.length) { comments.forEach((comment) => { %>
-          <article class="comment px-3" data-ref="<%= comment._id %>">
+          <article
+            class="comment px-3 my-4 bg-white"
+            data-ref="<%= comment._id %>"
+          >
             <!-- commented post's title -->
-            <div class="row mb-2">
-              <a
-                class="text-dark text-lg d-block"
-                href="/r/<%= comment.parent[0].subreddit %>/<%= comment.parent[0]._id %>"
-                ><%= comment.parent[0].title %></a
-              >
-              from
-              <a href="/r/<%= comment.parent[0].subreddit %>">
-                <%= comment.parent[0].subreddit %>
-              </a>
+            <div class="row comment-parent mb-2 py-3 border-bottom bg-light">
+              <div class="col-1"></div>
+              <div class="col-11 d-flex p-0">
+                <div>
+                  On
+                  <a
+                    class="text-dark text-lg"
+                    href="/r/<%= comment.parent[0].subreddit %>/<%= comment.parent[0]._id %>"
+                    ><%= comment.parent[0].title %></a
+                  >
+                  from
+                  <a href="/r/<%= comment.parent[0].subreddit %>">
+                    /r/<%= comment.parent[0].subreddit %>
+                  </a>
+                </div>
+              </div>
             </div>
 
-            <div class="row">
+            <div class="row py-3">
               <div class="col-1 mt-1">
                 <!-- comment voting -->
                 <div
@@ -100,7 +109,7 @@
                 </div>
               </div>
 
-              <div class="col-11">
+              <div class="col-11 p-0">
                 <!-- comment header -->
                 <div class="comment-header">
                   <span class="comment-user mr-1">
@@ -117,34 +126,50 @@
                   <time title="<%= comment.time %>">-</time>
                 </div>
 
-                <!-- comment body -->
-                <div class="comment-body"><%= comment.body %></div>
-                <div class="comment-options">
+                <!-- comment body-->
+                <div class="comment-body mt-1 mb-2"><%= comment.body %></div>
+
+                <div class="comment-actions">
+                  <!-- reply -->
                   <a
+                    class="reply-comment auth-req text-capitalize mr-3"
                     href="javascript:void(0)"
-                    class="save-comment auth-req text-capitalize"
                   >
-                    <span class="save-comment-span">save</span>
+                    <i class="fas fa-comment-alt"></i>
+                    <span> reply </span>
                   </a>
 
+                  <% if(locals.isauth) { %>
+                  <!-- save -->
+                  <a
+                    class="save-comment auth-req text-capitalize mr-3"
+                    href="javascript:void(0)"
+                  >
+                    <i class="fas fa-bookmark"></i>
+                    <span class="save-comment-span">save</span>
+                  </a>
+                  <!-- edit -->
                   <% if(comment.username == locals.user) { %>
-                  <span
-                    ><a href="javascript:void(0)" class="edit-comment auth-req"
-                      >edit</a
-                    ></span
+                  <a
+                    class="edit-comment mr-3 auth-req"
+                    href="javascript:void(0)"
                   >
-                  <span
-                    ><a
-                      href="javascript:void(0)"
-                      class="delete-comment auth-req"
-                      >delete</a
-                    ></span
+                    <i class="fas fa-pencil-alt"></i>
+                    <span class="edit-comment-span text-capitalize">edit</span>
+                  </a>
+                  <!-- delete -->
+                  <a
+                    class="delete-comment mr-3 auth-req"
+                    href="javascript:void(0)"
                   >
+                    <i class="fas fa-trash-alt"></i>
+                    <span class="delete-comment text-capitalize">delete</span>
+                  </a>
                 </div>
               </div>
             </div>
           </article>
-          <% } %> <% });%> <% } else { %>
+          <% } %> <% } %> <% });%> <% } else { %>
           <div class="no-comment mb-5 mt-4">
             <div class="row">
               <div class="col-1"> </div>
