@@ -88,6 +88,7 @@ exports.posts = function (req, res) {
           }
           console.log(`[Profile] fetching posts from ${req.params.user} !`);
           res.render("./profile/profile_posts", {
+            currentProfilePage: "posts",
             profile_user: req.params.user,
             posts: posts,
             karma: karma,
@@ -198,6 +199,7 @@ exports.comments = function (req, res) {
         );
 
         res.render("./profile/profile_comments", {
+          currentProfilePage: "comments",
           profile_user: req.params.user,
           comments: newComments,
           karma: karma,
@@ -276,6 +278,7 @@ exports.saved_posts = function (req, res) {
     })
     .then((result) => {
       res.render("./profile/profile_posts", {
+        currentProfilePage: "saved posts",
         profile_user: req.params.user,
         posts: result,
         karma: karma,
@@ -372,6 +375,7 @@ exports.saved_comments = function (req, res) {
     })
     .then((result) => {
       res.render("./profile/profile_comments", {
+        currentProfilePage: "saved comments",
         profile_user: req.params.user,
         comments: result,
         karma: karma,
