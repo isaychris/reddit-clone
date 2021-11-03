@@ -22,6 +22,6 @@
     "moment": "^2.22.2",
     "mongoose": "^5.2.14",
     "passport": "^0.4.0",
-    "validator": "^10.7.1"
+    "validator": "^13.7.0"
   }
 }
