@@ -20,7 +20,7 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "moment": "^2.22.2",
-    "mongoose": "^5.2.14",
+    "mongoose": "^5.7.5",
     "passport": "^0.4.0",
     "validator": "^10.7.1"
   }
